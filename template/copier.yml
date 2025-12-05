@@ -55,3 +55,10 @@ dotnet_full_name:
   default: '{{ (prefix | replace("-", " ") | title | replace(" ", ".")) }}.{{ (dotnet_name) }}'
   help: Internal .NET module name (auto-generated)
   when: false
+
+python_class_prefix:
+  # Eg: AindBehaviorNewProject
+  default: '{{ dotnet_full_name | replace(".", "") }}'
+  help: Internal Python class prefix (auto-generated)
+  type: str
+  when: false

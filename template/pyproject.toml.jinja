@@ -7,7 +7,7 @@ name = "{{ python_package_name }}"
 description = "A library that defines a ucl-open data schema for the {{ project_name }} experiment."
 authors = [ {name = "{{ author_name }}", email = "{{author_email}}"}]
 license = "MIT"
-requires-python = ">=3.11"
+requires-python = ">=3.11, <3.12"
 classifiers = [
     "Programming Language :: Python :: 3.11",
     "Operating System :: Microsoft :: Windows",
@@ -16,7 +16,7 @@ version = "0.0.0-rc1"
 readme = {file = "README.md", content-type = "text/markdown"}
 
 dependencies = [
-  # "aeon_swc_rigs", TODO - no release yet
+  "swc-aeon>=0.1.0",
   "pydantic-settings"
 ]
 
@@ -59,3 +59,6 @@ ignore-words-list = 'nd'
 [tool.uv]
 default-groups = ['dev']
 required-version = '>=0.8.4'
+
+[tool.uv.sources]
+swc-aeon = { git = "https://github.com/SainsburyWellcomeCentre/aeon_api.git", branch = "pydantic-schema" }
