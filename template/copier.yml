@@ -1,0 +1,17 @@
+_templates_suffix: .jinja
+
+project_name:
+  # Eg: new-project
+  type: str
+  help: What is your project name? (use kebab-case, e.g. "new-project")
+  default: new-project
+  validator: >-
+    {% if not (project_name | regex_search('^[a-z][a-z0-9\\-]*$')) %}
+    Project name must start with a lowercase letter and contain only lowercase letters, digits, or hyphens.
+    {% endif %} 
+
+python_folder_name:
+  # Eg: aind_behavior_new_project
+  default: '{{ prefix | replace("-", "_") }}_{{ project_name | replace("-", "_") }}'
+  help: Internal Python module folder name (auto-generated)
+  when: false
