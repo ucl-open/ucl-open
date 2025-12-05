@@ -10,6 +10,18 @@ project_name:
     Project name must start with a lowercase letter and contain only lowercase letters, digits, or hyphens.
     {% endif %} 
 
+author_name:
+  # Eg: John Doe
+  type: str
+  help: Who is the author?
+  default: Anonymous
+
+author_email:
+  # Eg: john.doe@example.com
+  type: str
+  help: What is the author's email?
+  default: anonymous@example.com
+
 prefix:
   # Eg: ucl-open
   type: str
@@ -21,7 +33,25 @@ prefix:
     {% endif %}
 
 python_folder_name:
-  # Eg: aind_behavior_new_project
+  # Eg: ucl_open_new_project
   default: '{{ prefix | replace("-", "_") }}_{{ project_name | replace("-", "_") }}'
   help: Internal Python module folder name (auto-generated)
+  when: false
+
+python_package_name:
+  # Eg: ucl-open-new-project
+  default: '{{ python_folder_name | replace("_", "-") }}'
+  help: Internal Python package name (auto-generated)
+  when: false
+
+dotnet_name:
+  # Eg: NewProject
+  default: '{{ (project_name | replace("-", " ") | title | replace(" ", "")) }}'
+  help: Internal .NET project name (auto-generated)
+  when: false
+
+dotnet_full_name:
+  # Eg: Aind.Behavior.NewProject
+  default: '{{ (prefix | replace("-", " ") | title | replace(" ", ".")) }}.{{ (dotnet_name) }}'
+  help: Internal .NET module name (auto-generated)
   when: false
