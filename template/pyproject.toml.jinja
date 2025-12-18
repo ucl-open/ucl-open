@@ -25,20 +25,6 @@ dependencies = [
 # Repository = "https://github.com/UclOpen/{{ dotnet_full_name }}/"
 # Issues = "https://github.com/UclOpen/{{ dotnet_full_name }}/issues"
 # Changelog = "https://github.com/UclOpen/{{ dotnet_full_name }}/releases"
-
-[project.optional-dependencies]
-
-data = ["contraqctor<0.5.0"]
-
-[dependency-groups]
-
-dev = [
-    "{{ python_package_name }}[launcher]",
-    "{{ python_package_name }}[data]",
-    "ruff",
-    "codespell"
-]
-
 [project.scripts]
 {{ project_name }} = "{{ python_folder_name }}.cli:main"
 
