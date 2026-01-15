@@ -30,3 +30,6 @@ if (Test-Path -Path "bonsai") {
     throw "Neither 'bonsai' nor '.bonsai' directory found."
 }
 Set-Location ..
+
+Write-Output "Creating bonsai extensions folder..."
+mkdir src\Extensions
