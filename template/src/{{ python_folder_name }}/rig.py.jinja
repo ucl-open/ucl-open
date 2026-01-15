@@ -1,8 +1,8 @@
-# Import core types
-from typing import Literal
+from typing import Literal, Dict
+from pydantic import Field
 
-from swc.aeon.io import reader
-from swc.aeon.schema import BaseSchema, data_reader
+from ucl_open.rigs.base import BaseSchema
+import ucl_open.rigs.device as Device
 
 from {{ python_folder_name }} import __semver__
 

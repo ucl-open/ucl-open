@@ -17,7 +17,9 @@ readme = {file = "README.md", content-type = "text/markdown"}
 
 dependencies = [
   "swc-aeon>=0.1.0",
-  "pydantic-settings"
+  "ucl-open-rigs",
+  "pydantic-settings",
+  "aind_behavior_services>=0.12, <0.13"
 ]
 
 # [project.urls]
@@ -25,20 +27,6 @@ dependencies = [
 # Repository = "https://github.com/UclOpen/{{ dotnet_full_name }}/"
 # Issues = "https://github.com/UclOpen/{{ dotnet_full_name }}/issues"
 # Changelog = "https://github.com/UclOpen/{{ dotnet_full_name }}/releases"
-
-[project.optional-dependencies]
-
-data = ["contraqctor<0.5.0"]
-
-[dependency-groups]
-
-dev = [
-    "{{ python_package_name }}[launcher]",
-    "{{ python_package_name }}[data]",
-    "ruff",
-    "codespell"
-]
-
 [project.scripts]
 {{ project_name }} = "{{ python_folder_name }}.cli:main"
 
@@ -57,8 +45,8 @@ skip = '.git,*.pdf,*.svg,./bonsai,*.bonsai,./docs/_build,uv.lock,*Generated.cs'
 ignore-words-list = 'nd'
 
 [tool.uv]
-default-groups = ['dev']
 required-version = '>=0.8.4'
 
 [tool.uv.sources]
+ucl-open-rigs = {git = "https://github.com/ucl-open/ucl_open_rigs/", branch = "test_build"}
 swc-aeon = { git = "https://github.com/SainsburyWellcomeCentre/aeon_api.git", branch = "pydantic-schema" }
