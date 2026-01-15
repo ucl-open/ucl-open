@@ -33,3 +33,6 @@ Set-Location ..
 
 Write-Output "Creating bonsai extensions folder..."
 mkdir src\Extensions
+
+Write-Output "Creating sgen output folder"
+mkdir src\DataSchemas
