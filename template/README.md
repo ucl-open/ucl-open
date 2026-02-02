@@ -87,10 +87,13 @@ Using a browser, create a new, empty repository on GitHub (do not add a README o
 ```powershell
 git init -b main
 ```
-3. Add the remote and push:
+3. Add the remote:
 
 ```powershell
 git remote add origin https://github.com/ucl-open/my-new-project.git
+```
+and push
+```
 git push -u origin main
 ```
 
