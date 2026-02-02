@@ -1,6 +1,4 @@
 _templates_suffix: .jinja
-_exclude:
-  - README.md
   
 project_name:
   # Eg: new-project
