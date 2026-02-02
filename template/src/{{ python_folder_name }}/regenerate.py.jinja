@@ -1,0 +1,35 @@
+from pathlib import Path
+from typing import Union
+
+import pydantic
+from ucl_open.rigs.experiment import Experiment
+from aind_behavior_services.utils import BonsaiSgenSerializers, convert_pydantic_to_bonsai
+
+import {{ python_folder_name }}.rig
+import {{ python_folder_name }}.task
+
+SCHEMA_ROOT = Path("./src/DataSchemas/")
+EXTENSIONS_ROOT = Path("./src/Extensions/")
+NAMESPACE_PREFIX = "{{ python_class_prefix }}DataSchema"
+
+
+def main():
+    models = [
+        {{ python_folder_name }}.task.{{ python_class_prefix }}TaskLogic,
+        {{ python_folder_name }}.rig.{{ python_class_prefix }}Rig,
+    ]
+    model = pydantic.RootModel[Union[tuple(models)]]
+
+    convert_pydantic_to_bonsai(
+        model, # type: ignore
+        model_name="{{ python_folder_name }}",
+        root_element="Root",
+        cs_namespace=NAMESPACE_PREFIX,
+        json_schema_output_dir=SCHEMA_ROOT,
+        cs_output_dir=EXTENSIONS_ROOT,
+        cs_serializer=[BonsaiSgenSerializers.JSON],
+    )
+
+
+if __name__ == "__main__":
+    main()
