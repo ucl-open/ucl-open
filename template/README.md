@@ -83,7 +83,7 @@ Using a browser, create a new, empty repository on GitHub (do not add a README o
 ### 4. Initialize Git with your chosen default branch
 1. Open an instance of VSCode and open your new project folder
 
-2. Delete any hangover `.git` directory metadata (if it exists):
+2. Delete any hangover `.git` directory metadata (if it exists).
 
 3. Initialize a local git repository:
 
@@ -102,7 +102,14 @@ git commit -m "Initial scaffold"
 git push -u origin main
 ```
 
+### 5. Run the `deploy` script
+
+``` 
+./scripts/deploy.cmd
+```
+
 ### Congrats! 
 You have created a new project with all open-ucl dependencies and base components to begin your new rig or experiment project!
 
 ---
+
