@@ -95,10 +95,13 @@ git init -b main
 ```powershell
 git remote add origin https://github.com/ucl-open/my-new-project.git
 ```
-5. Commit and Push
+5. Commit
 ```
 git add .
-git commit -m "Initial scaffold"
+git commit -m "Deploy new ucl-open rig"
+```
+6. Push
+```
 git push -u origin main
 ```
 
@@ -107,7 +110,7 @@ git push -u origin main
 ``` 
 ./scripts/deploy.cmd
 ```
-
+---
 ### Congrats! 
 You have created a new project with all open-ucl dependencies and base components to begin your new rig or experiment project!
 
