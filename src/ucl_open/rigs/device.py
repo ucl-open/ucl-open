@@ -1,7 +1,8 @@
 from typing import ClassVar, Literal, Dict
 from pydantic import Field
 from ucl_open.rigs.base import Device
-from swc.aeon.rigs.harp import HarpDevice, HarpBehavior
+import ucl_open.rigs.data_types as data_types
+from ucl_open.rigs.harp import HarpDevice, HarpBehavior
 import ucl_open.rigs.controllers as Controllers
 import ucl_open.rigs.displays as Displays
 
@@ -15,45 +16,57 @@ class SerialDeviceModule(SerialDevice):
     """Represents the SerialDevice workflow module.
 
     Mirrors all externalized properties of SerialDevice.bonsai, including
-    port configuration, framing, buffer settings, and parsing pattern.
+    port configuration, framing and buffer settings.
     """
-    pattern: str = Field(default="",description="Pattern used to parse each incoming serial line (same syntax as Bonsai Parse/ScanPattern).")
-
-    encoding: str | None = Field(default=None, description="Optional text encoding for interpreting incoming bytes.")
     new_line: str = Field(default="\r\n", description="Line termination sequence used to delimit incoming messages.")
-    parity: str = Field(default="None", description="Parity checking mode for the serial port.")
-    parity_replace: int = Field(default=63, description="Byte used to replace invalid bytes detected by a parity error.")
-    data_bits: int = Field(default=8, description="Number of data bits per serial frame.")
-    stop_bits: str = Field(default="One", description="Number of stop bits per serial frame.")
-    handshake: str = Field(default="None", description="Hardware or software handshaking mode.")
-    discard_null: bool = Field(default=False, description="Whether to discard null bytes appearing in the serial stream.")
-    dtr_enable: bool = Field(default=False, description="Whether to enable Data Terminal Ready (DTR) control line.")
-    rts_enable: bool = Field(default=False, description="Whether to enable Request To Send (RTS) control line.")
     read_buffer_size: int = Field(default=4096, description="Size, in bytes, of the read buffer.")
     write_buffer_size: int = Field(default=2048, description="Size, in bytes, of the write buffer.")
-    received_bytes_threshold: int = Field(default=1, description="Minimum number of bytes in the buffer that triggers a read event.")
-    serial_message_subject_name: str = Field(default="SerialMessages", description="Name of the subject to which parsed serial messages are published.")
 
 class LicketySplit(HarpDevice):
     """Represents a Harp LicketySplit device."""
     device_type: Literal["LicketySplit"] = "LicketySplit"
     who_am_i: ClassVar[int] = 1400
+    channel0_trigger_threshold: data_types.UShort = Field(
+        default=0,
+        description="ADC threshold above which Channel 0 triggers a lick"
+    )
+    channel0_untrigger_threshold: data_types.UShort = Field(
+        default=0,
+        description="ADC threshold below which Channel 0 untriggers a lick"
+    )
 
 class BehaviorBoard(HarpBehavior):
     """Represents a Harp Behavior Board device."""
     device_type: Literal["BehaviorBoard"] = "BehaviorBoard"
-    who_am_i: ClassVar[int] = 1216
-
     pulse_controller: Controllers.PulseController | None = Field(default=None, description="Optional PulseController module for generating digital output pulses.")
     camera_controller: Controllers.CameraController | None = Field(default=None, description="Optional CameraController module for emitting camera trigger pulses.")
     running_wheel: Controllers.RunningWheelModule | None = Field(default=None, description="Optional RunningWheelModule module to define wheel geometry.")
 
 class ArduinoDevice(SerialDevice):
-    """Represents an Arduino serial device used in Bonsai workflows."""
-    device_type: Literal["Arduino"] = "Arduino"
+    """Represents a base class for Arduino serial devices used in Bonsai workflows."""
     sampling_interval: int = Field(description="Sampling interval, in milliseconds, between analog and I2C measurements.")
 
-    led_driver: Controllers.LedDriver | None = Field(default=None, description="Optional LedDriver module for generating digital output pulses.")
+class LedDriver(ArduinoDevice):
+    """Represents an Arduino device used to drive LEDs."""
+    device_type: Literal["LedDriver"] = "LedDriver"
+    led_controller: Controllers.LedController = Field(description="LedController module for generating digital output pulses.")
+
+class LickSpoutStageDriver(SerialDeviceModule):
+    """Represents an Arduino device driving stepper motors controlling a lick spout stage."""
+    device_type: Literal["LickSpoutStageDriver"] = "LickSpoutStageDriver"
+    
+     # Protocol command bytes
+    byte_move: data_types.Byte = Field(default=71, description="Command byte for MOVE.")
+    byte_set_speed: data_types.Byte = Field(default=72, description="Command byte for SET SPEED.")
+    byte_set_acceleration: data_types.Byte = Field(default=73, description="Command byte for SET ACCELERATION.")
+    
+    # Motion parameters
+    speed: int = Field(default=300, description="Default motor speed.")
+    accel_major: int = Field(default=20, description="Major acceleration component.")
+    accel_minor: int = Field(default=2, description="Minor acceleration component.")
+
+    # Set positions
+    set_positions: data_types.SpoutRigPosition 
 
 class Screen(Device):
     device_type: Literal["Screen"] = Field(default="Screen", description="Device type")

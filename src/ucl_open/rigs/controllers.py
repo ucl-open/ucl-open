@@ -1,7 +1,7 @@
 from typing import ClassVar, Literal, List
 from pydantic import Field
 from ucl_open.rigs.base import BaseSchema
-from ucl_open.rigs.types import UShort 
+from ucl_open.rigs.data_types import UShort 
 
 class CameraController(BaseSchema):
     """Represents a CameraController Module for a BehaviourBoard device.
@@ -29,10 +29,9 @@ class RunningWheelModule(BaseSchema):
     """Represents the RunningWheel Bonsai workflow module.
     Exposes wheel geometry parameters used to compute speed and distance from encoder counts.
     """
-
     counts_per_rev: int = Field(description="Number of encoder counts per full revolution of the running wheel.")
     wheel_diameter_mm: float = Field( description="The diameter, in millimeters, of the running wheel.")
 
-class LedDriver(BaseSchema):
-
+class LedController(BaseSchema):
+    """Specifies the digital pin to control a single LED"""
     digital_out_pin: int = Field(description="The digital output pin for this LED driver")

@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "SoftwareEvent": {
+      "description": "A software event is a generic event that can be used to track any event that occurs in the software.",
+      "properties": {
+        "name": {
+          "description": "The name of the event.",
+          "title": "Name",
+          "type": "string"
+        },
+        "timestamp": {
+          "default": null,
+          "description": "The timestamp of the event.",
+          "title": "Timestamp",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "timestampSource": {
+          "$ref": "#/$defs/TimestampSource",
+          "default": "null",
+          "description": "The source of the timestamp. Typically either a harp device or on the visual render loop"
+        },
+        "frameIndex": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The frame index of the event.",
+          "title": "FrameIndex"
+        },
+        "frameTimestamp": {
+          "default": null,
+          "description": "The timestamp of the frame.",
+          "title": "FrameTimestamp",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "data": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The data payload of the event.",
+          "title": "Data"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "SoftwareEvent",
+      "type": "object"
+    },
+    "TimestampSource": {
+      "enum": [
+        "null",
+        "harp",
+        "render",
+        "arduino"
+      ],
+      "title": "TimestampSource",
+      "type": "string"
+    },
+    "Vector3": {
+      "properties": {
+        "x": {
+          "description": "X coordinate of the point.",
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate of the point.",
+          "title": "Y",
+          "type": "number"
+        },
+        "z": {
+          "description": "Z coordinate of the point.",
+          "title": "Z",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "title": "Vector3",
+      "type": "object"
+    }
+  },
+  "required": [
+    "vector3",
+    "softwareEvents"
+  ],
+  "title": "DataTypes",
+  "type": "object"
+}

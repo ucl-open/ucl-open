@@ -1,4 +1,4 @@
-from typing import Union, Literal
+from typing import Union, Literal, Annotated
 from pydantic import Field, ConfigDict, RootModel
 from ucl_open.rigs.base import BaseSchema
 
@@ -24,13 +24,13 @@ class SpinnakerCamera(CameraBase):
     gain: float = Field(default=1, ge=0, description="The camera gain.")
     binning: int = Field(default=1, ge=1, description="The binning setting for the camera.")
 
-CameraModule = Union[ArducamOV9180, SpinnakerCamera]
+CameraModule = Annotated[
+        Union[ArducamOV9180, SpinnakerCamera],
+        Field(discriminator="camera_type"),
+        Field(description="Configuration for the camera used by the CameraAcquisition workflow.")
+    ]
 
 class Camera(RootModel[CameraModule]):
     """Discriminated camera configuration (Arducam or Spinnaker)."""
-    model_config = ConfigDict(title="Camera")
+    pass
 
-
-class CameraAcquisition(BaseSchema):
-    """Represents the CameraAcquisition workflow module, with or without a trigger subject input."""
-    camera: CameraModule = Field(description="Configuration for the camera used by the CameraAcquisition workflow.")

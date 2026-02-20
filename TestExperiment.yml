@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=./TestExperiment.json
+
+workflow: "Test.bonsai"
+commit: "test_ignore"
+repositoryUrl: "https://github.com/ucl-open/test_ignore"
+
+rig:
+  behaviorBoards:
+    main:
+      deviceType: "BehaviorBoard"
+      portName: "COM5"
+      pulseController:
+        outputPulseEnable:
+          - "DO1"
+          - "DO2"
+          - "DO3"
+        pulseWidths:
+          PulseDO1: 1
+          PulseDO2: 2
+          PulseDO3: 3
+      cameraController:
+        triggerFrequency: 50
+      runningWheel:
+        countsPerRev: 1024
+        wheelDiameterMm: 150.0
+
+  cameras:
+    face:
+      cameraType: "Spinnaker"
+      triggerFrequency: 50
+      exposureTime: 15000
+      serialNumber: "12345"
+      gain: 1
+      binning: 1
+
+    body:
+      cameraType: "Arducam"
+      triggerFrequency: 50
+      deviceIndex: 0
+
+  arduinos:
+    led:
+      deviceType: "Arduino"
+      portName: "COM7"
+      baudRate: 9600
+      samplingInterval: 10
+      ledDriver:
+        digitalOutPin: 7
+
+  serialDevices:
+    wheelEncoder:
+      deviceType: "SerialDevice"
+      portName: "COM8"
+      baudRate: 115200
+      pattern: "%d %f"
+      encoding: null
+      newLine: "\r\n"
+      parity: "None"
+      parityReplace: 63
+      dataBits: 8
+      stopBits: "One"
+      handshake: "None"
+      discardNull: false
+      dtrEnable: false
+      rtsEnable: false
+      readBufferSize: 4096
+      writeBufferSize: 2048
+      receivedBytesThreshold: 1
+      serialMessageSubjectName: "SerialMessages"

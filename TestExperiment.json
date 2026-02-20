@@ -1,0 +1,710 @@
+{
+  "$defs": {
+    "ArducamOV9180": {
+      "properties": {
+        "cameraType": {
+          "const": "Arducam",
+          "default": "Arducam",
+          "description": "Camera type discriminator for Arducam devices.",
+          "title": "CameraType",
+          "type": "string"
+        },
+        "triggerFrequency": {
+          "default": 50,
+          "description": "The frequency at which the camera is triggered (in Hz).",
+          "minimum": 1,
+          "title": "TriggerFrequency",
+          "type": "number"
+        },
+        "deviceIndex": {
+          "default": 0,
+          "description": "The index of the device.",
+          "minimum": 0,
+          "title": "DeviceIndex",
+          "type": "integer"
+        }
+      },
+      "title": "ArducamOV9180",
+      "type": "object"
+    },
+    "ArduinoDevice": {
+      "description": "Represents an Arduino serial device used in Bonsai workflows.",
+      "properties": {
+        "deviceType": {
+          "const": "Arduino",
+          "default": "Arduino",
+          "title": "DeviceType",
+          "type": "string"
+        },
+        "portName": {
+          "description": "The name of the device serial port.",
+          "examples": [
+            "COMx"
+          ],
+          "title": "PortName",
+          "type": "string"
+        },
+        "baudRate": {
+          "default": 9600,
+          "description": "Baud rate for serial communication.",
+          "title": "BaudRate",
+          "type": "integer"
+        },
+        "samplingInterval": {
+          "description": "Sampling interval, in milliseconds, between analog and I2C measurements.",
+          "title": "SamplingInterval",
+          "type": "integer"
+        },
+        "ledDriver": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LedDriver"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional LedDriver module for generating digital output pulses.",
+          "title": "LedDriver"
+        }
+      },
+      "required": [
+        "portName",
+        "samplingInterval"
+      ],
+      "title": "ArduinoDevice",
+      "type": "object"
+    },
+    "BehaviorBoard": {
+      "description": "Represents a Harp Behavior Board device.",
+      "properties": {
+        "deviceType": {
+          "const": "BehaviorBoard",
+          "default": "BehaviorBoard",
+          "title": "DeviceType",
+          "type": "string"
+        },
+        "portName": {
+          "description": "The name of the device serial port.",
+          "examples": [
+            "COM"
+          ],
+          "title": "PortName",
+          "type": "string"
+        },
+        "pulseController": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PulseController"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional PulseController module for generating digital output pulses.",
+          "title": "PulseController"
+        },
+        "cameraController": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CameraController"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional CameraController module for emitting camera trigger pulses.",
+          "title": "CameraController"
+        },
+        "runningWheel": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RunningWheelModule"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional RunningWheelModule module to define wheel geometry.",
+          "title": "RunningWheel"
+        }
+      },
+      "required": [
+        "portName"
+      ],
+      "title": "BehaviorBoard",
+      "type": "object"
+    },
+    "Camera": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArducamOV9180"
+        },
+        {
+          "$ref": "#/$defs/SpinnakerCamera"
+        }
+      ],
+      "description": "Discriminated camera configuration (Arducam or Spinnaker).",
+      "title": "Camera"
+    },
+    "CameraController": {
+      "description": "Represents a CameraController Module for a BehaviourBoard device.\nMirrors the externalized properties of the Bonsai workflow of the same name,\nexcluding subject name properties.",
+      "properties": {
+        "triggerFrequency": {
+          "description": "The frequency, in Hz, at which to emit camera triggers from DO0 of a behavior board (`CameraOutput0`)",
+          "examples": [
+            "50"
+          ],
+          "title": "TriggerFrequency",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "triggerFrequency"
+      ],
+      "title": "CameraController",
+      "type": "object"
+    },
+    "DisplayCalibration": {
+      "properties": {
+        "intrinsics": {
+          "$ref": "#/$defs/DisplayIntrinsics",
+          "default": {
+            "frameWidth": 1920,
+            "frameHeight": 1080,
+            "displayWidth": 20.0,
+            "displayHeight": 15.0
+          },
+          "description": "Intrinsics",
+          "title": "Intrinsics"
+        },
+        "extrinsics": {
+          "$ref": "#/$defs/DisplayExtrinsics",
+          "default": {
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "translation": {
+              "x": 0.0,
+              "y": 1.309016,
+              "z": -13.27
+            }
+          },
+          "description": "Extrinsics",
+          "title": "Extrinsics"
+        }
+      },
+      "title": "DisplayCalibration",
+      "type": "object"
+    },
+    "DisplayExtrinsics": {
+      "properties": {
+        "rotation": {
+          "$ref": "#/$defs/Vector3",
+          "default": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "description": "Rotation vector (radians)",
+          "title": "Rotation"
+        },
+        "translation": {
+          "$ref": "#/$defs/Vector3",
+          "default": {
+            "x": 0.0,
+            "y": 1.309016,
+            "z": -13.27
+          },
+          "description": "Translation (in cm)",
+          "title": "Translation"
+        }
+      },
+      "title": "DisplayExtrinsics",
+      "type": "object"
+    },
+    "DisplayIntrinsics": {
+      "properties": {
+        "frameWidth": {
+          "default": 1920,
+          "description": "Frame width (px)",
+          "minimum": 0,
+          "title": "FrameWidth",
+          "type": "integer"
+        },
+        "frameHeight": {
+          "default": 1080,
+          "description": "Frame height (px)",
+          "minimum": 0,
+          "title": "FrameHeight",
+          "type": "integer"
+        },
+        "displayWidth": {
+          "default": 20,
+          "description": "Display width (cm)",
+          "minimum": 0,
+          "title": "DisplayWidth",
+          "type": "number"
+        },
+        "displayHeight": {
+          "default": 15,
+          "description": "Display width (cm)",
+          "minimum": 0,
+          "title": "DisplayHeight",
+          "type": "number"
+        }
+      },
+      "title": "DisplayIntrinsics",
+      "type": "object"
+    },
+    "Experiment": {
+      "properties": {
+        "workflow": {
+          "description": "Path to the workflow running the experiment.",
+          "title": "Workflow",
+          "type": "string"
+        },
+        "commit": {
+          "description": "Commit hash of the experiment/rig repo.",
+          "title": "Commit",
+          "type": "string"
+        },
+        "repositoryUrl": {
+          "description": "The URL of the git repository used to version experiment source code.",
+          "title": "RepositoryUrl",
+          "type": "string"
+        },
+        "rig": {
+          "$ref": "#/$defs/TestRig",
+          "title": "Rig"
+        }
+      },
+      "required": [
+        "workflow",
+        "commit",
+        "repositoryUrl",
+        "rig"
+      ],
+      "title": "Experiment",
+      "type": "object"
+    },
+    "LedDriver": {
+      "properties": {
+        "digitalOutPin": {
+          "description": "The digital output pin for this LED driver",
+          "title": "DigitalOutPin",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "digitalOutPin"
+      ],
+      "title": "LedDriver",
+      "type": "object"
+    },
+    "PulseController": {
+      "description": "Represents the PulseController module on the BehaviourBoard.\nMirrors the externalized properties of the Bonsai workflow of the same name,\nexcluding subject name properties.",
+      "properties": {
+        "outputPulseEnable": {
+          "description": "List of digital output lines that are enabled for pulse generation.",
+          "items": {
+            "type": "string"
+          },
+          "title": "OutputPulseEnable",
+          "type": "array"
+        },
+        "pulseWidths": {
+          "$ref": "#/$defs/PulseWidths",
+          "description": "Pulse width configuration for DO1, DO2, and DO3 lines."
+        }
+      },
+      "required": [
+        "pulseWidths"
+      ],
+      "title": "PulseController",
+      "type": "object"
+    },
+    "PulseWidths": {
+      "properties": {
+        "PulseDO1": {
+          "maximum": 65535,
+          "minimum": 0,
+          "title": "PulseDo1",
+          "type": "integer"
+        },
+        "PulseDO2": {
+          "maximum": 65535,
+          "minimum": 0,
+          "title": "PulseDo2",
+          "type": "integer"
+        },
+        "PulseDO3": {
+          "maximum": 65535,
+          "minimum": 0,
+          "title": "PulseDo3",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "PulseDO1",
+        "PulseDO2",
+        "PulseDO3"
+      ],
+      "title": "PulseWidths",
+      "type": "object"
+    },
+    "RunningWheelModule": {
+      "description": "Represents the RunningWheel Bonsai workflow module.\nExposes wheel geometry parameters used to compute speed and distance from encoder counts.",
+      "properties": {
+        "countsPerRev": {
+          "description": "Number of encoder counts per full revolution of the running wheel.",
+          "title": "CountsPerRev",
+          "type": "integer"
+        },
+        "wheelDiameterMm": {
+          "description": "The diameter, in millimeters, of the running wheel.",
+          "title": "WheelDiameterMm",
+          "type": "number"
+        }
+      },
+      "required": [
+        "countsPerRev",
+        "wheelDiameterMm"
+      ],
+      "title": "RunningWheelModule",
+      "type": "object"
+    },
+    "Screen": {
+      "properties": {
+        "deviceType": {
+          "const": "Screen",
+          "default": "Screen",
+          "description": "Device type",
+          "title": "DeviceType",
+          "type": "string"
+        },
+        "displayIndex": {
+          "default": 1,
+          "description": "Display index",
+          "title": "DisplayIndex",
+          "type": "integer"
+        },
+        "targetRenderFrequency": {
+          "default": 60,
+          "description": "Target render frequency",
+          "title": "TargetRenderFrequency",
+          "type": "number"
+        },
+        "targetUpdateFrequency": {
+          "default": 120,
+          "description": "Target update frequency",
+          "title": "TargetUpdateFrequency",
+          "type": "number"
+        },
+        "textureAssetsDirectory": {
+          "default": "Textures",
+          "description": "Calibration directory",
+          "title": "TextureAssetsDirectory",
+          "type": "string"
+        },
+        "calibration": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/DisplayCalibration"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Calibration parameters for a set of named display monitors for visual stimuli",
+          "title": "Calibration"
+        },
+        "brightness": {
+          "default": 0,
+          "description": "Brightness",
+          "maximum": 1,
+          "minimum": -1,
+          "title": "Brightness",
+          "type": "number"
+        },
+        "contrast": {
+          "default": 1,
+          "description": "Contrast",
+          "maximum": 1,
+          "minimum": -1,
+          "title": "Contrast",
+          "type": "number"
+        }
+      },
+      "title": "Screen",
+      "type": "object"
+    },
+    "SerialDeviceModule": {
+      "description": "Represents the SerialDevice workflow module.\n\nMirrors all externalized properties of SerialDevice.bonsai, including\nport configuration, framing, buffer settings, and parsing pattern.",
+      "properties": {
+        "deviceType": {
+          "const": "SerialDevice",
+          "default": "SerialDevice",
+          "title": "DeviceType",
+          "type": "string"
+        },
+        "portName": {
+          "description": "The name of the device serial port.",
+          "examples": [
+            "COMx"
+          ],
+          "title": "PortName",
+          "type": "string"
+        },
+        "baudRate": {
+          "default": 9600,
+          "description": "Baud rate for serial communication.",
+          "title": "BaudRate",
+          "type": "integer"
+        },
+        "encoding": {
+          "default": null,
+          "description": "Optional text encoding for interpreting incoming bytes.",
+          "title": "Encoding",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "newLine": {
+          "default": "\r\n",
+          "description": "Line termination sequence used to delimit incoming messages.",
+          "title": "NewLine",
+          "type": "string"
+        },
+        "parity": {
+          "default": "None",
+          "description": "Parity checking mode for the serial port.",
+          "title": "Parity",
+          "type": "string"
+        },
+        "parityReplace": {
+          "default": 63,
+          "description": "Byte used to replace invalid bytes detected by a parity error.",
+          "title": "ParityReplace",
+          "type": "integer"
+        },
+        "dataBits": {
+          "default": 8,
+          "description": "Number of data bits per serial frame.",
+          "title": "DataBits",
+          "type": "integer"
+        },
+        "stopBits": {
+          "default": "One",
+          "description": "Number of stop bits per serial frame.",
+          "title": "StopBits",
+          "type": "string"
+        },
+        "handshake": {
+          "default": "None",
+          "description": "Hardware or software handshaking mode.",
+          "title": "Handshake",
+          "type": "string"
+        },
+        "discardNull": {
+          "default": false,
+          "description": "Whether to discard null bytes appearing in the serial stream.",
+          "title": "DiscardNull",
+          "type": "boolean"
+        },
+        "dtrEnable": {
+          "default": false,
+          "description": "Whether to enable Data Terminal Ready (DTR) control line.",
+          "title": "DtrEnable",
+          "type": "boolean"
+        },
+        "rtsEnable": {
+          "default": false,
+          "description": "Whether to enable Request To Send (RTS) control line.",
+          "title": "RtsEnable",
+          "type": "boolean"
+        },
+        "readBufferSize": {
+          "default": 4096,
+          "description": "Size, in bytes, of the read buffer.",
+          "title": "ReadBufferSize",
+          "type": "integer"
+        },
+        "writeBufferSize": {
+          "default": 2048,
+          "description": "Size, in bytes, of the write buffer.",
+          "title": "WriteBufferSize",
+          "type": "integer"
+        },
+        "receivedBytesThreshold": {
+          "default": 1,
+          "description": "Minimum number of bytes in the buffer that triggers a read event.",
+          "title": "ReceivedBytesThreshold",
+          "type": "integer"
+        },
+        "serialMessageSubjectName": {
+          "default": "SerialMessages",
+          "description": "Name of the subject to which parsed serial messages are published.",
+          "title": "SerialMessageSubjectName",
+          "type": "string"
+        }
+      },
+      "required": [
+        "portName"
+      ],
+      "title": "SerialDeviceModule",
+      "type": "object"
+    },
+    "SpinnakerCamera": {
+      "properties": {
+        "cameraType": {
+          "const": "Spinnaker",
+          "default": "Spinnaker",
+          "description": "Camera type discriminator for Spinnaker devices.",
+          "title": "CameraType",
+          "type": "string"
+        },
+        "triggerFrequency": {
+          "default": 50,
+          "description": "The frequency at which the camera is triggered (in Hz).",
+          "minimum": 1,
+          "title": "TriggerFrequency",
+          "type": "number"
+        },
+        "exposureTime": {
+          "default": 15000,
+          "description": "The exposure time for the camera (in microseconds).",
+          "minimum": 0,
+          "title": "ExposureTime",
+          "type": "number"
+        },
+        "serialNumber": {
+          "default": "00000",
+          "description": "The serial number of the camera.",
+          "title": "SerialNumber",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gain": {
+          "default": 1,
+          "description": "The camera gain.",
+          "minimum": 0,
+          "title": "Gain",
+          "type": "number"
+        },
+        "binning": {
+          "default": 1,
+          "description": "The binning setting for the camera.",
+          "minimum": 1,
+          "title": "Binning",
+          "type": "integer"
+        }
+      },
+      "title": "SpinnakerCamera",
+      "type": "object"
+    },
+    "TestRig": {
+      "properties": {
+        "behaviorBoards": {
+          "additionalProperties": {
+            "$ref": "#/$defs/BehaviorBoard"
+          },
+          "description": "Mapping from logical names to BehaviorBoard devices (e.g. 'main', 'aux').",
+          "title": "BehaviorBoards",
+          "type": "object"
+        },
+        "cameras": {
+          "additionalProperties": {
+            "$ref": "#/$defs/Camera"
+          },
+          "description": "Mapping from camera role names to camera configurations (e.g. 'body', 'face', 'top').",
+          "title": "Cameras",
+          "type": "object"
+        },
+        "arduinos": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/ArduinoDevice"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional mapping from logical names to Arduino devices used in the dome (e.g. for LED drivers or other IO).",
+          "title": "Arduinos"
+        },
+        "serialDevices": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/SerialDeviceModule"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional mapping from logical names to auxiliary serial devices used in the dome.",
+          "title": "SerialDevices"
+        },
+        "screen": {
+          "$ref": "#/$defs/Screen"
+        }
+      },
+      "required": [
+        "behaviorBoards",
+        "cameras",
+        "screen"
+      ],
+      "title": "TestRig",
+      "type": "object"
+    },
+    "Vector3": {
+      "properties": {
+        "x": {
+          "description": "X coordinate of the point.",
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate of the point.",
+          "title": "Y",
+          "type": "number"
+        },
+        "z": {
+          "description": "Z coordinate of the point.",
+          "title": "Z",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ],
+      "title": "Vector3",
+      "type": "object"
+    }
+  },
+  "title": "TestExperiment",
+  "type": "object"
+}
