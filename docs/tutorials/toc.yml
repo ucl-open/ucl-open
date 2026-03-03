@@ -4,5 +4,9 @@
   href: prerequisites.md
 - name: Building and Deploying
   href: building-deploying.md
+- name: Project Structure
+  href: project-structure.md
 - name: Experiment Design
   href: experiment-design.md
+- name: Experiment Schemas
+  href: experiment-schemas.md
