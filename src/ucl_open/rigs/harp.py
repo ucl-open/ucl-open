@@ -26,3 +26,7 @@ class HarpCameraControllerGen2(HarpDevice):
 class HarpBehavior(HarpDevice):
     device_type: ClassVar[str] = "HarpBehavior"
     who_am_i: ClassVar[int] = 1216
+    
+class HarpHobgoblin(HarpDevice):
+    device_type: ClassVar[str] = "Hobgoblin"
+    who_am_i: ClassVar[int] = 123
