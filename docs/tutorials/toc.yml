@@ -2,5 +2,7 @@
   href: introduction.md
 - name: Prerequisites
   href: prerequisites.md
-- name: Getting Started
-  href: getting-started.md
+- name: Building and Deploying
+  href: building-deploying.md
+- name: Experiment Design
+  href: experiment-design.md
