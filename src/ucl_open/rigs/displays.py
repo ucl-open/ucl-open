@@ -1,7 +1,7 @@
 # TODO - this should live in ucl-open general definitions
 
 # Import core types
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import Field
 import ucl_open.rigs.data_types as Types
 
@@ -20,7 +20,17 @@ class DisplayExtrinsics(BaseSchema):
     translation: Types.Vector3 = Field(
         default=Types.Vector3(x=0.0, y=1.309016, z=-13.27), description="Translation (in cm)", validate_default=True
     )
+    
+class Viewport(BaseSchema):
+    height: float = Field(ge=0, le=1)
+    width: float = Field(ge=0, le=1)
+    x: float = Field(ge=0, le=1)
+    y: float = Field(ge=0, le=1)
 
 class DisplayCalibration(BaseSchema):
     intrinsics: DisplayIntrinsics = Field(default=DisplayIntrinsics(), description="Intrinsics", validate_default=True)
     extrinsics: DisplayExtrinsics = Field(default=DisplayExtrinsics(), description="Extrinsics", validate_default=True)
+    viewport: Viewport = Field(default=Viewport(x=0, y=0, height=1, width=1))
+    
+class Displays(BaseSchema):
+    display_calibration: DisplayCalibration

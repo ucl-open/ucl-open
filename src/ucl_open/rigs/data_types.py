@@ -68,6 +68,10 @@ class Vector3(BaseSchema):
     x: float = Field(description="X coordinate of the point.")
     y: float = Field(description="Y coordinate of the point.")
     z: float = Field(description="Z coordinate of the point.")
+    
+class Vector2(BaseSchema):
+    x: float = Field(description="X coordinate of the point.")
+    y: float = Field(description="Y coordinate of the point.")
 
 class SoftwareEvent(BaseSchema, Generic[TData]):
     """
@@ -82,10 +86,6 @@ class SoftwareEvent(BaseSchema, Generic[TData]):
 
 class DataTypes(BaseSchema):
     vector3 : Vector3 
+    vector2 : Vector2
     software_event : SoftwareEvent
     spout_rig_position: SpoutRigPosition
-
-def main() -> None:
-    schema = DataTypes.model_json_schema(union_format="primitive_type_array")
-    schema.pop("properties", None)
-    Path("DataTypes.json").write_text(json.dumps(schema, indent=2))

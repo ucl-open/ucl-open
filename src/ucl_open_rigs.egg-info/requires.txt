@@ -1,0 +1,3 @@
+pydantic>=2.12.3
+pydantic-yaml>=1.6.0
+swc-aeon-rigs
