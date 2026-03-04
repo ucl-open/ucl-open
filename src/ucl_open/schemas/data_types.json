@@ -1,5 +1,131 @@
 {
   "$defs": {
+    "DataTypes": {
+      "properties": {
+        "vector3": {
+          "$ref": "#/$defs/Vector3"
+        },
+        "softwareEvent": {
+          "$ref": "#/$defs/SoftwareEvent"
+        },
+        "spoutRigPosition": {
+          "$ref": "#/$defs/SpoutRigPosition"
+        }
+      },
+      "required": [
+        "vector3",
+        "softwareEvent",
+        "spoutRigPosition"
+      ],
+      "title": "DataTypes",
+      "type": "object"
+    },
+    "DisplayCalibration": {
+      "properties": {
+        "intrinsics": {
+          "$ref": "#/$defs/DisplayIntrinsics",
+          "default": {
+            "frameWidth": 1920,
+            "frameHeight": 1080,
+            "displayWidth": 20.0,
+            "displayHeight": 15.0
+          },
+          "description": "Intrinsics",
+          "title": "Intrinsics"
+        },
+        "extrinsics": {
+          "$ref": "#/$defs/DisplayExtrinsics",
+          "default": {
+            "rotation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0
+            },
+            "translation": {
+              "x": 0.0,
+              "y": 1.309016,
+              "z": -13.27
+            }
+          },
+          "description": "Extrinsics",
+          "title": "Extrinsics"
+        }
+      },
+      "title": "DisplayCalibration",
+      "type": "object"
+    },
+    "DisplayExtrinsics": {
+      "properties": {
+        "rotation": {
+          "$ref": "#/$defs/Vector3",
+          "default": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.0
+          },
+          "description": "Rotation vector (radians)",
+          "title": "Rotation"
+        },
+        "translation": {
+          "$ref": "#/$defs/Vector3",
+          "default": {
+            "x": 0.0,
+            "y": 1.309016,
+            "z": -13.27
+          },
+          "description": "Translation (in cm)",
+          "title": "Translation"
+        }
+      },
+      "title": "DisplayExtrinsics",
+      "type": "object"
+    },
+    "DisplayIntrinsics": {
+      "properties": {
+        "frameWidth": {
+          "default": 1920,
+          "description": "Frame width (px)",
+          "minimum": 0,
+          "title": "FrameWidth",
+          "type": "integer"
+        },
+        "frameHeight": {
+          "default": 1080,
+          "description": "Frame height (px)",
+          "minimum": 0,
+          "title": "FrameHeight",
+          "type": "integer"
+        },
+        "displayWidth": {
+          "default": 20,
+          "description": "Display width (cm)",
+          "minimum": 0,
+          "title": "DisplayWidth",
+          "type": "number"
+        },
+        "displayHeight": {
+          "default": 15,
+          "description": "Display width (cm)",
+          "minimum": 0,
+          "title": "DisplayHeight",
+          "type": "number"
+        }
+      },
+      "title": "DisplayIntrinsics",
+      "type": "object"
+    },
+    "Displays": {
+      "properties": {
+        "displayCalibration": {
+          "$ref": "#/$defs/DisplayCalibration"
+        }
+      },
+      "required": [
+        "displayCalibration"
+      ],
+      "title": "Displays",
+      "type": "object"
+    },
     "SoftwareEvent": {
       "description": "A software event is a generic event that can be used to track any event that occurs in the software.",
       "properties": {
@@ -179,11 +305,13 @@
       "type": "object"
     }
   },
-  "required": [
-    "vector3",
-    "softwareEvent",
-    "spoutRigPosition"
+  "anyOf": [
+    {
+      "$ref": "#/$defs/DataTypes"
+    },
+    {
+      "$ref": "#/$defs/Displays"
+    }
   ],
-  "title": "DataTypes",
-  "type": "object"
+  "title": "RootModel[Union[DataTypes, Displays]]"
 }
