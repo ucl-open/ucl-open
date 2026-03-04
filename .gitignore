@@ -3,3 +3,4 @@
 !.bonsai/Nuget.config
 **__pycache__**
 **obj**
+.vscode/
