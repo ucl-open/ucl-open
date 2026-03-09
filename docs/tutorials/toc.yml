@@ -12,3 +12,5 @@
   href: experiment-schemas.md
 - name: Bonsai Implementation
   href: bonsai-implementation.md
+- name: Adding a Hardware Module
+  href: hardware-modules.md
