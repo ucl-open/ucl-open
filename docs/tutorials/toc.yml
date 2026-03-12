@@ -2,6 +2,8 @@
   href: introduction.md
 - name: Prerequisites
   href: prerequisites.md
+- name: Quickstart
+  href: quickstart.md
 - name: Building and Deploying
   href: building-deploying.md
 - name: Experiment Design
