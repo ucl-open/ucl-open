@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Description>A package providing common classes and types for UclOpen experiments.</Description>
@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="&#xD;&#xA; dotnet tool restore&#xD;&#xA; dotnet tool run bonsai.sgen $(ProjectDir)..\..\..\ucl_open\schemas\data_types.json --namespace UclOpen.Bonsai.Core.DataTypes -n DataTypes.Generated.cs --serializer json" />
+    <Exec Command="&#xD;&#xA; dotnet tool restore&#xD;&#xA; dotnet tool run bonsai.sgen $(ProjectDir)..\..\..\ucl_open\schemas\data_types.json --namespace UclOpen.Core.DataTypes -n DataTypes.Generated.cs --serializer json" />
   </Target>
 
 </Project>
