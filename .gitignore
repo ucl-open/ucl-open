@@ -1,4 +1,10 @@
-**/.bonsai/
+**/.bonsai/Settings/
+**/.bonsai/Packages/
+**/.bonsai/*.exe
+**/.bonsai/*.ps1
+**/.bonsai/*.cmd
+**/obj/
+**/bin/
 !.bonsai/Bonsai.config
 !.bonsai/Nuget.config
 **__pycache__**

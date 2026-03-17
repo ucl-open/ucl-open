@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="**\*.bonsai" />
+    <EmbeddedResource Include="**\**\**\**\*.bonsai" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,10 +17,6 @@
     <PackageReference Include="YamlDotNet" Version="16.0.0" />
     <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
     <PackageReference Include="Harp.Behavior" Version="0.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataSchemas\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
