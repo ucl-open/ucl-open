@@ -14,9 +14,7 @@ Its purpose is to provide a common layer between shared physical hardware, acqui
 - **[rig-template](https://github.com/ucl-open/rig-template)** – the primary entry point for creating new experiment repositories, using Copier
 - **[acquisition](https://github.com/ucl-open/acquisition)** – Bonsai-based workflows and operators for hardware control and data acquisition
 
-Each of these repositories are developed in tandem, and are dependent on each other. As development is ongoing, publised versions of each will be locked to each other, i.e. v0.1.0 of one repository is compatible with v0.1.0 of the other tw. 
-
-In general, lab members and experimentalists will only encounter these repositories indirectly via the template and acquisition stack, rather than directly cloning and working with them directly.
+Each of these repositories are developed in tandem, and are dependent on each other. As development is ongoing, publised versions of each will be locked to each other, i.e. v0.1.0 of one repository is compatible with v0.1.0 of the other two. 
 
 ---
 
@@ -28,7 +26,7 @@ In general, lab members and experimentalists will only encounter these repositor
 - A **shared contract** that acquisition workflows and experiments (and later, analysis pipelines) can rely on
 - A **reference implementation** for how rigs should be described in ucl-open projects
 
-The repository is deliberately *not* experiment-specific and does not contain task logic or analysis code.
+The repository is deliberately *not* experiment-specific and does not contain task logic or Bonsai code.
 
 ---
 
@@ -45,9 +43,8 @@ Instead, it aims to describe rigs in a way that is reusable, extensible, machine
 
 ## Repository structure (conceptual)
 
-While details may evolve, the repository generally contains:
+While details may evolve, the repository contains:
 
-- **Rig definitions** – structured descriptions of complete rigs
 - **Component definitions** – cameras, DAQs, lasers, stages, etc.
 - **Schemas** – formal validation of rig and component structure
 - **Examples** – minimal, concrete rigs demonstrating best practice
@@ -68,9 +65,9 @@ The most common usage is **automatic**, via:
 
 Rig definitions are added as a dependency, version-pinned by default, and ready to be selected or extended without manual setup.
 
-You typically only work directly with this repository when adding reusable rigs or components, extending the shared catalogue, or updating schemas and validation rules.
+In general, lab members and experimentalists will only encounter these repositories indirectly via the template and acquisition stack, rather than directly cloning and working with them directly. One would typically only work directly with this repository when adding reusable rigs or components, extending the shared catalogue, or updating schemas and validation rules.
 
-If you find yourself copying files out of this repository, you are most likely doing something outside the intended framework.
+If you find yourself copying files out of this repository in order to use them, you are most likely doing something outside the intended framework.
 
 ---
 

@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "ucl-open-rigs"
 version = "0.1.0"
@@ -8,10 +12,49 @@ dependencies = [
     "pydantic>=2.12.3",
     "pydantic-yaml>=1.6.0",
     "swc-aeon-rigs",
+    "pytest",
+    "ruff"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pandas-stubs",
+  "pre-commit",
+  "pyright",
+  "pytest",
+  "pytest-cov",
+  "pytest-mock",
+  "ruff",
 ]
 
 [tool.ruff]
 line-length = 108
+
+[tool.pyright]
+useLibraryCodeForTypes = false
+reportMissingImports = "none"
+reportIncompatibleVariableOverride = "none"
+reportImportCycles = "error"
+reportUnusedImport = "error"
+reportUnusedClass = "error"
+reportUnusedFunction = "error"
+reportUnusedVariable = "error"
+reportDuplicateImport = "error"
+reportWildcardImportFromLibrary = "error"
+reportPrivateUsage = "error"
+reportCallInDefaultInitializer = "error"
+reportUnnecessaryIsInstance = "error"
+reportUnnecessaryCast = "error"
+reportUnnecessaryComparison = "error"
+reportUnnecessaryContains = "error"
+reportAssertAlwaysTrue = "error"
+reportSelfClsParameterName = "error"
+reportUnusedExpression = "error"
+reportMatchNotExhaustive = "error"
+# *Note*: we may want to set all 'ReportOptional*' rules to "none", but leaving 'em default for now
+venvPath = "."
+venv = ".venv"
+exclude = [".venv/*"]
 
 [tool.uv.sources]
 swc-aeon-rigs = { git = "https://github.com/SainsburyWellcomeCentre/aeon_swc_rigs.git" }

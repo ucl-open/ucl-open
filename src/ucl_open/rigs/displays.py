@@ -1,11 +1,10 @@
 # TODO - this should live in ucl-open general definitions
 
 # Import core types
-from typing import Literal
 from pydantic import Field
 import ucl_open.rigs.data_types as Types
 
-from ucl_open.rigs.base import BaseSchema, Device
+from ucl_open.rigs.base import BaseSchema
 
 class DisplayIntrinsics(BaseSchema):
     frame_width: int = Field(default=1920, ge=0, description="Frame width (px)")
