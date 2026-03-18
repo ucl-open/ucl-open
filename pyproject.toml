@@ -58,3 +58,9 @@ exclude = [".venv/*"]
 
 [tool.uv.sources]
 swc-aeon-rigs = { git = "https://github.com/SainsburyWellcomeCentre/aeon_swc_rigs.git" }
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = [
+  "--cov=src/ucl_open",    # Enable pytest-cov for the ucl_open package
+]
