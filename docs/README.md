@@ -1,4 +1,4 @@
-# ucl-open-rigs
+# ucl-open
 
 This repository defines standard, shareable descriptions of experimental rigs used in the ucl-open ecosystem.
 

@@ -1281,7 +1281,7 @@ wheels = [
 ]
 
 [[package]]
-name = "ucl-open-rigs"
+name = "ucl-open"
 source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
