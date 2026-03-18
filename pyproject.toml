@@ -11,9 +11,7 @@ requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.12.3",
     "pydantic-yaml>=1.6.0",
-    "swc-aeon-rigs",
-    "pytest",
-    "ruff"
+    "swc-aeon>=0.2.0",
 ]
 
 [project.optional-dependencies]
@@ -55,9 +53,6 @@ reportMatchNotExhaustive = "error"
 venvPath = "."
 venv = ".venv"
 exclude = [".venv/*"]
-
-[tool.uv.sources]
-swc-aeon-rigs = { git = "https://github.com/SainsburyWellcomeCentre/aeon_swc_rigs.git" }
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
