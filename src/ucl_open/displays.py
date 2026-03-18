@@ -2,9 +2,9 @@
 
 # Import core types
 from pydantic import Field
-import ucl_open.rigs.data_types as Types
+import ucl_open.data_types as Types
 
-from ucl_open.rigs.base import BaseSchema
+from ucl_open.base import BaseSchema
 
 class DisplayIntrinsics(BaseSchema):
     frame_width: int = Field(default=1920, ge=0, description="Frame width (px)")

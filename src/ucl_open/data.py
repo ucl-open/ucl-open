@@ -1,7 +1,7 @@
 from typing import Dict, Self
 from pydantic import model_validator
 from pydantic.alias_generators import to_pascal
-from ucl_open.rigs.base import BaseSchema
+from ucl_open.base import BaseSchema
 
 
 class DataSchema(BaseSchema):

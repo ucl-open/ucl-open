@@ -1,6 +1,6 @@
 from typing import ClassVar
 from pydantic import Field
-from ucl_open.rigs.base import Device
+from ucl_open.base import Device
 
 
 class HarpDevice(Device):

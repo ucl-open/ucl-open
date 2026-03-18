@@ -1,5 +1,5 @@
 from pathlib import Path
-from ucl_open.rigs.data_types import DataTypes
+from ucl_open.data_types import DataTypes
 from typing import Union
 import json
 import pydantic

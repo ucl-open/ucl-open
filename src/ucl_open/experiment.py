@@ -1,5 +1,5 @@
 from pydantic import Field
-from ucl_open.rigs.base import BaseSchema
+from ucl_open.base import BaseSchema
 
 class Experiment(BaseSchema):
     """The base class for creating ucl-open experiment models."""

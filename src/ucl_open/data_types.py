@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from typing import Annotated, Generic, TypeVar, Any, Dict
 from pydantic import Field
-from ucl_open.rigs.base import BaseSchema
+from ucl_open.base import BaseSchema
 
 SByte = Annotated[int, Field(ge=-128, le=127)]
 Byte = Annotated[int, Field(ge=0, le=255)]
