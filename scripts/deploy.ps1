@@ -1,39 +1,26 @@
 #Requires -Version 5.1
 <#
     Sets up a local development environment for ucl-open/rigs.
+    - Restores .NET tools
+    - Builds UclOpen NuGet packages
     - Bootstraps the Bonsai environment from .bonsai/Bonsai.config
-    - Builds and installs UclOpen NuGet packages into the Bonsai environment
     - Installs the Python package using uv
-    - Generates the unified experiment schema (YAML instance + JSON Schema)
+    - Generates the unified experiment schema (YAML instance + JSON Schema) from schema.py
     - Runs bonsai.sgen via aind_behavior_services to produce C# classes in test/Extensions/
 #>
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$RootDir = $PSScriptRoot
-
-# --- Bonsai bootstrap + package restore ---
-
-Write-Host "Setting up Bonsai environment..."
-
-Push-Location $RootDir
-try {
-    & (Join-Path $RootDir ".bonsai" "Setup.ps1")
-} finally {
-    Pop-Location
-}
-
-Write-Host "Bonsai environment ready."
+$RootDir = Split-Path -Parent $PSScriptRoot
 
 # --- .NET tools ---
 
-Write-Host ""
 Write-Host "Restoring .NET tools..."
 
 Push-Location $RootDir
 try {
-    dotnet tool restore --nologo 2>&1 | Write-Host
+    dotnet tool restore
 } finally {
     Pop-Location
 }
@@ -47,12 +34,26 @@ Write-Host "Building UclOpen packages..."
 
 Push-Location $RootDir
 try {
-    dotnet pack UclOpen.sln -c Release --nologo 2>&1 | Where-Object { $_ -match "Successfully|error" } | Write-Host
+    dotnet pack UclOpen.sln -c Release --nologo
 } finally {
     Pop-Location
 }
 
 Write-Host "UclOpen packages built."
+
+# --- Bonsai bootstrap + package restore ---
+
+Write-Host ""
+Write-Host "Setting up Bonsai environment..."
+
+Push-Location $RootDir
+try {
+    & (Join-Path (Join-Path $RootDir ".bonsai") "Setup.ps1")
+} finally {
+    Pop-Location
+}
+
+Write-Host "Bonsai environment ready."
 
 # --- Python setup ---
 
