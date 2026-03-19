@@ -1,6 +1,6 @@
 from typing import ClassVar
 from pydantic import Field
-from ucl_open.base import Device
+from ucl_open.core.base import Device
 
 
 class HarpDevice(Device):
@@ -26,8 +26,8 @@ class HarpCameraControllerGen2(HarpDevice):
 class HarpBehavior(HarpDevice):
     device_type: ClassVar[str] = "HarpBehavior"
     who_am_i: ClassVar[int] = 1216
-    
-    
+
+
 class HarpHobgoblin(HarpDevice):
     device_type: ClassVar[str] = "Hobgoblin"
     who_am_i: ClassVar[int] = 123
