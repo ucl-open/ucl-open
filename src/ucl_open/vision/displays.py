@@ -1,0 +1,35 @@
+from typing import Literal, Dict
+from pydantic import Field
+import ucl_open.core.data_types as Types
+from ucl_open.core.base import Device
+
+from ucl_open.core.base import BaseSchema
+
+
+class DisplayIntrinsics(BaseSchema):
+    frame_width: int = Field(default=1920, ge=0, description="Frame width (px)")
+    frame_height: int = Field(default=1080, ge=0, description="Frame height (px)")
+    display_width: float = Field(default=20, ge=0, description="Display width (cm)")
+    display_height: float = Field(default=15, ge=0, description="Display width (cm)")
+
+class DisplayExtrinsics(BaseSchema):
+    rotation: Types.Vector3 = Field(
+        default=Types.Vector3(x=0.0, y=0.0, z=0.0), description="Rotation vector (radians)", validate_default=True
+    )
+    translation: Types.Vector3 = Field(
+        default=Types.Vector3(x=0.0, y=1.309016, z=-13.27), description="Translation (in cm)", validate_default=True
+    )
+
+class DisplayCalibration(BaseSchema):
+    intrinsics: DisplayIntrinsics = Field(default=DisplayIntrinsics(), description="Intrinsics", validate_default=True)
+    extrinsics: DisplayExtrinsics = Field(default=DisplayExtrinsics(), description="Extrinsics", validate_default=True)
+
+class Screen(Device):
+    device_type: Literal["Screen"] = Field(default="Screen", description="Device type")
+    display_index: int = Field(default=1, description="Display index")
+    target_render_frequency: float = Field(default=60, description="Target render frequency")
+    target_update_frequency: float = Field(default=120, description="Target update frequency")
+    texture_assets_directory: str = Field(default="Textures", description="Calibration directory")
+    calibration: Dict[str, DisplayCalibration] | None = Field(default=None,description="Calibration parameters for a set of named display monitors for visual stimuli")
+    brightness: float = Field(default=0, le=1, ge=-1, description="Brightness")
+    contrast: float = Field(default=1, le=1, ge=-1, description="Contrast")
