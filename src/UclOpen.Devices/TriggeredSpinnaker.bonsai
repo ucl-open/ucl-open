@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:aeon="clr-namespace:Aeon.Acquisition;assembly=Aeon.Acquisition"
+                 xmlns:p1="clr-namespace:UclOpen.Video;assembly=UclOpen.Video"
                  xmlns:spk="clr-namespace:Bonsai.Spinnaker;assembly=Bonsai.Spinnaker"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
@@ -15,20 +15,14 @@
         <Property Name="SerialNumber" />
         <Property Name="ColorProcessing" />
       </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Initialises and captures camera frames from Spinnaker cameras with externalised mapping to allow for configuration of select camera settings as per user's discretion]]></Text>
-      </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="aeon:SpinnakerCapture">
+        <Combinator xsi:type="p1:TriggeredSpinnaker">
           <spk:Index xsi:nil="true" />
           <spk:ColorProcessing>Default</spk:ColorProcessing>
-          <aeon:ExposureTime>19000</aeon:ExposureTime>
-          <aeon:Gain>0</aeon:Gain>
-          <aeon:Binning>1</aeon:Binning>
+          <p1:ExposureTime>19000</p1:ExposureTime>
+          <p1:Gain>0</p1:Gain>
+          <p1:Binning>1</p1:Binning>
         </Combinator>
-      </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Implements zero-based indexing of camera frames]]></Text>
       </Expression>
       <Expression xsi:type="Disable">
         <Builder xsi:type="Combinator">
@@ -38,34 +32,14 @@
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Name" DisplayName="CameraTriggerEventsSubjectName" Description="The name of the subject carrying trigger events from a camera controller or behavior board. " Category="Subjects" />
       </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Takes timestamped camera frames triggered from the BehaviorBoard workflow that works on the BehaviorBoard device with an externalised mapping of TriggerEvents to allow for trigger event subscription configuration]]></Text>
-      </Expression>
       <Expression xsi:type="SubscribeSubject">
         <Name>CameraTriggerEvents</Name>
-      </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Skips initial trigger to synchronise frame capture with trigger sequence in order to account of setup delays. This is only needed if the behavior board is set to dump it's registers, and should be sorted in the main logic of the workflow if that is the case. Typically only use dump registers for debugging, but can also be used as a log of the state of the device at initialization.]]></Text>
-      </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:Skip">
-          <rx:Count>0</rx:Count>
-        </Combinator>
-      </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Converts trigger events to seconds based timestamp format]]></Text>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Seconds</Selector>
       </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Synchronises frame data and trigger timestamps to output a tuple]]></Text>
-      </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Zip" />
-      </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Creates Harp-device compatible timestamps from zipped frame and timestamp data]]></Text>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="harp:CreateTimestamped" />
@@ -73,34 +47,20 @@
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Name" DisplayName="FrameEventsSubjectName" Description="The name of the subject to which indexed, timestamped camera frames are published" Category="Subjects" />
       </Expression>
-      <Expression xsi:type="Annotation">
-        <Text><![CDATA[Publishes Harp compatible timestamped frame events for implementation into other workflows]]></Text>
-      </Expression>
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>FrameEvents</Name>
       </Expression>
-      <Expression xsi:type="WorkflowOutput" />
     </Nodes>
     <Edges>
-      <Edge From="0" To="2" Label="Source1" />
-      <Edge From="1" To="2" Label="Source2" />
-      <Edge From="2" To="4" Label="Source1" />
-      <Edge From="3" To="4" Label="Source2" />
-      <Edge From="4" To="13" Label="Source1" />
-      <Edge From="5" To="7" Label="Source1" />
-      <Edge From="6" To="7" Label="Source2" />
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="6" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source2" />
+      <Edge From="6" To="7" Label="Source1" />
       <Edge From="7" To="9" Label="Source1" />
       <Edge From="8" To="9" Label="Source2" />
-      <Edge From="9" To="11" Label="Source1" />
-      <Edge From="10" To="11" Label="Source2" />
-      <Edge From="11" To="13" Label="Source2" />
-      <Edge From="12" To="13" Label="Source3" />
-      <Edge From="13" To="15" Label="Source1" />
-      <Edge From="14" To="15" Label="Source2" />
-      <Edge From="15" To="18" Label="Source1" />
-      <Edge From="16" To="18" Label="Source2" />
-      <Edge From="17" To="18" Label="Source3" />
-      <Edge From="18" To="19" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
