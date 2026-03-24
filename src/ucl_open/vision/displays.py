@@ -2,7 +2,7 @@ from typing import Dict
 from pydantic import Field
 import ucl_open.core.data_types as Types
 
-from ucl_open.core import BaseSchema
+from swc.aeon.schema import BaseSchema
 
 
 class DisplayIntrinsics(BaseSchema):

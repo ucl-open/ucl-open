@@ -1,6 +1,6 @@
 from typing import ClassVar
 from pydantic import Field
-from ucl_open.core import BaseSchema
+from swc.aeon.schema import BaseSchema
 
 
 class HarpDevice(BaseSchema):

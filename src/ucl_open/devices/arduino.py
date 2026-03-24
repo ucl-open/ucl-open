@@ -1,5 +1,5 @@
 from pydantic import Field
-from ucl_open.core import BaseSchema
+from swc.aeon.schema import BaseSchema
 from ucl_open.devices.device import SerialDevice
 
 
