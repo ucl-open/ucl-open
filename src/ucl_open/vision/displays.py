@@ -1,9 +1,8 @@
-from typing import Literal, Dict
+from typing import Dict
 from pydantic import Field
 import ucl_open.core.data_types as Types
-from ucl_open.core.base import Device
 
-from ucl_open.core.base import BaseSchema
+from ucl_open.core import BaseSchema
 
 
 class DisplayIntrinsics(BaseSchema):
@@ -35,8 +34,7 @@ class DisplayCalibration(BaseSchema):
     )
 
 
-class Screen(Device):
-    device_type: Literal["Screen"] = Field(default="Screen", description="Device type")
+class Screen(BaseSchema):
     display_index: int = Field(default=1, description="Display index")
     target_render_frequency: float = Field(default=60, description="Target render frequency")
     target_update_frequency: float = Field(default=120, description="Target update frequency")

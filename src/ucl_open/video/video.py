@@ -1,6 +1,6 @@
 from typing import Union, Literal, Annotated
 from pydantic import Field, RootModel
-from ucl_open.core.base import BaseSchema
+from ucl_open.core import BaseSchema
 
 
 class CameraBase(BaseSchema):

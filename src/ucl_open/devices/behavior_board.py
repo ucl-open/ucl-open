@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import Field
-from ucl_open.core.base import BaseSchema
+from ucl_open.core import BaseSchema
 from ucl_open.devices.harp import HarpBehavior
 from ucl_open.core.data_types import UShort
 

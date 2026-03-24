@@ -1,6 +1,5 @@
 from pydantic import Field
-from typing import Literal
-from ucl_open.core.base import BaseSchema
+from ucl_open.core import BaseSchema
 from ucl_open.devices.device import SerialDevice
 
 
@@ -21,7 +20,6 @@ class LedController(BaseSchema):
 class LedDriver(ArduinoDevice):
     """Represents an Arduino device used to drive LEDs."""
 
-    device_type: Literal["LedDriver"] = "LedDriver"
     led_controller: LedController = Field(
         description="LedController module for generating digital output pulses."
     )

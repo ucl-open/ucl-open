@@ -1,5 +1,4 @@
-from ucl_open.core.base import BaseSchema, Device
-from ucl_open.core.data import DataSchema
+from swc.aeon.schema import BaseSchema, Dataset
 from ucl_open.core.data_types import (
     SByte,
     Byte,
@@ -18,14 +17,12 @@ from ucl_open.core.data_types import (
     Vector3,
     SoftwareEvent,
 )
-from ucl_open.core.experiment import Experiment
-from ucl_open.core.schema import DataTypes
+from ucl_open.core.experiment import ExperimentSession
 from ucl_open.core.task import Task, TaskParameters
 
 __all__ = [
     "BaseSchema",
-    "Device",
-    "DataSchema",
+    "Dataset",
     "SByte",
     "Byte",
     "Short",
@@ -42,8 +39,7 @@ __all__ = [
     "Vector2",
     "Vector3",
     "SoftwareEvent",
-    "Experiment",
-    "DataTypes",
+    "ExperimentSession",
     "Task",
     "TaskParameters",
 ]

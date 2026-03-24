@@ -1,7 +1,7 @@
 from enum import StrEnum
 from typing import Annotated, Generic, TypeVar, Any
 from pydantic import Field
-from ucl_open.core.base import BaseSchema
+from swc.aeon.schema import BaseSchema
 
 __all__ = ["TimestampSource", "Vector2", "Vector3", "SoftwareEvent"]
 

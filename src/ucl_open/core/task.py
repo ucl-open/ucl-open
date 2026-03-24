@@ -1,7 +1,7 @@
 from typing import Optional
 from pydantic import Field
 
-from ucl_open.core.base import BaseSchema
+from swc.aeon.schema import BaseSchema
 
 
 class TaskParameters(BaseSchema):
