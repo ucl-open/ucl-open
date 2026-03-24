@@ -9,9 +9,7 @@ SCHEMA_ROOT = Path("./src/ucl_open/schemas")
 
 
 def main():
-    models = [
-        DataTypes
-    ]
+    models = [DataTypes]
     model = pydantic.RootModel[Union[tuple(models)]]
 
     schema = model.model_json_schema(union_format="primitive_type_array")

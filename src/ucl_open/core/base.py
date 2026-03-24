@@ -14,6 +14,7 @@ class BaseSchema(BaseModel):
         from_attributes=True,
     )
 
+
 class Device(BaseSchema):
     """The base class for creating Aeon hardware device models."""
 

@@ -26,22 +26,30 @@ class TimestampSource(StrEnum):
     RENDER = "render"
     ARDUINO = "arduino"
 
+
 class Vector2(BaseSchema):
     x: float = Field(description="X coordinate of the point.")
     y: float = Field(description="Y coordinate of the point.")
+
 
 class Vector3(Vector2):
     z: float = Field(description="Z coordinate of the point.")
 
 
 TData = TypeVar("TData", bound=Any)
+
+
 class SoftwareEvent(BaseSchema, Generic[TData]):
     """
     A software event is a generic event that can be used to track any event that occurs in the software.
     """
+
     name: str = Field(..., description="The name of the event.")
     timestamp: float | None = Field(default=None, description="The timestamp of the event.")
-    timestamp_source: TimestampSource = Field(default=TimestampSource.NULL, description="The source of the timestamp. Typically either a harp device or on the visual render loop")
+    timestamp_source: TimestampSource = Field(
+        default=TimestampSource.NULL,
+        description="The source of the timestamp. Typically either a harp device or on the visual render loop",
+    )
     frame_index: int | None = Field(default=None, ge=0, description="The frame index of the event.")
     frame_timestamp: float | None = Field(default=None, description="The timestamp of the frame.")
     data: TData | None = Field(default=None, description="The data payload of the event.")
