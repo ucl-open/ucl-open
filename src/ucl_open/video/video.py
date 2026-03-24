@@ -1,28 +1,18 @@
-from typing import Union, Literal, Annotated
+from typing import Union, Annotated
 from pydantic import Field, RootModel
 from swc.aeon.schema import BaseSchema
 
-
-class CameraBase(BaseSchema):
-    """Base class for discriminated camera configurations."""
-
-    camera_type: str = Field(description="Discriminator for the camera model type.")
+from ucl_open.core.base import DiscriminatorTypeMixin
 
 
-class ArducamOV9180(CameraBase):
-    camera_type: Literal["Arducam"] = Field(
-        default="Arducam", description="Camera type discriminator for Arducam devices."
-    )
+class ArducamOV9180(DiscriminatorTypeMixin, BaseSchema):
     trigger_frequency: float = Field(
         default=50, ge=1, description="The frequency at which the camera is triggered (in Hz)."
     )
     device_index: int = Field(default=0, ge=0, description="The index of the device.")
 
 
-class SpinnakerCamera(CameraBase):
-    camera_type: Literal["Spinnaker"] = Field(
-        default="Spinnaker", description="Camera type discriminator for Spinnaker devices."
-    )
+class SpinnakerCamera(DiscriminatorTypeMixin, BaseSchema):
     trigger_frequency: float = Field(
         default=50, ge=1, description="The frequency at which the camera is triggered (in Hz)."
     )
@@ -36,7 +26,7 @@ class SpinnakerCamera(CameraBase):
 
 CameraModule = Annotated[
     Union[ArducamOV9180, SpinnakerCamera],
-    Field(discriminator="camera_type"),
+    Field(discriminator="discriminator_type"),
     Field(description="Configuration for the camera used by the CameraAcquisition workflow."),
 ]
 
