@@ -180,7 +180,7 @@ class APIAuthManager:
                 return data
         elif response and response.status_code == 404:
             QMessageBox.warning(self.main_window, "Not Found", "Animal not found for weight retrieval.")
-        elif response.status_code == 422:
+        elif response and response.status_code == 422:
             QMessageBox.warning(self.main_window, "Error", "Validation error, check your token.")
         return None
 
@@ -1157,11 +1157,11 @@ class PyratAPI(QMainWindow):
             return
         idx = int(idx_item.text())
         animal_id = self.info[idx].get("eartag_or_id", "")
-        try:
-            date, weight = self.data_manager.format_weight_history(animal_id)
-        except Exception as e:
-            QMessageBox.warning(self, "Error", f"Failed to retrieve weight history: {e}")
+        result = self.data_manager.format_weight_history(animal_id)
+        if result is None:
+            QMessageBox.information(self, "No Data", "No weight history found for this animal.")
             return
+        date, weight = result
 
         date = date[::-1]
         weights = weight[::-1]
