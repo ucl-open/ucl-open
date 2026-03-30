@@ -22,6 +22,7 @@ dev = [
   "pytest",
   "pytest-cov",
   "pytest-mock",
+  "respx>=0.21",
   "ruff",
 ]
 pyrat = [
