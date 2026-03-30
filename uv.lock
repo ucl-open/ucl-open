@@ -2875,40 +2875,38 @@ dev = [
     { name = "respx" },
     { name = "ruff" },
 ]
-gui = [
-    { name = "matplotlib" },
-    { name = "pyqt6" },
-    { name = "requests" },
-]
 notebooks = [
     { name = "jupyter" },
     { name = "pandas" },
 ]
 pyrat = [
     { name = "httpx" },
+    { name = "matplotlib" },
+    { name = "pyqt6" },
+    { name = "requests" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "httpx", marker = "extra == 'pyrat'", specifier = ">=0.27" },
     { name = "jupyter", marker = "extra == 'notebooks'", specifier = ">=1.0" },
-    { name = "matplotlib", marker = "extra == 'gui'", specifier = ">=3.5" },
+    { name = "matplotlib", marker = "extra == 'pyrat'", specifier = ">=3.5" },
     { name = "pandas", marker = "extra == 'notebooks'", specifier = ">=2.0" },
     { name = "pandas-stubs", marker = "extra == 'dev'" },
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pydantic", specifier = ">=2.12.3" },
     { name = "pydantic-yaml", specifier = ">=1.6.0" },
-    { name = "pyqt6", marker = "extra == 'gui'", specifier = ">=6.0" },
+    { name = "pyqt6", marker = "extra == 'pyrat'", specifier = ">=6.0" },
     { name = "pyright", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "pytest-cov", marker = "extra == 'dev'" },
     { name = "pytest-mock", marker = "extra == 'dev'" },
-    { name = "requests", marker = "extra == 'gui'", specifier = ">=2.28" },
+    { name = "requests", marker = "extra == 'pyrat'", specifier = ">=2.28" },
     { name = "respx", marker = "extra == 'dev'", specifier = ">=0.21" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "swc-aeon", specifier = ">=0.2.0" },
 ]
-provides-extras = ["dev", "pyrat", "gui", "notebooks"]
+provides-extras = ["dev", "pyrat", "notebooks"]
 
 [[package]]
 name = "uri-template"
