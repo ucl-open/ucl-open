@@ -1,22 +1,24 @@
+import subprocess
 import sys
 import json
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, List, Optional
 from matplotlib import ticker
-import matplotlib.pyplot as plt
 
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
 import requests
-
-from PyQt6.QtCore import Qt, QTimer
-from PyQt6.QtGui import QFont, QFontMetrics, QColor
+from PyQt6.QtCore import Qt, QTimer, QSettings
+from PyQt6.QtGui import QFont, QColor
 from PyQt6.QtWidgets import (
     QAbstractItemView,
     QApplication,
     QComboBox,
     QDialog,
+    QDoubleSpinBox,
+    QFileDialog,
     QGridLayout,
     QGroupBox,
     QHBoxLayout,
@@ -31,6 +33,9 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
+from ucl_open.pyrat.models import PyRatSubject
+from ucl_open.pyrat.session import SessionConfig
 
 
 class APIAuthManager:
@@ -386,6 +391,7 @@ class UIManager:
         self.main_window.rare_group.setVisible(False)
         right.addWidget(self.main_window.rare_group)
         
+        right.addWidget(self.build_launch_panel())
         right.addStretch()
 
         bottom.addLayout(left, stretch=2)
@@ -393,6 +399,40 @@ class UIManager:
         outer.addLayout(bottom, 3)
 
         self.set_posting_widget_states(False)
+
+    def build_launch_panel(self) -> QGroupBox:
+        """Build the Launch Session group box."""
+        group = QGroupBox("Launch Session")
+        layout = QGridLayout(group)
+
+        layout.addWidget(QLabel("Mouse:"), 0, 0)
+        self.main_window.launch_mouse_combo = QComboBox()
+        layout.addWidget(self.main_window.launch_mouse_combo, 0, 1, 1, 2)
+
+        layout.addWidget(QLabel("Bonsai exe:"), 1, 0)
+        self.main_window.bonsai_exe_edit = QLineEdit()
+        self.main_window.bonsai_exe_edit.setPlaceholderText("Path to Bonsai.exe")
+        layout.addWidget(self.main_window.bonsai_exe_edit, 1, 1)
+        bonsai_browse_btn = QPushButton("Browse…")
+        bonsai_browse_btn.clicked.connect(self.main_window._browse_bonsai_exe)
+        layout.addWidget(bonsai_browse_btn, 1, 2)
+
+        layout.addWidget(QLabel("Workflow:"), 2, 0)
+        self.main_window.workflow_edit = QLineEdit()
+        self.main_window.workflow_edit.setPlaceholderText("Path to .bonsai workflow")
+        layout.addWidget(self.main_window.workflow_edit, 2, 1)
+        workflow_browse_btn = QPushButton("Browse…")
+        workflow_browse_btn.clicked.connect(self.main_window._browse_workflow)
+        layout.addWidget(workflow_browse_btn, 2, 2)
+
+        self.main_window.start_session_btn = QPushButton("Start Session")
+        self.main_window.start_session_btn.clicked.connect(self.main_window._start_session)
+        layout.addWidget(self.main_window.start_session_btn, 3, 0, 1, 2)
+
+        self.main_window.session_status_label = QLabel("")
+        layout.addWidget(self.main_window.session_status_label, 3, 2)
+
+        return group
 
     def apply_theme(self):
         """Apply the current theme stylesheet."""
@@ -911,9 +951,58 @@ class PyratAPI(QMainWindow):
         # Debounce flag
         self._showinfo_job_active = False
 
+        # Session launcher
+        self._bonsai_proc: Optional[subprocess.Popen] = None
+        self._session_json_path: Optional[Path] = None
+        self._session_output_json_path: Optional[Path] = None
+
+        # UI widgets — assigned by UIManager.setup_ui(); declared here for static analysis
+        self.status_label: QLabel
+        self.login_button: QPushButton
+        self.theme_btn: QPushButton
+        self.help_btn: QPushButton
+        self.color_combo: QComboBox
+        self.filter_entry: QLineEdit
+        self.mymice: QPushButton
+        self.WRmice: QPushButton
+        self.breeding: QPushButton
+        self.stockmice: QPushButton
+        self.experimice: QPushButton
+        self.rest: QPushButton
+        self.table: QTableWidget
+        self.comment_tv: QTableWidget
+        self.weightplot_button: QPushButton
+        self.bw_label: QLabel
+        self.weight_entry: QLineEdit
+        self.water_label: QLabel
+        self.waterdelivery_entry: QLineEdit
+        self.cmt_label: QLabel
+        self.comment_entry: QLineEdit
+        self.toggle_rare_button: QPushButton
+        self.rare_group: QGroupBox
+        self.refbw_label: QLabel
+        self.refbw_entry: QLineEdit
+        self.implant_label: QLabel
+        self.implantweight_entry: QLineEdit
+        self.launch_mouse_combo: QComboBox
+        self.bonsai_exe_edit: QLineEdit
+        self.workflow_edit: QLineEdit
+        self.start_session_btn: QPushButton
+        self.session_status_label: QLabel
+
         # Build UI and load initial data
         self.ui_manager.setup_ui()
         self.ui_manager.apply_theme()
+
+        # Persisted launcher paths
+        settings = QSettings("UCL", "PyRATGUI")
+        saved_exe = settings.value("bonsai_exe_path", "")
+        if saved_exe:
+            self.bonsai_exe_edit.setText(saved_exe)
+        saved_workflow = settings.value("workflow_path", "")
+        if saved_workflow:
+            self.workflow_edit.setText(saved_workflow)
+
         self._load_data()
 
     def _load_config(self) -> dict:
@@ -951,6 +1040,7 @@ class PyratAPI(QMainWindow):
         self.columns, self.rows = self.data_manager.transform_animal_data(self.info)
         if self.rows:
             self.data_manager.populate_table(self.rows)
+        self._populate_launch_mouse_combo()
 
     def toggle_login_logout(self):
         """Toggle login/logout."""
@@ -1204,6 +1294,154 @@ class PyratAPI(QMainWindow):
         close_btn.clicked.connect(dlg.accept)
         layout.addWidget(close_btn)
         
+        dlg.exec()
+
+
+    def _populate_launch_mouse_combo(self):
+        """Populate the Launch Session mouse dropdown from loaded animal data."""
+        combo = self.launch_mouse_combo
+        combo.clear()
+        for animal in self.info:
+            eartag = animal.get("eartag_or_id", "")
+            labid = animal.get("labid", "")
+            label = eartag + (f" ({labid})" if labid else "")
+            combo.addItem(label, userData=eartag)
+
+    def _browse_bonsai_exe(self):
+        """Open file browser to select Bonsai.exe."""
+        path, _ = QFileDialog.getOpenFileName(self, "Select Bonsai.exe", "", "Executables (*.exe)")
+        if path:
+            self.bonsai_exe_edit.setText(path)
+            QSettings("UCL", "PyRATGUI").setValue("bonsai_exe_path", path)
+
+    def _browse_workflow(self):
+        """Open file browser to select a .bonsai workflow file."""
+        path, _ = QFileDialog.getOpenFileName(self, "Select Bonsai Workflow", "", "Bonsai Workflows (*.bonsai)")
+        if path:
+            self.workflow_edit.setText(path)
+            QSettings("UCL", "PyRATGUI").setValue("workflow_path", path)
+
+    def _start_session(self):
+        """Build session JSON and launch Bonsai subprocess."""
+        eartag = self.launch_mouse_combo.currentData()
+        idx = self.launch_mouse_combo.currentIndex()
+        workflow = self.workflow_edit.text().strip()
+        bonsai_exe = self.bonsai_exe_edit.text().strip()
+
+        if not eartag:
+            QMessageBox.warning(self, "Warning", "Select a mouse first.")
+            return
+        if not workflow or not Path(workflow).exists():
+            QMessageBox.warning(self, "Warning", "Select a valid .bonsai workflow file.")
+            return
+        if not bonsai_exe or not Path(bonsai_exe).exists():
+            QMessageBox.warning(self, "Warning", "Select a valid Bonsai.exe path.")
+            return
+
+        session = SessionConfig(
+            subject=PyRatSubject.model_validate(self.info[idx]),
+            session_start=datetime.now(timezone.utc),
+            workflow=workflow,
+        )
+        sessions_dir = Path(__file__).parent / "sessions"
+        sessions_dir.mkdir(exist_ok=True)
+        timestamp = session.session_start.strftime("%Y%m%d_%H%M%S")
+        json_path = sessions_dir / f"{eartag}_{timestamp}.json"
+        json_path.write_text(session.model_dump_json(indent=2, by_alias=True))
+
+        out_path = json_path.with_stem(json_path.stem + "_out")
+        self._session_json_path = json_path
+        self._session_output_json_path = out_path
+        self._bonsai_proc = subprocess.Popen(
+            [
+                bonsai_exe, workflow,
+                "--property", f"PyRatInputPath={json_path}",
+                "--property", f"PyRatOutputPath={out_path}",
+            ],
+            stderr=subprocess.PIPE, # Capture stderr to show in case of Bonsai errors
+        )
+        self.start_session_btn.setEnabled(False)
+        self.session_status_label.setText("Session running…")
+        QTimer.singleShot(500, self._poll_bonsai) # Start polling after a short delay (500ms) to allow Bonsai to initialize
+
+    def _poll_bonsai(self):
+        """Check if Bonsai has exited; if so, trigger the post-session dialog."""
+        if self._bonsai_proc and self._bonsai_proc.poll() is not None:
+            returncode = self._bonsai_proc.returncode
+            _, stderr_bytes = self._bonsai_proc.communicate()
+            self._bonsai_proc = None
+            self.session_status_label.setText("Session ended.")
+            self.start_session_btn.setEnabled(True)
+            if returncode != 0:
+                stderr_text = stderr_bytes.decode(errors="replace").strip() if stderr_bytes else ""
+                msg = f"Bonsai exited with code {returncode}."
+                if stderr_text:
+                    msg += f"\n\n{stderr_text}"
+                QMessageBox.warning(self, "Bonsai Error", msg)
+                return
+            self._post_session_dialog()
+        elif self._bonsai_proc:
+            QTimer.singleShot(500, self._poll_bonsai)
+
+    def _post_session_dialog(self):
+        """Read output session JSON (written by Bonsai), pre-populate dialog, then post to PyRAT."""
+        out_path = self._session_output_json_path
+        read_path = out_path if (out_path and out_path.exists()) else self._session_json_path # Could be either the original or output path
+        if not read_path or not read_path.exists():
+            return
+
+        session = SessionConfig.model_validate_json(read_path.read_text())
+        eartag = session.subject.eartag_or_id
+        session_water = session.water_delivered_ml or 0.0
+
+        dlg = QDialog(self)
+        dlg.setWindowTitle("Post Session")
+        layout = QGridLayout(dlg)
+
+        layout.addWidget(QLabel("Water in session (ml):"), 0, 0)
+        layout.addWidget(QLabel(f"{session_water:.2f}"), 0, 1)
+
+        layout.addWidget(QLabel("Additional water (ml):"), 1, 0)
+        water_spin = QDoubleSpinBox()
+        water_spin.setRange(0.0, 100.0)
+        water_spin.setDecimals(3) # Allow up to 3 decimal places (ul precision)
+        water_spin.setSingleStep(0.003) # 3ul step
+        water_spin.setValue(0.0)
+        layout.addWidget(water_spin, 1, 1)
+
+        layout.addWidget(QLabel("Comment (optional):"), 2, 0)
+        comment_edit = QLineEdit()
+        comment_edit.setText(session.comment or "")
+        layout.addWidget(comment_edit, 2, 1)
+
+        submit_btn = QPushButton("Post to PyRAT")
+        layout.addWidget(submit_btn, 3, 0, 1, 2)
+
+        def _submit():
+            additional = water_spin.value()
+            comment = comment_edit.text().strip()
+            total_water = session_water + additional
+            session.water_delivered_ml = total_water or None
+            session.comment = comment or None
+            session.session_end = session.session_end or datetime.now(timezone.utc)
+            read_path.write_text(session.model_dump_json(indent=2, by_alias=True))
+            if total_water > 0:
+                end_str = session.session_end.strftime("%Y-%m-%d %H:%M:%S UTC")
+                success = self.api_auth_manager.post_comment(
+                    eartag, f"waterdelivery: {total_water}ml [{end_str}]"
+                )
+                if not success:
+                    QMessageBox.warning(self, "Warning", "Failed to post water delivery.")
+            if comment:
+                self.api_auth_manager.post_comment(eartag, comment)
+            for c in session.comments:
+                ts = c.created.strftime("%Y-%m-%d %H:%M:%S UTC") if c.created else ""
+                text = f"{c.content} [{ts}]" if ts else c.content
+                self.api_auth_manager.post_comment(eartag, text)
+            dlg.accept()
+
+        submit_btn.clicked.connect(_submit)
+        dlg.adjustSize()
         dlg.exec()
 
 
