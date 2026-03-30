@@ -890,12 +890,11 @@ class PyratAPI(QMainWindow):
         self.setCentralWidget(self.central_widget)
 
         # Configuration
-        self.URL = "https://ucl-uat.pyrat.cloud/api/v3"
-        self.client_token = "1-9vBhAUJnGJZldlehOEKX08"
         self.timeout = 20
-
-        # User management
-        self.users = self._load_users()
+        config = self._load_config()
+        self.URL = config["url"]
+        self.client_token = config["client_token"]
+        self.users = config["users"]
 
         # Initialize managers
         self.api_auth_manager = APIAuthManager(self, self.URL, self.client_token, self.users, self.timeout)
@@ -917,14 +916,29 @@ class PyratAPI(QMainWindow):
         self.ui_manager.apply_theme()
         self._load_data()
 
-    def _load_users(self) -> dict:
-        """Load user configuration from JSON file."""
+    def _load_config(self) -> dict:
+        """Load server URL from pyrat_server.yaml and credentials from users.json."""
+        import yaml
+
         try:
-            with open("PyRAT_GUI/users.json", "r", encoding="utf-8") as f:
-                return json.load(f)
+            with open("src/PyRAT_GUI/pyrat_server.yaml", "r", encoding="utf-8") as f:
+                server = yaml.safe_load(f)
+            url = server.get("url", "")
+        except Exception as e:
+            QMessageBox.warning(None, "Warning", f"Could not load pyrat_server.yaml: {e}")
+            url = ""
+
+        try:
+            with open("src/PyRAT_GUI/users.json", "r", encoding="utf-8") as f:
+                creds = json.load(f)
+            client_token = creds.get("client_token", "")
+            users = creds.get("users", {})
         except Exception as e:
             QMessageBox.warning(None, "Warning", f"Could not load users.json: {e}")
-            return {}
+            client_token = ""
+            users = {}
+
+        return {"url": url, "client_token": client_token, "users": users}
 
     def _load_data(self):
         """Load animal data from API and populate table."""
