@@ -744,14 +744,14 @@ class UIManager:
             self.main_window.implantweight_entry,
         ]:
             w.setEnabled(enabled)
-        for l in [
+        for lbl in [
             self.main_window.refbw_label,
             self.main_window.implant_label,
             self.main_window.bw_label,
             self.main_window.cmt_label,
             self.main_window.water_label,
         ]:
-            l.setEnabled(enabled)
+            lbl.setEnabled(enabled)
 
 class DataManager:
     """Handles data transformation, filtering, and table population."""
@@ -894,7 +894,6 @@ class DataManager:
         if idx_item:
             idx = int(idx_item.text())
             animal_info = self.main_window.info[idx]
-            animal_id = animal_info.get("eartag_or_id", "")
             ref_bw_cmt = animal_info.get("comments")
             try:
                 for cmt in ref_bw_cmt:
