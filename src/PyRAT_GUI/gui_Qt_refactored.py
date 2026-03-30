@@ -112,7 +112,7 @@ class APIAuthManager:
         """Post a comment to an animal record."""
         data = {"comment": f"#{comment_text}"}
         response = self.make_request("POST", f"animals/{animal_id}/comments", json=data)
-        return response and response.status_code == 200
+        return bool(response and response.status_code == 200)
 
     def login(self):
         """Show PIN entry dialog for authentication."""
@@ -127,7 +127,7 @@ class APIAuthManager:
         submit = QPushButton("Submit")
         grid.addWidget(submit, 1, 2)
         submit.clicked.connect(lambda: self.compare_pin(login_entry.text().strip(), dlg))
-        self._login_dialog = dlg
+        self.login_dialog = dlg
         dlg.adjustSize()
         dlg.exec()
 
@@ -324,8 +324,12 @@ class UIManager:
         # Comment table
         self.main_window.comment_tv = QTableWidget(0, 2)
         self.main_window.comment_tv.setHorizontalHeaderLabels(["Date", "Content"])
-        self.main_window.comment_tv.horizontalHeader().setStretchLastSection(True)
-        self.main_window.comment_tv.verticalHeader().setVisible(False)
+        hdr = self.main_window.comment_tv.horizontalHeader()
+        assert hdr is not None
+        hdr.setStretchLastSection(True)
+        vhdr = self.main_window.comment_tv.verticalHeader()
+        assert vhdr is not None
+        vhdr.setVisible(False)
         self.main_window.comment_tv.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         left.addWidget(self.main_window.comment_tv, stretch=3)
 
@@ -414,7 +418,7 @@ class UIManager:
         self.main_window.bonsai_exe_edit.setPlaceholderText("Path to Bonsai.exe")
         layout.addWidget(self.main_window.bonsai_exe_edit, 1, 1)
         bonsai_browse_btn = QPushButton("Browse…")
-        bonsai_browse_btn.clicked.connect(self.main_window._browse_bonsai_exe)
+        bonsai_browse_btn.clicked.connect(self.main_window.browse_bonsai_exe)
         layout.addWidget(bonsai_browse_btn, 1, 2)
 
         layout.addWidget(QLabel("Workflow:"), 2, 0)
@@ -422,11 +426,11 @@ class UIManager:
         self.main_window.workflow_edit.setPlaceholderText("Path to .bonsai workflow")
         layout.addWidget(self.main_window.workflow_edit, 2, 1)
         workflow_browse_btn = QPushButton("Browse…")
-        workflow_browse_btn.clicked.connect(self.main_window._browse_workflow)
+        workflow_browse_btn.clicked.connect(self.main_window.browse_workflow)
         layout.addWidget(workflow_browse_btn, 2, 2)
 
         self.main_window.start_session_btn = QPushButton("Start Session")
-        self.main_window.start_session_btn.clicked.connect(self.main_window._start_session)
+        self.main_window.start_session_btn.clicked.connect(self.main_window.start_session)
         layout.addWidget(self.main_window.start_session_btn, 3, 0, 1, 2)
 
         self.main_window.session_status_label = QLabel("")
@@ -833,7 +837,7 @@ class DataManager:
     def rebuild_table(self, filtered_rows: List[List[Any]]):
         """Rebuild the table with filtered data."""
         self.populate_table(filtered_rows)
-        if hasattr(self.main_window, 'original_index') and self.main_window.original_index is not None:
+        if hasattr(self.main_window, 'original_index'):
             for r in range(self.main_window.table.rowCount()):
                 idx_item = self.main_window.table.item(r, 0)
                 if idx_item and str(idx_item.text()) == str(self.main_window.original_index):
@@ -858,12 +862,12 @@ class DataManager:
         if text == "responsible":
             text = self.main_window.api_auth_manager.current_user
         if text == "":
-            self.main_window._load_data()
+            self.main_window.load_data()
         else:
             filtered_rows = [row for row in self.main_window.rows if any(str(text) in str(cell) for cell in row)]
             self.rebuild_table(filtered_rows)
 
-    def format_weight_history(self, animal_id: str) -> Optional[List[tuple]]:
+    def format_weight_history(self, animal_id: str) -> Optional[tuple[list, list]]:
         """Format weight history data to (date, weight) tuples."""
         weight_history_data = self.main_window.api_auth_manager.get_indiv_mouse_weight(animal_id)
         if not weight_history_data:
@@ -894,7 +898,7 @@ class DataManager:
         if idx_item:
             idx = int(idx_item.text())
             animal_info = self.main_window.info[idx]
-            ref_bw_cmt = animal_info.get("comments")
+            ref_bw_cmt = animal_info.get("comments") or []
             try:
                 for cmt in ref_bw_cmt:
                     content = cmt.get("content", "")
@@ -930,7 +934,7 @@ class PyratAPI(QMainWindow):
 
         # Configuration
         self.timeout = 20
-        config = self._load_config()
+        config = self.load_config()
         self.URL = config["url"]
         self.client_token = config["client_token"]
         self.users = config["users"]
@@ -948,12 +952,12 @@ class PyratAPI(QMainWindow):
         self.original_index = int(0)
         self.selected_cage: Optional[str] = None
         # Debounce flag
-        self._showinfo_job_active = False
+        self.showinfo_job_active = False
 
         # Session launcher
-        self._bonsai_proc: Optional[subprocess.Popen] = None
-        self._session_json_path: Optional[Path] = None
-        self._session_output_json_path: Optional[Path] = None
+        self.bonsai_proc: Optional[subprocess.Popen] = None
+        self.session_json_path: Optional[Path] = None
+        self.session_output_json_path: Optional[Path] = None
 
         # UI widgets — assigned by UIManager.setup_ui(); declared here for static analysis
         self.status_label: QLabel
@@ -1002,9 +1006,9 @@ class PyratAPI(QMainWindow):
         if saved_workflow:
             self.workflow_edit.setText(saved_workflow)
 
-        self._load_data()
+        self.load_data()
 
-    def _load_config(self) -> dict:
+    def load_config(self) -> dict:
         """Load server URL from pyrat_server.yaml and credentials from users.json."""
         import yaml
 
@@ -1028,7 +1032,7 @@ class PyratAPI(QMainWindow):
 
         return {"url": url, "client_token": client_token, "users": users}
 
-    def _load_data(self):
+    def load_data(self):
         """Load animal data from API and populate table."""
         animals = self.api_auth_manager.fetch_animal_list()
         if not animals:
@@ -1039,7 +1043,7 @@ class PyratAPI(QMainWindow):
         self.columns, self.rows = self.data_manager.transform_animal_data(self.info)
         if self.rows:
             self.data_manager.populate_table(self.rows)
-        self._populate_launch_mouse_combo()
+        self.populate_launch_mouse_combo()
 
     def toggle_login_logout(self):
         """Toggle login/logout."""
@@ -1093,14 +1097,14 @@ class PyratAPI(QMainWindow):
 
     def showinfo(self):
         """Debounced selection callback from table."""
-        if self._showinfo_job_active:
+        if self.showinfo_job_active:
             return
-        self._showinfo_job_active = True
+        self.showinfo_job_active = True
         QTimer.singleShot(0, self.showinfo_update)
 
     def showinfo_update(self):
         """Update details panel for selected animal."""
-        self._showinfo_job_active = False
+        self.showinfo_job_active = False
         sel_ranges = self.table.selectedRanges()
         if not sel_ranges:
             return
@@ -1116,7 +1120,11 @@ class PyratAPI(QMainWindow):
             return
 
         animal_selected = self.info[self.original_index]
-        self.selected_cage = str(self.table.item(r, self.columns.index("Cage Number")).text()).strip() if "Cage Number" in self.columns else animal_selected.get("Cage Number", "").strip()
+        if "Cage Number" in self.columns:
+            cage_item = self.table.item(r, self.columns.index("Cage Number"))
+            self.selected_cage = cage_item.text().strip() if cage_item is not None else ""
+        else:
+            self.selected_cage = animal_selected.get("Cage Number", "").strip()
 
         comments = animal_selected.get("comments", []) or []
         self.comment_tv.setRowCount(0)
@@ -1220,7 +1228,7 @@ class PyratAPI(QMainWindow):
             return
 
         if has_changes:
-            self._load_data()
+            self.load_data()
 
         entry_widget.clear()
         self.showinfo_update()
@@ -1296,7 +1304,7 @@ class PyratAPI(QMainWindow):
         dlg.exec()
 
 
-    def _populate_launch_mouse_combo(self):
+    def populate_launch_mouse_combo(self):
         """Populate the Launch Session mouse dropdown from loaded animal data."""
         combo = self.launch_mouse_combo
         combo.clear()
@@ -1306,21 +1314,21 @@ class PyratAPI(QMainWindow):
             label = eartag + (f" ({labid})" if labid else "")
             combo.addItem(label, userData=eartag)
 
-    def _browse_bonsai_exe(self):
+    def browse_bonsai_exe(self):
         """Open file browser to select Bonsai.exe."""
         path, _ = QFileDialog.getOpenFileName(self, "Select Bonsai.exe", "", "Executables (*.exe)")
         if path:
             self.bonsai_exe_edit.setText(path)
             QSettings("UCL", "PyRATGUI").setValue("bonsai_exe_path", path)
 
-    def _browse_workflow(self):
+    def browse_workflow(self):
         """Open file browser to select a .bonsai workflow file."""
         path, _ = QFileDialog.getOpenFileName(self, "Select Bonsai Workflow", "", "Bonsai Workflows (*.bonsai)")
         if path:
             self.workflow_edit.setText(path)
             QSettings("UCL", "PyRATGUI").setValue("workflow_path", path)
 
-    def _start_session(self):
+    def start_session(self):
         """Build session JSON and launch Bonsai subprocess."""
         eartag = self.launch_mouse_combo.currentData()
         idx = self.launch_mouse_combo.currentIndex()
@@ -1349,9 +1357,9 @@ class PyratAPI(QMainWindow):
         json_path.write_text(session.model_dump_json(indent=2, by_alias=True))
 
         out_path = json_path.with_stem(json_path.stem + "_out")
-        self._session_json_path = json_path
-        self._session_output_json_path = out_path
-        self._bonsai_proc = subprocess.Popen(
+        self.session_json_path = json_path
+        self.session_output_json_path = out_path
+        self.bonsai_proc = subprocess.Popen(
             [
                 bonsai_exe, workflow,
                 "--property", f"PyRatInputPath={json_path}",
@@ -1361,14 +1369,14 @@ class PyratAPI(QMainWindow):
         )
         self.start_session_btn.setEnabled(False)
         self.session_status_label.setText("Session running…")
-        QTimer.singleShot(500, self._poll_bonsai) # Start polling after a short delay (500ms) to allow Bonsai to initialize
+        QTimer.singleShot(500, self.poll_bonsai) # Start polling after a short delay (500ms) to allow Bonsai to initialize
 
-    def _poll_bonsai(self):
+    def poll_bonsai(self):
         """Check if Bonsai has exited; if so, trigger the post-session dialog."""
-        if self._bonsai_proc and self._bonsai_proc.poll() is not None:
-            returncode = self._bonsai_proc.returncode
-            _, stderr_bytes = self._bonsai_proc.communicate()
-            self._bonsai_proc = None
+        if self.bonsai_proc and self.bonsai_proc.poll() is not None:
+            returncode = self.bonsai_proc.returncode
+            _, stderr_bytes = self.bonsai_proc.communicate()
+            self.bonsai_proc = None
             self.session_status_label.setText("Session ended.")
             self.start_session_btn.setEnabled(True)
             if returncode != 0:
@@ -1378,14 +1386,14 @@ class PyratAPI(QMainWindow):
                     msg += f"\n\n{stderr_text}"
                 QMessageBox.warning(self, "Bonsai Error", msg)
                 return
-            self._post_session_dialog()
-        elif self._bonsai_proc:
-            QTimer.singleShot(500, self._poll_bonsai)
+            self.post_session_dialog()
+        elif self.bonsai_proc:
+            QTimer.singleShot(500, self.poll_bonsai)
 
-    def _post_session_dialog(self):
+    def post_session_dialog(self):
         """Read output session JSON (written by Bonsai), pre-populate dialog, then post to PyRAT."""
-        out_path = self._session_output_json_path
-        read_path = out_path if (out_path and out_path.exists()) else self._session_json_path # Could be either the original or output path
+        out_path = self.session_output_json_path
+        read_path = out_path if (out_path and out_path.exists()) else self.session_json_path # Could be either the original or output path
         if not read_path or not read_path.exists():
             return
 
