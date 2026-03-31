@@ -1355,6 +1355,8 @@ class PyratAPI(QMainWindow):
         timestamp = session.session_start.strftime("%Y%m%d_%H%M%S")
         json_path = sessions_dir / f"{eartag}_{timestamp}.json"
         json_path.write_text(session.model_dump_json(indent=2, by_alias=True))
+        start_str = session.session_start.strftime("%Y-%m-%d %H:%M:%S UTC")
+        self.api_auth_manager.post_comment(eartag, f"sessionstart: {Path(workflow).stem} [{start_str}]")
 
         out_path = json_path.with_stem(json_path.stem + "_out")
         self.session_json_path = json_path
@@ -1432,6 +1434,8 @@ class PyratAPI(QMainWindow):
             session.comment = comment or None
             session.session_end = session.session_end or datetime.now(timezone.utc)
             read_path.write_text(session.model_dump_json(indent=2, by_alias=True))
+            end_str = session.session_end.strftime("%Y-%m-%d %H:%M:%S UTC")
+            self.api_auth_manager.post_comment(eartag, f"sessionend: {Path(session.workflow).stem} [{end_str}]")
             if total_water > 0:
                 end_str = session.session_end.strftime("%Y-%m-%d %H:%M:%S UTC")
                 success = self.api_auth_manager.post_comment(
