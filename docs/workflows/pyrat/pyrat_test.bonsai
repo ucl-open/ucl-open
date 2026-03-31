@@ -13,7 +13,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="io:ReadAllText">
-          <io:Path>C:\dev\ucl-open\rigs\src\PyRAT_GUI\sessions\CBR1-05823_20260330_164729.json</io:Path>
+          <io:Path></io:Path>
         </Combinator>
       </Expression>
       <Expression xsi:type="p1:DeserializeFromJson">
@@ -150,7 +150,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="io:WriteAllText">
-                <io:Path>C:\dev\ucl-open\rigs\src\PyRAT_GUI\sessions\CBR1-05823_20260330_164729_out.json</io:Path>
+                <io:Path></io:Path>
                 <io:Overwrite>true</io:Overwrite>
                 <io:Append>false</io:Append>
               </Combinator>
