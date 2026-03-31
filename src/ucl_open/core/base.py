@@ -1,4 +1,59 @@
-from typing import Literal
+from enum import StrEnum
+from typing import Annotated, Generic, TypeVar, Any, Literal
+from pydantic import Field
+from swc.aeon.schema import BaseSchema
+
+__all__ = ["TimestampSource", "Vector2", "Vector3", "SoftwareEvent"]
+
+SByte = Annotated[int, Field(ge=-128, le=127)]
+Byte = Annotated[int, Field(ge=0, le=255)]
+Short = Annotated[int, Field(ge=-32768, le=32767)]
+UShort = Annotated[int, Field(ge=0, le=65535)]
+Int = Annotated[int, Field(ge=-2147483648, le=2147483647)]
+UInt = Annotated[int, Field(ge=0, le=4294967295)]
+Long = Annotated[int, Field(ge=-9223372036854775808, le=9223372036854775807)]
+ULong = Annotated[int, Field(ge=0, le=18446744073709551615)]
+
+Float = float
+Double = float
+String = str
+Bool = bool
+
+
+class TimestampSource(StrEnum):
+    NULL = "null"
+    HARP = "harp"
+    RENDER = "render"
+    ARDUINO = "arduino"
+
+
+class Vector2(BaseSchema):
+    x: float = Field(description="X coordinate of the point.")
+    y: float = Field(description="Y coordinate of the point.")
+
+
+class Vector3(Vector2):
+    z: float = Field(description="Z coordinate of the point.")
+
+
+TData = TypeVar("TData", bound=Any)
+
+
+class SoftwareEvent(BaseSchema, Generic[TData]):
+    """
+    A software event is a generic event that can be used to track any event that occurs in the software.
+    """
+
+    name: str = Field(..., description="The name of the event.")
+    timestamp: float | None = Field(default=None, description="The timestamp of the event.")
+    timestamp_source: TimestampSource = Field(
+        default=TimestampSource.NULL,
+        description="The source of the timestamp. Typically either a harp device or on the visual render loop",
+    )
+    frame_index: int | None = Field(default=None, ge=0, description="The frame index of the event.")
+    frame_timestamp: float | None = Field(default=None, description="The timestamp of the frame.")
+    data: TData | None = Field(default=None, description="The data payload of the event.")
+
 
 
 class DiscriminatorTypeMixin:

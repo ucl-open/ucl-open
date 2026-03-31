@@ -2,7 +2,7 @@ from typing import List
 from pydantic import Field
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.harp import HarpBehavior
-from ucl_open.core.data_types import UShort
+from ucl_open.core.base import UShort
 
 
 class CameraController(BaseSchema):

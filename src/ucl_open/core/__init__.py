@@ -1,5 +1,5 @@
 from ucl_open.core.base import DiscriminatorTypeMixin
-from ucl_open.core.data_types import (
+from ucl_open.core.base import (
     SByte,
     Byte,
     Short,
