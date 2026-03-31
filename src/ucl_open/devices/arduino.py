@@ -4,7 +4,7 @@ from ucl_open.devices.device import SerialDevice
 
 
 class ArduinoDevice(SerialDevice):
-    """Represents a base class for Arduino serial devices used in Bonsai workflows."""
+    """Represents a base class for Arduino serial devices."""
 
     sampling_interval: int = Field(
         description="Sampling interval, in milliseconds, between analog and I2C measurements."
