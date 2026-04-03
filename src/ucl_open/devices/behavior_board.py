@@ -6,10 +6,7 @@ from ucl_open.core.base import UShort
 
 
 class CameraController(BaseSchema):
-    """Represents a CameraController Module for a BehaviourBoard device.
-    Mirrors the externalized properties of the Bonsai workflow of the same name,
-    excluding subject name properties.
-    """
+    """Represents a CameraController module on a BehaviorBoard device."""
 
     trigger_frequency: int = Field(
         examples=["50"],
