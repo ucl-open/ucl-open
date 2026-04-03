@@ -14,3 +14,5 @@ _version.py
 **/.bonsai/*
 !**/.bonsai/Bonsai.config
 !**/.bonsai/NuGet.config
+
+.coverage
