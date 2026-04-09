@@ -23,7 +23,7 @@ class PulseWidths(BaseSchema):
 class PulseController(BaseSchema):
     """Represents the PulseController module on the BehaviorBoard."""
 
-    output_pulse_enable: List[str] = Field(
+    active_pulses: List[str] = Field(
         default_factory=lambda: ["DO1", "DO2", "DO3"],
         description="List of digital output lines that are enabled for pulse generation.",
     )
