@@ -50,6 +50,6 @@ class BehaviorBoard(HarpBehavior):
     camera_controller: CameraController | None = Field(
         default=None, description="Optional CameraController module for emitting camera trigger pulses."
     )
-    running_wheel: RunningWheelModule | None = Field(
+    running_wheel: RunningWheel | None = Field(
         default=None, description="Optional RunningWheelModule module to define wheel geometry."
     )

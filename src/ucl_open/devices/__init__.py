@@ -7,7 +7,7 @@ from ucl_open.devices.behavior_board import (
     CameraController,
     PulseWidths,
     PulseController,
-    RunningWheelModule,
+    RunningWheel,
     BehaviorBoard,
 )
 from ucl_open.devices.data_types import SpoutRigPosition, StepperPositions
@@ -33,7 +33,7 @@ __all__ = [
     "CameraController",
     "PulseWidths",
     "PulseController",
-    "RunningWheelModule",
+    "RunningWheel",
     "BehaviorBoard",
     "SpoutRigPosition",
     "StepperPositions",
