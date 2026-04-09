@@ -13,7 +13,6 @@ from ucl_open.devices.behavior_board import (
 from ucl_open.devices.data_types import SpoutRigPosition, StepperPositions
 from ucl_open.devices.device import (
     SerialDevice,
-    SerialDeviceModule,
     LicketySplit,
     LickSpoutStageDriver,
 )
@@ -38,7 +37,6 @@ __all__ = [
     "SpoutRigPosition",
     "StepperPositions",
     "SerialDevice",
-    "SerialDeviceModule",
     "LicketySplit",
     "LickSpoutStageDriver",
     "HarpDevice",

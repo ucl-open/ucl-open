@@ -7,19 +7,10 @@ import ucl_open.devices.data_types as device_data_types
 
 
 class SerialDevice(BaseSchema):
-    """A base class for creating serial device models."""
+    """Represents a serial communication device."""
 
     port_name: str = Field(examples=["COMx"], description="The name of the device serial port.")
     baud_rate: int = Field(default=9600, description="Baud rate for serial communication.")
-
-
-class SerialDeviceModule(SerialDevice):
-    """Represents the SerialDevice workflow module.
-
-    Mirrors all externalized properties of SerialDevice.bonsai, including
-    port configuration, framing and buffer settings.
-    """
-
     new_line: str = Field(
         default="\r\n", description="Line termination sequence used to delimit incoming messages."
     )
@@ -40,7 +31,7 @@ class LicketySplit(HarpDevice):
     )
 
 
-class LickSpoutStageDriver(SerialDeviceModule):
+class LickSpoutStageDriver(SerialDevice):
     """Represents an Arduino device driving stepper motors controlling a lick spout stage."""
 
     device_type: Literal["LickSpoutStageDriver"] = "LickSpoutStageDriver"
