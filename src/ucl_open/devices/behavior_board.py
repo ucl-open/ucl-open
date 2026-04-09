@@ -30,7 +30,7 @@ class PulseController(BaseSchema):
     pulse_widths: PulseWidths = Field(description="Pulse width configuration for DO1, DO2, and DO3 lines.")
 
 
-class RunningWheelModule(BaseSchema):
+class RunningWheel(BaseSchema):
     """Represents the RunningWheel Bonsai workflow module.
     Exposes wheel geometry parameters used to compute speed and distance from encoder counts.
     """
