@@ -31,7 +31,7 @@ class PulseController(BaseSchema):
 
 
 class RunningWheel(BaseSchema):
-    """Represents the RunningWheel Bonsai workflow module.
+    """Represents configuration parameters of the RunningWheel module.
     Exposes wheel geometry parameters used to compute speed and distance from encoder counts.
     """
 
