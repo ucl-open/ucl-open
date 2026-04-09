@@ -21,11 +21,7 @@ class PulseWidths(BaseSchema):
 
 
 class PulseController(BaseSchema):
-    """
-    Represents the PulseController module on the BehaviourBoard.
-    Mirrors the externalized properties of the Bonsai workflow of the same name,
-    excluding subject name properties.
-    """
+    """Represents the PulseController module on the BehaviorBoard."""
 
     output_pulse_enable: List[str] = Field(
         default_factory=lambda: ["DO1", "DO2", "DO3"],
