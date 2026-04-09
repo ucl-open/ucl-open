@@ -14,14 +14,10 @@ class DisplayIntrinsics(BaseSchema):
 
 class DisplayExtrinsics(BaseSchema):
     rotation: Types.Vector3 = Field(
-        default=Types.Vector3(x=0.0, y=0.0, z=0.0),
-        description="Rotation vector (radians)",
-        validate_default=True,
+        description="Euler rotation vector (radians)"
     )
     translation: Types.Vector3 = Field(
-        default=Types.Vector3(x=0.0, y=1.309016, z=-13.27),
-        description="Translation (in cm)",
-        validate_default=True,
+        description="Translation vector"
     )
 
 
