@@ -6,10 +6,10 @@ from swc.aeon.schema import BaseSchema
 
 
 class DisplayIntrinsics(BaseSchema):
-    frame_width: int = Field(default=1920, ge=0, description="Frame width (px)")
-    frame_height: int = Field(default=1080, ge=0, description="Frame height (px)")
-    display_width: float = Field(default=20, ge=0, description="Display width (cm)")
-    display_height: float = Field(default=15, ge=0, description="Display width (cm)")
+    frame_width: int = Field(default=1920, ge=0, description="Pixel frame width")
+    frame_height: int = Field(default=1080, ge=0, description="Pixel frame height")
+    display_width: float = Field(default=20, ge=0, description="Physical display width")
+    display_height: float = Field(default=15, ge=0, description="Physical display height")
 
 
 class DisplayExtrinsics(BaseSchema):
