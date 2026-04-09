@@ -46,9 +46,9 @@ class LickSpoutStageDriver(SerialDeviceModule):
     device_type: Literal["LickSpoutStageDriver"] = "LickSpoutStageDriver"
 
     # Protocol command bytes
-    byte_move: data_types.Byte = Field(default=71, description="Command byte for MOVE.")
-    byte_set_speed: data_types.Byte = Field(default=72, description="Command byte for SET SPEED.")
-    byte_set_acceleration: data_types.Byte = Field(
+    move: data_types.Byte = Field(default=71, description="Command byte for MOVE.")
+    set_speed: data_types.Byte = Field(default=72, description="Command byte for SET SPEED.")
+    set_acceleration: data_types.Byte = Field(
         default=73, description="Command byte for SET ACCELERATION."
     )
 
