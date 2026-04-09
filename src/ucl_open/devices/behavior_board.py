@@ -35,7 +35,7 @@ class RunningWheel(BaseSchema):
     Exposes wheel geometry parameters used to compute speed and distance from encoder counts.
     """
 
-    counts_per_rev: int = Field(
+    counts_per_revolution: int = Field(
         description="Number of encoder counts per full revolution of the running wheel."
     )
     wheel_diameter_mm: float = Field(description="The diameter, in millimeters, of the running wheel.")
