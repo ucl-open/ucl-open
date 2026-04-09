@@ -28,9 +28,9 @@ def test_camera_discriminator(klass: type[CameraRig], parameter: Dict[str, Camer
 @pytest.mark.parametrize(
     ("klass", "parameter", "expected"), 
     [
-        (CameraRig, {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180(), "excluded": ExcludedDevice()}, "")
+        (CameraRig, {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180(), "excluded": ExcludedDevice()}, ValidationError)
     ]
 )
-def test_camera_exclusion(klass: type[CameraRig], parameter: Dict[str, Camera], expected: str):
-    with pytest.raises(ValidationError):
+def test_camera_exclusion(klass: type[CameraRig], parameter: Dict[str, Camera], expected: type):
+    with pytest.raises(expected):
         klass(root_path="", cameras=parameter)
