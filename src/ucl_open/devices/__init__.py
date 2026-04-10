@@ -10,11 +10,12 @@ from ucl_open.devices.behavior_board import (
     RunningWheel,
     BehaviorBoard,
 )
-from ucl_open.devices.data_types import SpoutRigPosition, StepperPositions
 from ucl_open.devices.device import (
     SerialDevice,
     LicketySplit,
     LickSpoutStageDriver,
+    SpoutRigPosition,
+    StepperPositions,
 )
 from ucl_open.devices.harp import (
     HarpDevice,

@@ -4,7 +4,6 @@ import json
 import pydantic
 
 import ucl_open.core.base as _core_dt
-import ucl_open.devices.data_types as _dev_dt
 
 
 def _collect_fields(*modules):
@@ -17,7 +16,7 @@ def _collect_fields(*modules):
     return fields
 
 
-DataTypes = pydantic.create_model("DataTypes", **_collect_fields(_core_dt, _dev_dt))
+DataTypes = pydantic.create_model("DataTypes", **_collect_fields(_core_dt))
 
 SCHEMA_ROOT = Path("./src/ucl_open/schemas")
 
