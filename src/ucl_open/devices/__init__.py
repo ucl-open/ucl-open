@@ -4,7 +4,7 @@ from ucl_open.devices.arduino import (
     LedDriver,
 )
 from ucl_open.devices.behavior_board import (
-    CameraController,
+    CameraTriggerController,
     PulseWidths,
     PulseController,
     RunningWheel,
@@ -30,7 +30,7 @@ __all__ = [
     "ArduinoDevice",
     "LedController",
     "LedDriver",
-    "CameraController",
+    "CameraTriggerController",
     "PulseWidths",
     "PulseController",
     "RunningWheel",

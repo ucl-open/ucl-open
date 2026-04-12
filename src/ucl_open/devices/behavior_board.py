@@ -5,12 +5,16 @@ from ucl_open.devices.harp import HarpBehavior
 from ucl_open.core.base import UShort
 
 
-class CameraController(BaseSchema):
-    """Represents a CameraController module on a BehaviorBoard device."""
+class CameraTriggerController(BaseSchema):
+    """Represents a CameraTriggerController module on a BehaviorBoard device."""
 
-    trigger_frequency: int = Field(
+    trigger0_frequency: int = Field(
         examples=["50"],
-        description="The frequency, in Hz, at which to emit camera triggers from DO0 of a behavior board (`CameraOutput0`)",
+        description="The frequency, in Hz, at which to emit camera triggers on Trigger0 (DO0, CameraOutput0)",
+    )
+    trigger1_frequency: int = Field(
+        examples=["50"],
+        description="The frequency, in Hz, at which to emit camera triggers on Trigger1 (DO1, CameraOutput1)",
     )
 
 
@@ -47,8 +51,8 @@ class BehaviorBoard(HarpBehavior):
     pulse_controller: PulseController | None = Field(
         default=None, description="Optional PulseController module for generating digital output pulses."
     )
-    camera_controller: CameraController | None = Field(
-        default=None, description="Optional CameraController module for emitting camera trigger pulses."
+    camera_trigger_controller: CameraTriggerController | None = Field(
+        default=None, description="Optional CameraTriggerController module for emitting camera trigger pulses."
     )
     running_wheel: RunningWheel | None = Field(
         default=None, description="Optional RunningWheelModule module to define wheel geometry."
