@@ -10,9 +10,9 @@ from ucl_open.devices.behavior_board import (
     RunningWheel,
     BehaviorBoard,
 )
-from ucl_open.devices.device import (
-    SerialDevice,
-    LicketySplit,
+from ucl_open.devices.serial import SerialDevice
+from ucl_open.devices.lickety_split import LicketySplit
+from ucl_open.devices.lick_spout_stage import (
     LickSpoutStageDriver,
     SpoutRigPosition,
     StepperPositions,

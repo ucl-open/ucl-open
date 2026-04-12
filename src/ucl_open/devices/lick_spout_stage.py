@@ -1,7 +1,7 @@
-from typing import ClassVar, Dict, Literal
+from typing import Dict, Literal
 from pydantic import Field
-from ucl_open.devices.harp import HarpDevice
 from swc.aeon.schema import BaseSchema
+from ucl_open.devices.serial import SerialDevice
 import ucl_open.core.base as data_types
 
 
@@ -61,31 +61,6 @@ class SpoutRigPosition(BaseSchema):
                 },
             }
         ],
-    )
-
-
-class SerialDevice(BaseSchema):
-    """Represents a serial communication device."""
-
-    port_name: str = Field(examples=["COMx"], description="The name of the device serial port.")
-    baud_rate: int = Field(default=9600, description="Baud rate for serial communication.")
-    new_line: str = Field(
-        default="\r\n", description="Line termination sequence used to delimit incoming messages."
-    )
-    read_buffer_size: int = Field(default=4096, description="Size, in bytes, of the read buffer.")
-    write_buffer_size: int = Field(default=2048, description="Size, in bytes, of the write buffer.")
-
-
-class LicketySplit(HarpDevice):
-    """Represents a Harp LicketySplit device."""
-
-    device_type: Literal["LicketySplit"] = "LicketySplit"
-    who_am_i: ClassVar[int] = 1400
-    channel0_trigger_threshold: data_types.UShort = Field(
-        default=0, description="ADC threshold above which Channel 0 triggers a lick"
-    )
-    channel0_untrigger_threshold: data_types.UShort = Field(
-        default=0, description="ADC threshold below which Channel 0 untriggers a lick"
     )
 
 
