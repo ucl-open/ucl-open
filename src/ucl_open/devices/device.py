@@ -107,4 +107,4 @@ class LickSpoutStageDriver(SerialDevice):
     accel_minor: int = Field(default=2, description="Minor acceleration component.")
 
     # Set positions
-    set_positions: SpoutRigPosition
+    set_position: SpoutRigPosition
