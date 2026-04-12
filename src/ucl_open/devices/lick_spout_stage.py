@@ -1,4 +1,4 @@
-from typing import Dict, Literal
+from typing import Dict
 from pydantic import Field
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.serial import SerialDevice
@@ -66,8 +66,6 @@ class SpoutRigPosition(BaseSchema):
 
 class LickSpoutStageDriver(SerialDevice):
     """Represents an Arduino device driving stepper motors controlling a lick spout stage."""
-
-    device_type: Literal["LickSpoutStageDriver"] = "LickSpoutStageDriver"
 
     # Protocol command bytes
     move: data_types.Byte = Field(default=71, description="Command byte for MOVE.")
