@@ -103,8 +103,8 @@ class LickSpoutStageDriver(SerialDevice):
 
     # Motion parameters
     speed: int = Field(default=300, description="Default motor speed.")
-    accel_major: int = Field(default=20, description="Major acceleration component.")
-    accel_minor: int = Field(default=2, description="Minor acceleration component.")
+    acceleration_major: int = Field(default=20, description="Major acceleration component.")
+    acceleration_minor: int = Field(default=2, description="Minor acceleration component.")
 
     # Set positions
     set_position: SpoutRigPosition
