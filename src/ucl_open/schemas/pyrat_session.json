@@ -1,0 +1,307 @@
+{
+  "$defs": {
+    "Comment": {
+      "description": "A comment entry as returned in a PyRAT record.",
+      "properties": {
+        "created": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "UTC datetime of the comment.",
+          "title": "Created"
+        },
+        "content": {
+          "default": "",
+          "description": "Comment text.",
+          "title": "Content",
+          "type": "string"
+        }
+      },
+      "title": "Comment",
+      "type": "object"
+    },
+    "Mutation": {
+      "description": "A single mutation entry as returned in a PyRAT record.",
+      "properties": {
+        "mutationname": {
+          "description": "Name of the mutation.",
+          "title": "Mutationname",
+          "type": "string"
+        },
+        "mutationgrade": {
+          "description": "Grade: wt, het, hom, etc.",
+          "title": "Mutationgrade",
+          "type": "string"
+        }
+      },
+      "required": [
+        "mutationname",
+        "mutationgrade"
+      ],
+      "title": "Mutation",
+      "type": "object"
+    },
+    "PyRatSubject": {
+      "description": "Subject record from PyRAT. Matches the self.info dict structure in the GUI.",
+      "properties": {
+        "eartagOrId": {
+          "description": "PyRAT eartag or ID.",
+          "title": "EartagOrId",
+          "type": "string"
+        },
+        "labid": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Lab ID.",
+          "title": "Labid"
+        },
+        "sex": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Biological sex.",
+          "title": "Sex"
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Most recent weight in grams.",
+          "title": "Weight"
+        },
+        "ageDays": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Age in days.",
+          "title": "AgeDays"
+        },
+        "ageWeeks": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Age in weeks.",
+          "title": "AgeWeeks"
+        },
+        "strainNameWithId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Strain name with ID.",
+          "title": "StrainNameWithId"
+        },
+        "responsibleFullname": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Responsible researcher.",
+          "title": "ResponsibleFullname"
+        },
+        "responsibleId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Responsible researcher ID.",
+          "title": "ResponsibleId"
+        },
+        "mutations": {
+          "description": "Mutations.",
+          "items": {
+            "$ref": "#/$defs/Mutation"
+          },
+          "title": "Mutations",
+          "type": "array"
+        },
+        "cagenumber": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Cage number.",
+          "title": "Cagenumber"
+        },
+        "cagetype": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Cage type.",
+          "title": "Cagetype"
+        },
+        "roomName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Room name.",
+          "title": "RoomName"
+        },
+        "dateLastComment": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date of last comment.",
+          "title": "DateLastComment"
+        },
+        "comments": {
+          "description": "Recent comments.",
+          "items": {
+            "$ref": "#/$defs/Comment"
+          },
+          "title": "Comments",
+          "type": "array"
+        }
+      },
+      "required": [
+        "eartagOrId"
+      ],
+      "title": "PyRatSubject",
+      "type": "object"
+    }
+  },
+  "description": "Written to JSON by Python pre-session. Bonsai reads and rewrites the full\nJSON post-session with water_delivered_ml, comment, and session_end populated.\nPython re-reads it to pre-populate the post-session confirmation dialog,\nthen posts water and comment to PyRAT.",
+  "properties": {
+    "subject": {
+      "$ref": "#/$defs/PyRatSubject",
+      "title": "Subject"
+    },
+    "sessionStart": {
+      "format": "date-time",
+      "title": "SessionStart",
+      "type": "string"
+    },
+    "workflow": {
+      "title": "Workflow",
+      "type": "string"
+    },
+    "waterDeliveredMl": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "WaterDeliveredMl"
+    },
+    "comment": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Comment"
+    },
+    "sessionEnd": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "SessionEnd"
+    },
+    "comments": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Comment"
+      },
+      "title": "Comments",
+      "type": "array"
+    }
+  },
+  "required": [
+    "subject",
+    "sessionStart",
+    "workflow"
+  ],
+  "title": "SessionConfig",
+  "type": "object"
+}

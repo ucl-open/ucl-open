@@ -8,6 +8,9 @@ _version.py
 *.egg
 /artifacts/
 
+# Credentials
+src/PyRAT_GUI/users.json
+
 # IDE
 .vs/
 .vscode/
