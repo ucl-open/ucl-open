@@ -30,8 +30,8 @@ line-length = 108
 
 [tool.pyright]
 useLibraryCodeForTypes = false
-reportMissingImports = "none"
-reportIncompatibleVariableOverride = "none"
+reportMissingImports = "error"
+reportIncompatibleVariableOverride = "error"
 reportImportCycles = "error"
 reportUnusedImport = "error"
 reportUnusedClass = "error"

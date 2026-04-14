@@ -1,6 +1,6 @@
 # Harp Behavior Board Interface
 
-This module configures the PWM on DO0 on an existing [Harp Behavior](https://github.com/harp-tech/device.behavior) board to be used as an external trigger for acquiring camera frames. This module can be added to a workflow that already contains a [`BehaviorBoard.bonsai`](./BehaviorBoard.bonsai) module.
+This module configures the PWM on DO0 and DO1 on an existing [Harp Behavior](https://github.com/harp-tech/device.behavior) board to be used as external triggers for acquiring camera frames. This module can be added to a workflow that already contains a [`BehaviorBoard.bonsai`](./BehaviorBoard.bonsai) module.
 
 ## Bonsai Workflow
 
@@ -16,13 +16,15 @@ This workflow exposes properties that allow a user to connect the module to the 
 |---------------------------|------------------|---------------------------------------------------------------------------------|
 | `BehaviorCommandsSubjectName`     | Input            | The name of the input subject that sends configuration and control commands. **N.B. Must match the `BehaviorCommandsSubjectName` in the properties of the `BehaviorBoard` module.**   |
 | `BehaviorEventsSubjectName`       | Input           | The name of the subject that receives event messages from the device. **N.B. Must match the `BehaviorEventsSubjectName` in the properties of the `BehaviorBoard` module.**           |
-| `CameraTriggerEventsSubjectName` | Output            | The name of the output subject to which camera trigger events from the behavior board will be published   |
+| `Camera0TriggerEventsSubjectName` | Output            | The name of the output subject to which camera trigger events for Trigger0 are published   |
+| `Camera1TriggerEventsSubjectName` | Output            | The name of the output subject to which camera trigger events for Trigger1 are published   |
 
 ### Configuration Parameters
 
 | **Property Name**         | **Input/Output** | **Description**                                                                 |
 |---------------------------|------------------|---------------------------------------------------------------------------------|
-| `TriggerFrequency` | Input            | The frequency at which you wish to trigger camera frame acqusitions   |
+| `Trigger0Frequency` | Input            | The frequency, in Hz, at which to trigger camera frame acquisitions on Trigger0   |
+| `Trigger1Frequency` | Input            | The frequency, in Hz, at which to trigger camera frame acquisitions on Trigger1   |
 
 ## Dependencies
 
