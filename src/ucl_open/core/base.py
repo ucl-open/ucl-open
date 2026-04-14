@@ -55,7 +55,6 @@ class SoftwareEvent(BaseSchema, Generic[TData]):
     data: TData | None = Field(default=None, description="The data payload of the event.")
 
 
-
 class DiscriminatorTypeMixin:
     """Mixin to set `discriminator_type` to the subclass name for types participating in a discriminated union."""
 

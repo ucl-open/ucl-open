@@ -24,6 +24,9 @@ class SpinnakerCamera(DiscriminatorTypeMixin, BaseSchema):
     binning: int = Field(default=1, ge=1, description="The binning setting for the camera.")
 
 
-class Camera(RootModel[Annotated[Union[ArducamOV9180, SpinnakerCamera], Field(discriminator="discriminator_type")]]):
+class Camera(
+    RootModel[Annotated[Union[ArducamOV9180, SpinnakerCamera], Field(discriminator="discriminator_type")]]
+):
     """Discriminated camera configuration (Arducam or Spinnaker)."""
+
     pass

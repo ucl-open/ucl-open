@@ -70,9 +70,7 @@ class LickSpoutStageDriver(SerialDevice):
     # Protocol command bytes
     move: data_types.Byte = Field(default=71, description="Command byte for MOVE.")
     set_speed: data_types.Byte = Field(default=72, description="Command byte for SET SPEED.")
-    set_acceleration: data_types.Byte = Field(
-        default=73, description="Command byte for SET ACCELERATION."
-    )
+    set_acceleration: data_types.Byte = Field(default=73, description="Command byte for SET ACCELERATION.")
 
     # Motion parameters
     speed: int = Field(default=300, description="Default motor speed.")

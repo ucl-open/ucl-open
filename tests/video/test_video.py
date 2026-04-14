@@ -6,30 +6,46 @@ from ucl_open.core.rig import Rig
 from ucl_open.core import DiscriminatorTypeMixin
 from swc.aeon.schema import BaseSchema
 
+
 class CameraRig(Rig):
     cameras: Dict[str, Camera]
+
 
 class ExcludedDevice(DiscriminatorTypeMixin, BaseSchema):
     test_parameter: int = Field(default=0)
 
+
 @pytest.mark.parametrize(
-    ("klass", "parameter", "expected"), 
+    ("klass", "parameter", "expected"),
     [
-        (CameraRig, {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180()}, ["spinnaker", "SpinnakerCamera"]),
-        (CameraRig, {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180()}, ["arducam", "ArducamOV9180"])
-    ]
+        (
+            CameraRig,
+            {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180()},
+            ["spinnaker", "SpinnakerCamera"],
+        ),
+        (
+            CameraRig,
+            {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180()},
+            ["arducam", "ArducamOV9180"],
+        ),
+    ],
 )
 def test_camera_discriminator(klass: type[CameraRig], parameter: Dict[str, Camera], expected: List[str]):
     inst = klass(root_path="", cameras=parameter)
     json_str = inst.model_dump_json()
     deserialized = klass.model_validate_json(json_str)
     assert deserialized.cameras[expected[0]].root.discriminator_type == expected[1]
-    
+
+
 @pytest.mark.parametrize(
-    ("klass", "parameter", "expected"), 
+    ("klass", "parameter", "expected"),
     [
-        (CameraRig, {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180(), "excluded": ExcludedDevice()}, ValidationError)
-    ]
+        (
+            CameraRig,
+            {"spinnaker": SpinnakerCamera(), "arducam": ArducamOV9180(), "excluded": ExcludedDevice()},
+            ValidationError,
+        )
+    ],
 )
 def test_camera_exclusion(klass: type[CameraRig], parameter: Dict[str, Camera], expected: type):
     with pytest.raises(expected):
