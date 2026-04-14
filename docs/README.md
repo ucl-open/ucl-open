@@ -8,9 +8,9 @@ Its purpose is to provide a common layer between shared physical hardware, acqui
 
 ## Core repositories
 
-`ucl-open-rigs` is part of a small set of tightly related core repositories:
+`ucl-open` is part of a small set of tightly related core repositories:
 
-- **ucl-open-rigs** – shared, versioned descriptions of experimental rigs, base pydantic schemas on which to build new experimental repositories.
+- **ucl-open** – shared, versioned descriptions of experimental rigs, base pydantic schemas on which to build new experimental repositories.
 - **[rig-template](https://github.com/ucl-open/rig-template)** – the primary entry point for creating new experiment repositories, using Copier
 - **[acquisition](https://github.com/ucl-open/acquisition)** – Bonsai-based workflows and operators for hardware control and data acquisition
 
@@ -20,7 +20,7 @@ Each of these repositories are developed in tandem, and are dependent on each ot
 
 ## What this repository is
 
-`ucl-open-rigs` provides:
+`ucl-open` provides:
 
 - A **catalogue of reusable rig definitions** (hardware components, connections, capabilities)
 - A **shared contract** that acquisition workflows and experiments (and later, analysis pipelines) can rely on
@@ -32,7 +32,7 @@ The repository is deliberately *not* experiment-specific and does not contain ta
 
 ## What this repository is not
 
-`ucl-open-rigs` is **not**:
+`ucl-open` is **not**:
 
 - A place for experiment code
 - A Bonsai workflow repository
@@ -60,7 +60,7 @@ In most cases, you will **not interact with this repository directly**.
 The most common usage is **automatic**, via:
 
 - An experiment repository created from the [rig-template](https://github.com/ucl-open/rig-template)
-- The template’s **Copier** configuration, which pulls in `ucl-open-rigs`
+- The template’s **Copier** configuration, which pulls in `ucl-open`
 - Integration with the [acquisition](https://github.com/ucl-open/acquisition) repository
 
 Rig definitions are added as a dependency, version-pinned by default, and ready to be selected or extended without manual setup.
@@ -89,7 +89,7 @@ Rig definitions are versioned and intended to be **locked by downstream reposito
 
 Typical practice is:
 
-- Experiment and acquisition repositories pin a specific version (tag or commit) of `ucl-open-rigs`
+- Experiment and acquisition repositories pin a specific version (tag or commit) of `ucl-open`
 - Rig updates are pulled deliberately, not implicitly
 - Breaking changes require an explicit version bump
 
