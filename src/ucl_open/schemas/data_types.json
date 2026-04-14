@@ -1,5 +1,29 @@
 {
   "$defs": {
+    "DataTypes": {
+      "properties": {
+        "vector2": {
+          "$ref": "#/$defs/Vector2"
+        },
+        "vector3": {
+          "$ref": "#/$defs/Vector3"
+        },
+        "softwareEvent": {
+          "$ref": "#/$defs/SoftwareEvent"
+        },
+        "spoutRigPosition": {
+          "$ref": "#/$defs/SpoutRigPosition"
+        }
+      },
+      "required": [
+        "vector2",
+        "vector3",
+        "softwareEvent",
+        "spoutRigPosition"
+      ],
+      "title": "DataTypes",
+      "type": "object"
+    },
     "SoftwareEvent": {
       "description": "A software event is a generic event that can be used to track any event that occurs in the software.",
       "properties": {
@@ -63,6 +87,85 @@
       "title": "SoftwareEvent",
       "type": "object"
     },
+    "SpoutRigPosition": {
+      "description": "Dictionary of named absolute positions, e.g.:\n  home, both_in, both_out",
+      "properties": {
+        "positions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/StepperPositions"
+          },
+          "description": "Named absolute positions of the lick spout stage stepper rig, keyed by a string identifier.",
+          "examples": [
+            {
+              "both_in": {
+                "base_transverse": 500,
+                "left_elevation": 1000,
+                "left_radial": 2000,
+                "right_elevation": 1000,
+                "right_radial": 2000
+              },
+              "both_out": {
+                "base_transverse": 500,
+                "left_elevation": 1000,
+                "left_radial": 1000,
+                "right_elevation": 1000,
+                "right_radial": 1000
+              },
+              "home": {
+                "base_transverse": 0,
+                "left_elevation": 0,
+                "left_radial": 0,
+                "right_elevation": 0,
+                "right_radial": 0
+              }
+            }
+          ],
+          "title": "Positions",
+          "type": "object"
+        }
+      },
+      "title": "SpoutRigPosition",
+      "type": "object"
+    },
+    "StepperPositions": {
+      "description": "Absolute target position for the 5-axis spout rig, expressed in task-relative axes.",
+      "properties": {
+        "leftElevation": {
+          "description": "Left spout elevation axis absolute position (steps). Maps to motor 1",
+          "title": "LeftElevation",
+          "type": "integer"
+        },
+        "rightElevation": {
+          "description": "Right spout elevation axis absolute position (steps). Maps to motor 2",
+          "title": "RightElevation",
+          "type": "integer"
+        },
+        "rightRadial": {
+          "description": "Right spout radial axis (in/out) absolute position (steps). Maps to motor 3",
+          "title": "RightRadial",
+          "type": "integer"
+        },
+        "leftRadial": {
+          "description": "Left spout radial axis (in/out) absolute position (steps). Maps to motor 4",
+          "title": "LeftRadial",
+          "type": "integer"
+        },
+        "baseTransverse": {
+          "description": "Base transverse axis absolute position (steps). Maps to motor 5",
+          "title": "BaseTransverse",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "leftElevation",
+        "rightElevation",
+        "rightRadial",
+        "leftRadial",
+        "baseTransverse"
+      ],
+      "title": "StepperPositions",
+      "type": "object"
+    },
     "TimestampSource": {
       "enum": [
         "null",
@@ -72,6 +175,26 @@
       ],
       "title": "TimestampSource",
       "type": "string"
+    },
+    "Vector2": {
+      "properties": {
+        "x": {
+          "description": "X coordinate of the point.",
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "description": "Y coordinate of the point.",
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "Vector2",
+      "type": "object"
     },
     "Vector3": {
       "properties": {
@@ -100,10 +223,6 @@
       "type": "object"
     }
   },
-  "required": [
-    "vector3",
-    "softwareEvents"
-  ],
-  "title": "DataTypes",
-  "type": "object"
+  "$ref": "#/$defs/DataTypes",
+  "title": "RootModel[DataTypes]"
 }

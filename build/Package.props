@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <PackageTags>Bonsai Rx Ucl Open Rigs</PackageTags>
+    <PackageProjectUrl>https://ucl-open.github.io/rigs</PackageProjectUrl>
+
+    <Authors>University College London</Authors>
+    <Copyright>Copyright © University College London and Contributors</Copyright>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,3 @@
+[submodule "docs/uclopen-docfx"]
+	path = docs/uclopen-docfx
+	url = https://github.com/ucl-open/docfx-tools.git

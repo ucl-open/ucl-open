@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>UclOpen Logging Bonsai library.</Description>
+    <PackageTags>$(PackageTags) Logging</PackageTags>
+    <TargetFrameworks>net472</TargetFrameworks>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.bonsai" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bonsai.System" Version="2.9.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UclOpen.Core\UclOpen.Core.csproj" />
+  </ItemGroup>
+
+</Project>

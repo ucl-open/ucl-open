@@ -3,17 +3,15 @@ requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ucl-open-rigs"
-version = "0.1.0"
+name = "ucl-open"
+dynamic = ["version"]
 description = "Environment to generate and extend shared and reuseable schemas and a DSL for ucl-open experiments"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.12.3",
     "pydantic-yaml>=1.6.0",
-    "swc-aeon-rigs",
-    "pytest",
-    "ruff"
+    "swc-aeon>=0.2.0",
 ]
 
 [project.optional-dependencies]
@@ -32,8 +30,8 @@ line-length = 108
 
 [tool.pyright]
 useLibraryCodeForTypes = false
-reportMissingImports = "none"
-reportIncompatibleVariableOverride = "none"
+reportMissingImports = "error"
+reportIncompatibleVariableOverride = "error"
 reportImportCycles = "error"
 reportUnusedImport = "error"
 reportUnusedClass = "error"
@@ -56,5 +54,8 @@ venvPath = "."
 venv = ".venv"
 exclude = [".venv/*"]
 
-[tool.uv.sources]
-swc-aeon-rigs = { git = "https://github.com/SainsburyWellcomeCentre/aeon_swc_rigs.git" }
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = [
+  "--cov=src/ucl_open",    # Enable pytest-cov for the ucl_open package
+]

@@ -1,0 +1,58 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Core", "src\UclOpen.Core\UclOpen.Core.csproj", "{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Devices", "src\UclOpen.Devices\UclOpen.Devices.csproj", "{A7911D56-69A0-4795-BCDA-80D4EEC22C26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging", "src\UclOpen.Logging\UclOpen.Logging.csproj", "{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Video", "src\UclOpen.Video\UclOpen.Video.csproj", "{622C6B21-3B43-41C2-B44E-389022817334}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Vision", "src\UclOpen.Vision\UclOpen.Vision.csproj", "{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DEE5DD87-39C1-BF34-B639-A387DCCF972B}"
+	ProjectSection(SolutionItems) = preProject
+		build\Common.csproj.props = build\Common.csproj.props
+		build\Common.csproj.targets = build\Common.csproj.targets
+		build\Common.Tests.csproj.props = build\Common.Tests.csproj.props
+		build\icon.png = build\icon.png
+		build\Package.props = build\Package.props
+		build\Project.csproj.props = build\Project.csproj.props
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622C6B21-3B43-41C2-B44E-389022817334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622C6B21-3B43-41C2-B44E-389022817334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622C6B21-3B43-41C2-B44E-389022817334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622C6B21-3B43-41C2-B44E-389022817334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BCBC17F-9E00-4ABC-9CEE-ABB0337E929D}
+	EndGlobalSection
+EndGlobal

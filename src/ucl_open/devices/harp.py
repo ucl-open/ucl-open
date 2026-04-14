@@ -1,0 +1,28 @@
+from typing import ClassVar
+from pydantic import Field
+from swc.aeon.schema import BaseSchema
+
+
+class HarpDevice(BaseSchema):
+    who_am_i: ClassVar[int] = Field(description="The unique identifier for the device type.")
+    port_name: str = Field(examples=["COM"], description="The name of the device serial port.")
+
+
+class HarpClockSynchronizer(HarpDevice):
+    who_am_i: ClassVar[int] = 1152
+
+
+class HarpTimestampGeneratorGen3(HarpDevice):
+    who_am_i: ClassVar[int] = 1158
+
+
+class HarpCameraControllerGen2(HarpDevice):
+    who_am_i: ClassVar[int] = 1170
+
+
+class HarpBehavior(HarpDevice):
+    who_am_i: ClassVar[int] = 1216
+
+
+class HarpHobgoblin(HarpDevice):
+    who_am_i: ClassVar[int] = 123
