@@ -1,8 +1,6 @@
 # Harp Behavior Interface
 This module interfaces and configures a [Harp Behavior](https://github.com/harp-tech/device.behavior) device, developed by [HARP Tech](https://harp.tech/).
 
-<img src="./assets/harp-behavior-device.png" alt="Harp Behavior Device" width="400">
-
 ## Bonsai Workflow
 This workflow establishes basic communication between your workflow and the device. Further functionality, such as triggering cameras, or a solenoid valve, can be found in other, standalone workflows in this, `utilities` section of this repository.
 
