@@ -13,7 +13,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="io:ReadAllText">
-          <io:Path></io:Path>
+          <io:Path />
         </Combinator>
       </Expression>
       <Expression xsi:type="p1:DeserializeFromJson">
@@ -25,7 +25,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="rx:AsyncSubject">
-        <Name>PyratSession</Name>
+        <Name>PyRatSession</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="wie:KeyDown">
@@ -38,7 +38,7 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
-              <Name>PyratSession</Name>
+              <Name>PyRatSession</Name>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
               <Property Name="Value" DisplayName="TotalDeliveredWaterMl" />
@@ -74,7 +74,7 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="MulticastSubject">
-        <Name>PyratSession</Name>
+        <Name>PyRatSession</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="wie:KeyDown">
@@ -87,7 +87,7 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
-              <Name>PyratSession</Name>
+              <Name>PyRatSession</Name>
             </Expression>
             <Expression xsi:type="ExternalizedMapping">
               <Property Name="Value" DisplayName="Comment" />
@@ -119,7 +119,7 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="MulticastSubject">
-        <Name>PyratSession</Name>
+        <Name>PyRatSession</Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="wie:KeyDown">
@@ -135,7 +135,7 @@
         <Workflow>
           <Nodes>
             <Expression xsi:type="SubscribeSubject">
-              <Name>PyratSession</Name>
+              <Name>PyRatSession</Name>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:SetSessionEnd" />
@@ -150,7 +150,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="io:WriteAllText">
-                <io:Path></io:Path>
+                <io:Path />
                 <io:Overwrite>true</io:Overwrite>
                 <io:Append>false</io:Append>
               </Combinator>
