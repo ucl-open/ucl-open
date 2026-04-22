@@ -1,0 +1,12 @@
+from typing import Literal, Dict
+from pydantic import Field
+
+from ucl_open.rigs.base import BaseSchema
+import ucl_open.rigs.device as Device
+
+from {{ python_folder_name }} import __semver__
+
+
+class {{ python_class_prefix }}Rig(BaseSchema):
+    version: Literal[__semver__] = __semver__
+    ...
