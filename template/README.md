@@ -1,12 +1,12 @@
-# Create a new repository from `rig-template` using Copier
+# Create a new repository from the `ucl-open/rigs` template using Copier
 
-This guide explains how to initialize and create a new open-ucl repository from the GitHub template
-`ucl-open/rig-template` using the **Copier** CLI. This tool allows you to recreate the base components of an open-ucl project, including the base Bonsai and Python environments required to get started.
+This guide explains how to initialize and create a new open-ucl repository from the template
+in `ucl-open/rigs` using the **Copier** CLI. This tool allows you to recreate the base components of an open-ucl project, including the base Bonsai and Python environments required to get started.
 
 All powershell commands can be run from the command line or from a terminal in VSCode.
 
 Template source:  
-https://github.com/ucl-open/rig-template.git
+https://github.com/ucl-open/rigs (subdirectory: `template/`)
 
 Copier documentation:  
 https://copier.readthedocs.io/en/stable/
@@ -68,9 +68,9 @@ Run Copier from the directory where you want the new project folder created:
 Example:
 
 ```powershell
-copier copy --vcs-ref main https://github.com/ucl-open/rig-template.git ./my-new-project
+copier copy --vcs-ref HEAD gh:ucl-open/rigs --subdirectory template ./my-new-project
 ```
-the --vcs-ref flag allows you to specify a given branch or tag. Strictly speaking you do not need to point to main, you can instead omit `--vcs-ref main`
+The `--vcs-ref` flag specifies a branch or tag. Use a specific release tag (e.g. `v0.1.0`) to pin to a known-good version, or `HEAD` to use the latest commit on the default branch.
 Copier will prompt you for some basic template variables and then generate the files and directory structure.
 
 ---
