@@ -67,5 +67,5 @@ python_class_prefix:
 rigs_version:
   type: str
   default: "0.1.0"
-  help: Version of ucl-open/rigs packages to use (UclOpen.* NuGet packages)
+  help: Version of ucl-open/ucl-open packages to use (UclOpen.* NuGet packages)
   when: false
