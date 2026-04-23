@@ -53,7 +53,7 @@
       "template"
     ],
     "sitemap": {
-      "baseUrl": "https://ucl-open.github.io/rigs"
+      "baseUrl": "https://ucl-open.github.io/ucl-open"
     },
     "globalMetadata": {
       "_appName": "UclOpen",

@@ -7,7 +7,7 @@ This guide explains how to add new content to the ucl-open documentation site, w
 | Tool | Purpose | Install |
 |------|---------|---------|
 | [Git](https://git-scm.com/) | Version control | Required |
-| [.NET SDK](https://dotnet.microsoft.com/download) | Building the site with DocFX | Required |
+| [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) | Building the site with DocFX | Required |
 | [Bonsai](https://bonsai-rx.org/) | Generating workflow SVGs | Required for workflow diagrams |
 
 ## Site structure
