@@ -6,11 +6,7 @@
   href: quickstart.md
 - name: Building and Deploying
   href: building-deploying.md
-- name: Experiment Design
-  href: experiment-design.md
-- name: Experiment Schemas
-  href: experiment-schemas.md
-- name: Bonsai Implementation
-  href: bonsai-implementation.md
+- name: Writing an experiment under ucl-open
+  href: reaction-time/
 - name: Adding a Hardware Module
   href: hardware-modules.md

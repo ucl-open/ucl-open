@@ -1,4 +1,4 @@
-# Experiment Design
+# Experiment Design and Setup
 
 In this example we will build a simple reaction time / learning task. Subjects are presented with a sequence of visual stimuli. Each stimulus is associated with a target response delay, e.g.:
 
@@ -9,3 +9,6 @@ The goal of the subject is to respond with the correct response delay after each
 
 ### Hardware
 To generate and display the visual stimuli we'll use BonVision and a standard computer monitor. To record response times we will initially use a [Harp Hobgoblin](https://harp-tech.org/tutorials/hobgoblin-setup.html) with a push button as it is already defined under the ucl-open standard. Later in the tutorial we'll explore how to integrate custom devices (e.g. Arduinos with specific firmware loaded).
+
+### Setup
+We'll begin with a blank ucl-open project generated from the template, see [Building and Deploying](../building-deploying.md). You can call this project whatever you want, but for the purposes of this tutorial I will name and refer to it as `reaction-time`
