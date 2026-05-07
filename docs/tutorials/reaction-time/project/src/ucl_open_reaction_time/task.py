@@ -12,13 +12,13 @@ class Trial(BaseSchema):
     target_delay: float = Field(ge=0, description="Target response time (seconds) delay for the subject after this stimulus is presented")
 
 
-class UclOpenImplementationExampleTaskParameters(BaseSchema):
+class UclOpenReactionTimeTaskParameters(BaseSchema):
     trials: List[Trial] = Field(description="The sequence of trials that will be delivered in the experiment")
     max_trial_time: float = Field(description="The maximum amount of time (seconds) allowed for a response in any trial. Exceeding this time should result in the trial aborting and moving to the next trial in the sequence")
     initial_delay_time: float = Field(description="Time (in seconds) between initiation of a new trial and onset of presentation of the trial stimulus")
 
 
-class UclOpenImplementationExampleTaskLogic(BaseSchema):
+class UclOpenReactionTimeTaskLogic(BaseSchema):
     version: Literal[__semver__] = __semver__
-    name: Literal["UclOpenImplementationExample"] = Field(default="UclOpenImplementationExample", description="Name of the task logic", frozen=True)
-    task_parameters: UclOpenImplementationExampleTaskParameters = Field(description="Parameters of the task logic")
+    name: Literal["UclOpenReactionTime"] = Field(default="UclOpenReactionTime", description="Name of the task logic", frozen=True)
+    task_parameters: UclOpenReactionTimeTaskParameters = Field(description="Parameters of the task logic")
