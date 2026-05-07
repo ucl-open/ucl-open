@@ -1,11 +1,15 @@
 import datetime
 import os
+import git
 
-from swc.aeon.schema import Experiment
+from ucl_open.core.experiment import ExperimentSession
 
-# TODO - autofill experiment fields
-session = Experiment(
-
+session = ExperimentSession(
+    subject_id="Plimbo",
+    session_id="001",
+    workflow="main.bonsai",
+    commit=git.Repo(search_parent_directories=True).head.object.hexsha,
+    repository_url=""
 )
 
 def main(path_seed: str = "./local/{schema}.json"):
