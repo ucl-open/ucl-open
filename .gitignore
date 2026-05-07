@@ -7,12 +7,10 @@ _version.py
 *.egg-info/
 *.egg
 /artifacts/
-**/.bonsai
+/.bonsai/
 
 # IDE
 .vs/
 .vscode/
-!**/.bonsai/Bonsai.config
-!**/.bonsai/NuGet.config
 
 .coverage
