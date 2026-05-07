@@ -18,7 +18,8 @@ readme = {file = "README.md", content-type = "text/markdown"}
 dependencies = [
   "swc-aeon>=0.2.0",
   "ucl-open",
-  "pydantic-settings"
+  "pydantic-settings",
+  "aind_behavior_services>=0.13"
 ]
 
 # [project.urls]
