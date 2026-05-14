@@ -1051,6 +1051,69 @@ Item2.Light as Light)</scr:Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Concat" />
       </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Logging</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>SessionSchema</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>SubjectId</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="SubjectId" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>SessionSchema</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>SessionId</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="SessionId" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RigSchema</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>RootPath</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Path" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogController.bonsai">
+              <SubjectId>Algernon</SubjectId>
+              <SessionId>001</SessionId>
+              <Path>D:\LocalData</Path>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>HobgoblinEvents</Name>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogHarpDevice.bonsai">
+              <LogName>HarpHobgoblin</LogName>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="9" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="9" Label="Source2" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="8" To="9" Label="Source3" />
+            <Edge From="10" To="11" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
