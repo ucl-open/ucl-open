@@ -14,3 +14,5 @@ _version.py
 .vscode/
 
 .coverage
+
+docs/tutorials/reaction-time/project/temp_data/
