@@ -44,6 +44,9 @@ We'll repeat the process for the rig configuration in `examples\rig.py`:
 ```
 import os
 
+from ucl_open.vision import DisplayCalibration, DisplayExtrinsics
+from ucl_open.core import Vector3
+
 from ucl_open_reaction_time.rig import (
     UclOpenReactionTimeRig
 )
@@ -54,7 +57,16 @@ from ucl_open.vision import Screen
 rig = UclOpenReactionTimeRig(
     root_path="../temp_data",
     harp_hobgoblin=HarpHobgoblin(port_name="COM4"),
-    screen=Screen()
+    screen=Screen(
+        calibration={
+            "main": DisplayCalibration(
+                extrinsics=DisplayExtrinsics(
+                    rotation=Vector3(x=0.0, y=0.0, z=0.0),
+                    translation=Vector3(x=0.0, y=1.309016, z=-13.27)
+                )
+            )
+        }
+    )
 )
 
 def main(path_seed: str = "./local/{schema}.json"):
@@ -70,7 +82,7 @@ if __name__ == "__main__":
     main()
 ```
 
-We don't need to do much here except import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. At this stage we'll use the default settings for `Screen` so we don't assign any non-default parameters. We also add a `root_path` for data logging which for now we set to a local temporary folder for testing. Run this script with:
+We don't need to do much here except import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. At this stage we'll use the default settings for `Screen` aside from creating some display extrinsics. We also add a `root_path` for data logging which for now we set to a local temporary folder for testing. Run this script with:
 ```
 uv run examples\rig.py
 ```

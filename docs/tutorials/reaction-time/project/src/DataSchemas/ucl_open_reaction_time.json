@@ -310,6 +310,19 @@
           "description": "Time (in seconds) between initiation of a new trial and onset of presentation of the trial stimulus",
           "title": "InitialDelayTime",
           "type": "number"
+        },
+        "rngSeed": {
+          "default": null,
+          "description": "Seed of the random number generator for these task parameters",
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "RngSeed"
         }
       },
       "required": [

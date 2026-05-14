@@ -1,5 +1,8 @@
 import os
 
+from ucl_open.vision import DisplayCalibration, DisplayExtrinsics
+from ucl_open.core import Vector3
+
 from ucl_open_reaction_time.rig import (
     UclOpenReactionTimeRig
 )
@@ -9,8 +12,17 @@ from ucl_open.vision import Screen
 
 rig = UclOpenReactionTimeRig(
     root_path="../temp_data",
-    harp_hobgoblin=HarpHobgoblin(port_name="COM4"),
-    screen=Screen()
+    harp_hobgoblin=HarpHobgoblin(port_name="COM7"),
+    screen=Screen(
+        calibration={
+            "main": DisplayCalibration(
+                extrinsics=DisplayExtrinsics(
+                    rotation=Vector3(x=0.0, y=0.0, z=0.0),
+                    translation=Vector3(x=0.0, y=1.309016, z=-13.27)
+                )
+            )
+        }
+    )
 )
 
 def main(path_seed: str = "./local/{schema}.json"):

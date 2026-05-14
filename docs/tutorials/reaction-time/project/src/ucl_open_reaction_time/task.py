@@ -1,5 +1,5 @@
 # Import core types
-from typing import Literal, List
+from typing import Literal, List, Optional
 from pydantic import Field
 
 from swc.aeon.schema import BaseSchema
@@ -15,6 +15,7 @@ class UclOpenReactionTimeTaskParameters(BaseSchema):
     trials: List[Trial] = Field(description="The sequence of trials that will be delivered in the experiment")
     max_trial_time: float = Field(description="The maximum amount of time (seconds) allowed for a response in any trial. Exceeding this time should result in the trial aborting and moving to the next trial in the sequence")
     initial_delay_time: float = Field(description="Time (in seconds) between initiation of a new trial and onset of presentation of the trial stimulus")
+    rng_seed: Optional[float] = Field(default=None, description="Seed of the random number generator for these task parameters")
 
 
 class UclOpenReactionTimeTaskLogic(BaseSchema):
