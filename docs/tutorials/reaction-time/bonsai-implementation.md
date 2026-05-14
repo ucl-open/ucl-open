@@ -44,14 +44,15 @@ We'll repeat the process for the rig configuration in `examples\rig.py`:
 ```
 import os
 
-from ucl_open_implementation_example.rig import (
-    UclOpenImplementationExampleRig
+from ucl_open_reaction_time.rig import (
+    UclOpenReactionTimeRig
 )
 
-from ucl_open.rigs.harp import HarpHobgoblin
-from ucl_open.rigs.device import Screen
+from ucl_open.devices.harp import HarpHobgoblin
+from ucl_open.vision import Screen
 
-rig = UclOpenImplementationExampleRig(
+rig = UclOpenReactionTimeRig(
+    root_path="../temp_data",
     harp_hobgoblin=HarpHobgoblin(port_name="COM4"),
     screen=Screen()
 )
@@ -68,7 +69,56 @@ def main(path_seed: str = "./local/{schema}.json"):
 if __name__ == "__main__":
     main()
 ```
-We don't need to do much here except import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. At this stage we'll use the default settings for `Screen` so we don't assign any non-default parameters. Run this script with:
+
+We don't need to do much here except import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. At this stage we'll use the default settings for `Screen` so we don't assign any non-default parameters. We also add a `root_path` for data logging which for now we set to a local temporary folder for testing. Run this script with:
 ```
 uv run examples\rig.py
 ```
+
+### Task
+Finally, we'll define an example experiment in `task.py`:
+
+```
+import os
+
+from ucl_open_reaction_time.task import (
+    UclOpenReactionTimeTaskLogic,
+    UclOpenReactionTimeTaskParameters,
+    Trial
+)
+
+task_logic = UclOpenReactionTimeTaskLogic(
+    task_parameters=UclOpenReactionTimeTaskParameters(
+        max_trial_time=60,
+        initial_delay_time=5,
+        trials=[
+            Trial(temporal_frequency=1, target_delay=1),
+            Trial(temporal_frequency=2, target_delay=2),
+            Trial(temporal_frequency=1, target_delay=1),
+            Trial(temporal_frequency=2, target_delay=2),
+            Trial(temporal_frequency=1, target_delay=1)
+        ]
+    ),
+)
+
+def main(path_seed: str = "./local/{schema}.json"):
+    example_task_logic = task_logic
+    os.makedirs(os.path.dirname(path_seed), exist_ok=True)
+    models = [example_task_logic]
+
+    for model in models:
+        with open(path_seed.format(schema=model.__class__.__name__), "w", encoding="utf-8") as f:
+            f.write(model.model_dump_json(indent=2, by_alias=True))
+
+
+if __name__ == "__main__":
+    main()
+```
+
+We set a global maximum trial time of 60s and an initial delay of 5s, and then our sequence of `trial`. Run this script with:
+```
+uv run examples\task.py
+```
+
+You should now have 3 `.json` files in the `local` folder that describe a full instance of the reaction time experiment. These are the files that will be loaded by bonsai to manage experiment parameters.
+

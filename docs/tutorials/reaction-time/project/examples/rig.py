@@ -4,7 +4,14 @@ from ucl_open_reaction_time.rig import (
     UclOpenReactionTimeRig
 )
 
-rig = UclOpenReactionTimeRig()
+from ucl_open.devices.harp import HarpHobgoblin
+from ucl_open.vision import Screen
+
+rig = UclOpenReactionTimeRig(
+    root_path="../temp_data",
+    harp_hobgoblin=HarpHobgoblin(port_name="COM4"),
+    screen=Screen()
+)
 
 def main(path_seed: str = "./local/{schema}.json"):
     os.makedirs(os.path.dirname(path_seed), exist_ok=True)

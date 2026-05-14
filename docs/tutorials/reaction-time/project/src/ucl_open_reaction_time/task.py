@@ -2,8 +2,7 @@
 from typing import Literal, List
 from pydantic import Field
 
-from swc.aeon.io import reader
-from swc.aeon.schema import BaseSchema, data_reader
+from swc.aeon.schema import BaseSchema
 
 from ucl_open_reaction_time import __semver__
 
