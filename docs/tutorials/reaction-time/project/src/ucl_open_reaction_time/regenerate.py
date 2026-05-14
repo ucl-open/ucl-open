@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Union
 
 import pydantic
-from ucl_open.core.experiment import Experiment
+from ucl_open.core.experiment import ExperimentSession
 from aind_behavior_services.schema import BonsaiSgenSerializers, convert_pydantic_to_bonsai
 
 import ucl_open_reaction_time.rig
@@ -16,6 +16,7 @@ def main():
     models = [
         ucl_open_reaction_time.task.UclOpenReactionTimeTaskLogic,
         ucl_open_reaction_time.rig.UclOpenReactionTimeRig,
+        ExperimentSession
     ]
     model = pydantic.RootModel[Union[tuple(models)]]
 

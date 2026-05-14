@@ -122,3 +122,4 @@ uv run examples\task.py
 
 You should now have 3 `.json` files in the `local` folder that describe a full instance of the reaction time experiment. These are the files that will be loaded by bonsai to manage experiment parameters.
 
+### Bonsai Workflow

@@ -321,6 +321,159 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
+    /// <summary>
+    /// The base class for creating ucl-open experiment models.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("The base class for creating ucl-open experiment models.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class ExperimentSession
+    {
+    
+        private string _workflow;
+    
+        private string _commit;
+    
+        private string _repositoryUrl;
+    
+        private string _subjectId;
+    
+        private string _sessionId;
+    
+        public ExperimentSession()
+        {
+        }
+    
+        protected ExperimentSession(ExperimentSession other)
+        {
+            _workflow = other._workflow;
+            _commit = other._commit;
+            _repositoryUrl = other._repositoryUrl;
+            _subjectId = other._subjectId;
+            _sessionId = other._sessionId;
+        }
+    
+        /// <summary>
+        /// Path to the workflow running the experiment.
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("workflow", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Path to the workflow running the experiment.")]
+        public string Workflow
+        {
+            get
+            {
+                return _workflow;
+            }
+            set
+            {
+                _workflow = value;
+            }
+        }
+    
+        /// <summary>
+        /// Commit hash of the experiment repo.
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("commit", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("Commit hash of the experiment repo.")]
+        public string Commit
+        {
+            get
+            {
+                return _commit;
+            }
+            set
+            {
+                _commit = value;
+            }
+        }
+    
+        /// <summary>
+        /// The URL of the git repository used to version experiment source code.
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("repositoryUrl", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The URL of the git repository used to version experiment source code.")]
+        public string RepositoryUrl
+        {
+            get
+            {
+                return _repositoryUrl;
+            }
+            set
+            {
+                _repositoryUrl = value;
+            }
+        }
+    
+        /// <summary>
+        /// The subject id for this session.
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("subjectId", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The subject id for this session.")]
+        public string SubjectId
+        {
+            get
+            {
+                return _subjectId;
+            }
+            set
+            {
+                _subjectId = value;
+            }
+        }
+    
+        /// <summary>
+        /// The session identifier.
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("sessionId", Required=Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DescriptionAttribute("The session identifier.")]
+        public string SessionId
+        {
+            get
+            {
+                return _sessionId;
+            }
+            set
+            {
+                _sessionId = value;
+            }
+        }
+    
+        public System.IObservable<ExperimentSession> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new ExperimentSession(this)));
+        }
+    
+        public System.IObservable<ExperimentSession> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new ExperimentSession(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("Workflow = " + _workflow + ", ");
+            stringBuilder.Append("Commit = " + _commit + ", ");
+            stringBuilder.Append("RepositoryUrl = " + _repositoryUrl + ", ");
+            stringBuilder.Append("SubjectId = " + _subjectId + ", ");
+            stringBuilder.Append("SessionId = " + _sessionId);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
@@ -1159,6 +1312,11 @@ namespace UclOpenReactionTimeDataSchema
             return Process<DisplayIntrinsics>(source);
         }
 
+        public System.IObservable<string> Process(System.IObservable<ExperimentSession> source)
+        {
+            return Process<ExperimentSession>(source);
+        }
+
         public System.IObservable<string> Process(System.IObservable<HarpHobgoblin> source)
         {
             return Process<HarpHobgoblin>(source);
@@ -1206,6 +1364,7 @@ namespace UclOpenReactionTimeDataSchema
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayCalibration>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayExtrinsics>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayIntrinsics>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExperimentSession>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpHobgoblin>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Screen>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]

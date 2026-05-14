@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Union
 
 import pydantic
-from ucl_open.core.experiment import Experiment
+from ucl_open.core.experiment import ExperimentSession
 from aind_behavior_services.utils import BonsaiSgenSerializers, convert_pydantic_to_bonsai
 
 import {{ python_folder_name }}.rig
@@ -17,6 +17,7 @@ def main():
     models = [
         {{ python_folder_name }}.task.{{ python_class_prefix }}TaskLogic,
         {{ python_folder_name }}.rig.{{ python_class_prefix }}Rig,
+        ExperimentSession
     ]
     model = pydantic.RootModel[Union[tuple(models)]]
 

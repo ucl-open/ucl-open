@@ -94,6 +94,45 @@
       "title": "DisplayIntrinsics",
       "type": "object"
     },
+    "ExperimentSession": {
+      "description": "The base class for creating ucl-open experiment models.",
+      "properties": {
+        "workflow": {
+          "description": "Path to the workflow running the experiment.",
+          "title": "Workflow",
+          "type": "string"
+        },
+        "commit": {
+          "description": "Commit hash of the experiment repo.",
+          "title": "Commit",
+          "type": "string"
+        },
+        "repositoryUrl": {
+          "description": "The URL of the git repository used to version experiment source code.",
+          "title": "RepositoryUrl",
+          "type": "string"
+        },
+        "subjectId": {
+          "description": "The subject id for this session.",
+          "title": "SubjectId",
+          "type": "string"
+        },
+        "sessionId": {
+          "description": "The session identifier.",
+          "title": "SessionId",
+          "type": "string"
+        }
+      },
+      "required": [
+        "workflow",
+        "commit",
+        "repositoryUrl",
+        "subjectId",
+        "sessionId"
+      ],
+      "title": "ExperimentSession",
+      "type": "object"
+    },
     "HarpHobgoblin": {
       "properties": {
         "portName": {
