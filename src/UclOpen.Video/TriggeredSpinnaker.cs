@@ -47,7 +47,7 @@ namespace UclOpen.Video
             camera.DeviceLinkThroughputLimit.Value = camera.DeviceLinkThroughputLimit.Max;
             camera.GainAuto.Value = GainAutoEnums.Off.ToString();
             camera.Gain.Value = Gain;
-            //base.Configure(camera);
+            base.Configure(camera);
         }
 
         public IObservable<Timestamped<VideoDataFrame>> Generate<TPayload>(IObservable<Timestamped<TPayload>> source)

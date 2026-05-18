@@ -1,4 +1,6 @@
 - name: Documentation
   href: articles/
+- name: Tutorials
+  href: tutorials/
 - name: API
   href: ../artifacts/docs/api/
