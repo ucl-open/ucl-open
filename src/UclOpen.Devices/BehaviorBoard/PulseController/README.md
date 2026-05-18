@@ -16,13 +16,13 @@ This workflow exposes properties that allow a user to configure the device behav
 |---------------------------|------------------|---------------------------------------------------------------------------------|
 | `BehaviorCommandsSubjectName`     | Input            | The name of the input subject that sends configuration and control commands. **N.B. Must match the `BehaviorCommandsSubjectName` in the properties of the `BehaviorBoard` module.**   |
 | `BehaviorEventsSubjectName`       | Output           | The name of the subject that receives event messages from the device. **N.B. Must match the `BehaviorEventsSubjectName` in the properties of the `BehaviorBoard` module.**           |
-| `TriggerPulseSubjectName` | Input            | Subject that carries integer values (0–2) to trigger individual output pulses on DOs |
+| `TriggerPulseSubjectName` | Input            | Subject that carries integer values (0-2) to trigger individual output pulses on DOs |
 
 ### Configuration Parameters
 
 | **Property Name**         | **Input/Output** | **Description**                                                                 |
 |---------------------------|------------------|---------------------------------------------------------------------------------|
-| `OutputPulseEnable`       | Input            | Configures which digital outputs (e.g., DO0–DO2) are enabled for pulse control. |
+| `OutputPulseEnable`       | Input            | Configures which digital outputs (e.g., DO0-DO2) are enabled for pulse control. |
 | `PulseDO0`                | Input            | Pulse width value (in ms) for DO0.                                              |
 | `PulseDO1`                | Input            | Pulse width value (in ms) for DO1.                                              |
 | `PulseDO2`                | Input            | Pulse width value (in ms) for DO2.                                              |
