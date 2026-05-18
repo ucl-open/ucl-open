@@ -16,6 +16,9 @@ from ucl_open.devices.lick_spout_stage import (
     LickSpoutStageDriver,
     SpoutRigPosition,
     StepperPositions,
+    MotorAddress,
+    StageAxisMapping,
+    HarpLickSpoutStage,
 )
 from ucl_open.devices.harp import (
     HarpDevice,
@@ -24,6 +27,7 @@ from ucl_open.devices.harp import (
     HarpCameraControllerGen2,
     HarpBehavior,
     HarpHobgoblin,
+    HarpStepperDriver,
 )
 
 __all__ = [
@@ -37,13 +41,17 @@ __all__ = [
     "BehaviorBoard",
     "SpoutRigPosition",
     "StepperPositions",
+    "MotorAddress",
+    "StageAxisMapping",
     "SerialDevice",
     "LicketySplit",
     "LickSpoutStageDriver",
+    "HarpLickSpoutStage",
     "HarpDevice",
     "HarpClockSynchronizer",
     "HarpTimestampGeneratorGen3",
     "HarpCameraControllerGen2",
     "HarpBehavior",
     "HarpHobgoblin",
+    "HarpStepperDriver",
 ]
