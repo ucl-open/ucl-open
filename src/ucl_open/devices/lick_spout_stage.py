@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, Literal
 from pydantic import Field
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.serial import SerialDevice
+from ucl_open.devices.harp import HarpStepperDriver
 import ucl_open.core.base as data_types
 
 
@@ -79,3 +80,41 @@ class LickSpoutStageDriver(SerialDevice):
 
     # Set positions
     set_position: SpoutRigPosition
+
+
+class MotorAddress(BaseSchema):
+    """Identifies a specific motor on a specific stepper driver board."""
+
+    board: Literal["a", "b"] = Field(description='Which board drives this axis: "a" or "b".')
+    motor: int = Field(ge=0, le=3, description="Motor index on the board (0-3).")
+
+
+class StageAxisMapping(BaseSchema):
+    """
+    Maps each of the 5 stage axes to a (board, motor) address.
+    Editing only the YAML re-routes axes across boards without touching the Bonsai workflow.
+
+    Default layout:
+        Board A: left_elevation(0), right_elevation(1), right_radial(2), left_radial(3)
+        Board B: base_transverse(0)
+    """
+
+    left_elevation: MotorAddress = Field(default_factory=lambda: MotorAddress(board="a", motor=0))
+    right_elevation: MotorAddress = Field(default_factory=lambda: MotorAddress(board="a", motor=1))
+    right_radial: MotorAddress = Field(default_factory=lambda: MotorAddress(board="a", motor=2))
+    left_radial: MotorAddress = Field(default_factory=lambda: MotorAddress(board="a", motor=3))
+    base_transverse: MotorAddress = Field(default_factory=lambda: MotorAddress(board="b", motor=0))
+
+
+class HarpLickSpoutStage(BaseSchema):
+    """
+    Harp-based lick spout stage: two StepperDriver boards driving a 5-axis rig.
+    Calibration (named positions) is stored separately in a SpoutRigPosition YAML file.
+    """
+
+    driver_a: HarpStepperDriver = Field(description="Primary StepperDriver board.")
+    driver_b: HarpStepperDriver = Field(description="Secondary StepperDriver board.")
+    axis_mapping: StageAxisMapping = Field(
+        default_factory=StageAxisMapping,
+        description="Maps each stage axis to its board and motor index.",
+    )
