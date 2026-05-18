@@ -1,4 +1,4 @@
-# Harp Behavior Interface
+﻿# Harp Behavior Interface
 This module interfaces and configures a [Harp Behavior](https://github.com/harp-tech/device.behavior) device, developed by [HARP Tech](https://harp.tech/).
 
 ## Bonsai Workflow
@@ -11,12 +11,12 @@ The properties of this workflow allow the user to configure the basic device par
 ## Device Features
 The [behavior board](https://github.com/harp-tech/device.behavior) is a highly capable device in the Harp ecosystem with multiple features and functions.  
 
-- **Digital outputs** (DO0–DO3) with PWM up to 10 kHz  
-- **RGB LED and standard LED control** (via flick‑lock and screw terminals)  
+- **Digital outputs** (DO0-DO3) with PWM up to 10 kHz  
+- **RGB LED and standard LED control** (via flick-lock and screw terminals)  
 - **Valve actuation and poke detection** through RJ45 ports  
 - **Servo and camera control** (2 each)  
 - **Quadrature counter** (on Port 2)  
-- **ADC input** (5 V analog)  
+- **ADC input** (5 V analog)  
 - **Clock sync input** and USB serial communication  
 For full hardware specs and configuration details, see the [official repository](https://github.com/harp-tech/device.behavior).
 
