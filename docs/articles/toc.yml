@@ -6,3 +6,7 @@
   href: contributing.md
 - name: Project Structure
   href: project-structure.md
+- name: Devices
+  items:
+  - name: Harp Timestamp Generator Gen3
+    href: devices/harp-timestamp-generator-gen3.md
