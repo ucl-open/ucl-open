@@ -1,35 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <WorkflowBuilder Version="2.9.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xmlns:beh="clr-namespace:Harp.Behavior;assembly=Harp.Behavior"
-                 xmlns:harp="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp"
+                 xmlns:p1="clr-namespace:Harp.Behavior;assembly=Harp.Behavior"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
-                 xmlns:scr="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
+                 xmlns:p2="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p3="clr-namespace:Bonsai.Scripting.Expressions;assembly=Bonsai.Scripting.Expressions"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
-      <Expression xsi:type="beh:CreateMessage">
-        <harp:MessageType>Write</harp:MessageType>
-        <harp:Payload xsi:type="beh:CreateEnableEncodersPayload">
-          <beh:EnableEncoders>EncoderPort2</beh:EnableEncoders>
-        </harp:Payload>
-      </Expression>
-      <Expression xsi:type="beh:CreateMessage">
-        <harp:MessageType>Write</harp:MessageType>
-        <harp:Payload xsi:type="beh:CreateEncoderModePayload">
-          <beh:EncoderMode>Displacement</beh:EncoderMode>
-        </harp:Payload>
-      </Expression>
-      <Expression xsi:type="beh:CreateMessage">
-        <harp:MessageType>Write</harp:MessageType>
-        <harp:Payload xsi:type="beh:CreateEncoderResetPayload">
-          <beh:EncoderReset>EncoderPort2</beh:EncoderReset>
-        </harp:Payload>
+      <Expression xsi:type="p1:CreateMessage">
+        <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
+        <Payload xsi:type="beh:CreateEnableEncodersPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+          <p1:EnableEncoders>EncoderPort2</p1:EnableEncoders>
+        </Payload>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="rx:Merge" />
+        <Combinator xsi:type="rx:Take">
+          <rx:Count>1</rx:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="p1:CreateMessage">
+        <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
+        <Payload xsi:type="beh:CreateEncoderModePayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+          <p1:EncoderMode>Displacement</p1:EncoderMode>
+        </Payload>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Take">
+          <rx:Count>1</rx:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="p1:CreateMessage">
+        <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
+        <Payload xsi:type="beh:CreateEncoderResetPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+          <p1:EncoderReset>EncoderPort2</p1:EncoderReset>
+        </Payload>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Take">
+          <rx:Count>1</rx:Count>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:Concat" />
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Name" DisplayName="CommandsSubjectName" Description="The name of the Subject that carries command messages for a specific behavior device" Category="Subjects" />
@@ -54,20 +68,20 @@
           <rx:DueTime>PT0.1S</rx:DueTime>
         </Combinator>
       </Expression>
-      <Expression xsi:type="beh:Parse">
-        <harp:Register xsi:type="beh:AnalogData" />
+      <Expression xsi:type="p1:Parse">
+        <Register xsi:type="beh:AnalogData" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp" />
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Encoder</Selector>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="dsp:Difference">
-          <dsp:Order>1</dsp:Order>
+        <Combinator xsi:type="p2:Difference">
+          <p2:Order>1</p2:Order>
         </Combinator>
       </Expression>
-      <Expression xsi:type="scr:ExpressionTransform">
-        <scr:Name>ConvertSigned</scr:Name>
-        <scr:Expression>it &gt; 32768.0 ? it - 65536.0 : (it &lt; -32768.0 ? it + 65536.0 : it)</scr:Expression>
+      <Expression xsi:type="p3:ExpressionTransform">
+        <p3:Name>ConvertSigned</p3:Name>
+        <p3:Expression>it &gt; 32768.0 ? it - 65536.0 : (it &lt; -32768.0 ? it + 65536.0 : it)</p3:Expression>
       </Expression>
       <Expression xsi:type="rx:Accumulate" />
       <Expression xsi:type="ExternalizedMapping">
@@ -98,9 +112,9 @@
                 <Value>170</Value>
               </Combinator>
             </Expression>
-            <Expression xsi:type="scr:ExpressionTransform">
-              <scr:Name>CircumferenceCm</scr:Name>
-              <scr:Expression>(it*Math.Pi)/10</scr:Expression>
+            <Expression xsi:type="p3:ExpressionTransform">
+              <p3:Name>CircumferenceCm</p3:Name>
+              <p3:Expression>(it*Math.Pi)/10</p3:Expression>
             </Expression>
             <Expression xsi:type="PropertyMapping">
               <PropertyMappings>
@@ -134,25 +148,28 @@
       </Expression>
     </Nodes>
     <Edges>
-      <Edge From="0" To="3" Label="Source1" />
-      <Edge From="1" To="3" Label="Source2" />
-      <Edge From="2" To="3" Label="Source3" />
-      <Edge From="3" To="5" Label="Source1" />
-      <Edge From="4" To="5" Label="Source2" />
-      <Edge From="5" To="8" Label="Source1" />
-      <Edge From="6" To="7" Label="Source1" />
-      <Edge From="6" To="9" Label="Source1" />
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="1" To="6" Label="Source1" />
+      <Edge From="2" To="3" Label="Source1" />
+      <Edge From="3" To="6" Label="Source2" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source3" />
+      <Edge From="6" To="8" Label="Source1" />
       <Edge From="7" To="8" Label="Source2" />
+      <Edge From="8" To="11" Label="Source1" />
       <Edge From="9" To="10" Label="Source1" />
-      <Edge From="10" To="11" Label="Source1" />
-      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="9" To="12" Label="Source1" />
+      <Edge From="10" To="11" Label="Source2" />
       <Edge From="12" To="13" Label="Source1" />
       <Edge From="13" To="14" Label="Source1" />
       <Edge From="14" To="15" Label="Source1" />
-      <Edge From="15" To="17" Label="Source1" />
-      <Edge From="16" To="17" Label="Source2" />
-      <Edge From="17" To="19" Label="Source1" />
-      <Edge From="18" To="19" Label="Source2" />
+      <Edge From="15" To="16" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="18" To="20" Label="Source1" />
+      <Edge From="19" To="20" Label="Source2" />
+      <Edge From="20" To="22" Label="Source1" />
+      <Edge From="21" To="22" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
