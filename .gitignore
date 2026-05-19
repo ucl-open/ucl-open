@@ -16,3 +16,5 @@ _version.py
 .coverage
 
 docs/tutorials/reaction-time/project/temp_data/
+
+*.lscache

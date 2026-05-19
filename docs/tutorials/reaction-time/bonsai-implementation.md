@@ -135,6 +135,25 @@ uv run examples\task.py
 You should now have 3 `.json` files in the `local` folder that describe a full instance of the reaction time experiment. These are the files that will be loaded by bonsai to manage experiment parameters.
 
 ### Bonsai Workflow
+
+Below is the bonsai workflow implementation written in the project's `main.bonsai` file.
+
 :::workflow
 ![Reaction Time Workflow](./project/src/main.bonsai)
 :::
+
+Opening this workflow in the editor, you may notice that there are only 3 configurable properties in the bonsai editor property grid: `RigPath`, `SessionPath` and `TaskPath`. Theses should be assigned to the corresponding `.json` files we generated in the `local` folder. Bonsai will load these `.json` files and use them to populate all parameters of the experiment. Let's step through the components of this workflow.
+
+#### Schema Reading / Loading
+
+The `ReadSchemas` group deals with reading the `.json` settings files, exposing the raw text in a set of `AsyncSubjects`. The `LoadSchemas` group subscribes to these raw text subjects and deserializes them into a data object that can be used to update parameters in other parts of the workflow. When we run the `regenerate.py` script referenced prerviously, part of its job is to run a tool called [`sgen`](https://github.com/bonsai-rx/sgen) which is a code generation tool that takes schema files in the form of `.json` or `.yaml` and creates C# classes and utility methods usable by bonsai based on the data definitions in these schemas. You can see the result of this generation in `src\Extensions\UclOpenReactiontime.Generated.cs`. One part of this generation is the creation of a deserialization operator for bonsai that takes raw text from our experiment definition files and converts it into bonsai data objects. If you right-click one of these operators in `LoadSchemas` and expand the output option you can see the mapping of the settings files to this data object.
+
+#### Initialization
+
+In the `Initialization` group we implement a very basic experiment control interface. and create an rng seed downstream of the rng seed parameter in our settings file for task logic. For experiment control, we simply create a subject to be used to trigger the start of the experiment, and tie this subject to initiation of a Harp read dump. This is a Harp hardware specific operation that forces the Harp device to report the current state of all its registers, so that we can log the initial state of the device when the experiment starts. For the rng seed implementation, we initialise a `CreateRandom` object with the seed defined in our input settings file.
+
+#### Hardware
+
+There are two main hardware components to set up for this experiment: 1) display screen, 2) Harp Hobgoblin which are implemented in the `Hardware` group. 
+
+The `ScreenConfiguration` group creates the display window and loads `BonVision` resources, with parameters of the display window populated from the rig schema. The rig schema allows us to define multiple screen calibrations in a dictionary, which can be used to define multiple view windows and viewports within a bonsai visual environment, but in this case we only have a single 'main' display so we index 'main' from our screen calibrations and create a single calibration object which is used in the `RenderLoop` group to define a `CubemapView` with a `ViewWindow` populated from the calibration object.
