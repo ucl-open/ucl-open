@@ -1,14 +1,10 @@
 import os
 
-from ucl_open.vision import DisplayCalibration, DisplayExtrinsics
 from ucl_open.core import Vector3
-
-from ucl_open_reaction_time.rig import (
-    UclOpenReactionTimeRig
-)
-
 from ucl_open.devices.harp import HarpHobgoblin
-from ucl_open.vision import Screen
+from ucl_open.vision import DisplayCalibration, DisplayExtrinsics, Screen
+
+from ucl_open_reaction_time.rig import UclOpenReactionTimeRig
 
 rig = UclOpenReactionTimeRig(
     root_path="../temp_data",

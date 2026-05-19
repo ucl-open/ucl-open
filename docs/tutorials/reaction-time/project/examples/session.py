@@ -1,7 +1,6 @@
-import datetime
 import os
-import git
 
+import git
 from ucl_open.core.experiment import ExperimentSession
 
 session = ExperimentSession(

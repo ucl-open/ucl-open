@@ -1,10 +1,11 @@
 # Import core types
-from typing import Literal, List, Optional
-from pydantic import Field
+from typing import List, Literal, Optional
 
+from pydantic import Field
 from swc.aeon.schema import BaseSchema
 
 from ucl_open_reaction_time import __semver__
+
 
 class Trial(BaseSchema):
     temporal_frequency: float = Field(ge=0, description="Temporal frequency of the gratings in this stimulus")

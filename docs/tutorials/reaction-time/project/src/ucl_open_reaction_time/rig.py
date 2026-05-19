@@ -1,6 +1,6 @@
-from typing import Literal, Dict
-from pydantic import Field
+from typing import Literal
 
+from pydantic import Field
 from ucl_open.core.rig import Rig
 from ucl_open.devices.harp import HarpHobgoblin
 from ucl_open.vision import Screen

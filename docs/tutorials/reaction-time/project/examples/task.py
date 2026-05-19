@@ -1,10 +1,6 @@
 import os
 
-from ucl_open_reaction_time.task import (
-    UclOpenReactionTimeTaskLogic,
-    UclOpenReactionTimeTaskParameters,
-    Trial
-)
+from ucl_open_reaction_time.task import Trial, UclOpenReactionTimeTaskLogic, UclOpenReactionTimeTaskParameters
 
 task_logic = UclOpenReactionTimeTaskLogic(
     task_parameters=UclOpenReactionTimeTaskParameters(
