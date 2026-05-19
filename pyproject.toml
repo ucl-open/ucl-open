@@ -14,11 +14,11 @@ dependencies = [
     "swc-aeon>=0.2.0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "pandas-stubs",
   "pre-commit",
-  "pyright",
+  "pyright==1.1.409",
   "pytest",
   "pytest-cov",
   "pytest-mock",
@@ -59,3 +59,4 @@ pythonpath = ["src"]
 addopts = [
   "--cov=src/ucl_open",    # Enable pytest-cov for the ucl_open package
 ]
+

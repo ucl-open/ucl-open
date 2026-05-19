@@ -27,6 +27,6 @@ To also render workflow images (requires Bonsai on Windows), run `pwsh docs/buil
 ## Python workflow
 
 ```bash
-uv sync --extra dev
+uv sync
 uv run pytest
 ```
