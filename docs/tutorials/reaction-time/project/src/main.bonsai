@@ -201,7 +201,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="num:CreateRandom">
-                <num:Seed>6</num:Seed>
+                <num:Seed>2</num:Seed>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -583,6 +583,20 @@ Item2.Light as Light)</scr:Expression>
                 </Edges>
               </Workflow>
             </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>TaskLogicParameters</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>InitialDelayTime</Selector>
+            </Expression>
+            <Expression xsi:type="scr:ExpressionTransform">
+              <scr:Expression>TimeSpan.FromSeconds(it)</scr:Expression>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="DueTime" />
+              </PropertyMappings>
+            </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:DelaySubscription">
                 <rx:DueTime>PT2S</rx:DueTime>
@@ -663,14 +677,18 @@ Item2.Light as Light)</scr:Expression>
             </Expression>
           </Nodes>
           <Edges>
-            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="0" To="5" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
             <Edge From="2" To="3" Label="Source1" />
             <Edge From="3" To="4" Label="Source1" />
-            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="4" To="5" Label="Source2" />
             <Edge From="6" To="7" Label="Source1" />
             <Edge From="7" To="8" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
-            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>
@@ -925,7 +943,7 @@ Item2.Light as Light)</scr:Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
               <ExtentX>1</ExtentX>
               <ExtentY>1</ExtentY>
-              <Text>-0.00332799999978306</Text>
+              <Text>-0.638112000000547</Text>
               <Font>Microsoft Sans Serif, 100pt</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Center</LineAlignment>
