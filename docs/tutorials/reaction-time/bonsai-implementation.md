@@ -168,4 +168,8 @@ The trial logic itself draws a grating with `DrawGrating`, the parameters of whi
 
 #### Logging
 
-The `Logging` group contains implementation of logging data sources to disk as well as settng up the folder structure of the logging. This is primrily handled by packaged `ucl-open` components to maintain consistency across experiments. For example the `LogController` constructs the appropriate logging path format, while `LogHarpDevice` logs the output the Harp Hobgoblin in a Harp standard format.
+The `Logging` group contains implementation of logging data sources to disk as well as settng up the folder structure of the logging. This is primarily handled by packaged `ucl-open` components to maintain consistency across experiments. For example the `LogController` constructs the appropriate logging path format, while `LogHarpDevice` logs the output the Harp Hobgoblin in a Harp standard format.
+
+### Running the Experiment
+
+All these elements should now result in a working experiment when the bonsai workflow is run. The workflow will step through the trials we defined in `task.py` one-by-one and update the parameters for each trial (e.g. temporal frequency and target reaction time). 
