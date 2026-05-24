@@ -183,7 +183,7 @@
         <TranslationY>0</TranslationY>
         <TranslationZ>10</TranslationZ>
         <RotationZ>0</RotationZ>
-        <RotationY>4</RotationY>
+        <RotationY>-33.3333359</RotationY>
         <RotationX>0</RotationX>
         <ScaleX>5</ScaleX>
         <ScaleY>5</ScaleY>
@@ -206,10 +206,38 @@
         <SpecularExponent>10</SpecularExponent>
         <MeshName>Plane</MeshName>
       </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>PostDrawing</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.OrthographicView.bonsai">
+        <Left>-1</Left>
+        <Right>1</Right>
+        <Bottom>-1</Bottom>
+        <Top>1</Top>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+        <X>0</X>
+        <Y>0</Y>
+        <Width>1</Width>
+        <Height>1</Height>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawCircle.bonsai">
+        <Diameter>0.1</Diameter>
+        <LocationX>0.06666667</LocationX>
+        <LocationY>0</LocationY>
+        <Layer>0</Layer>
+        <ColorR>1</ColorR>
+        <ColorG>1</ColorG>
+        <ColorB>1</ColorB>
+        <ColorA>1</ColorA>
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="1" Label="Source1" />
       <Edge From="3" To="4" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source1" />
+      <Edge From="7" To="8" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
