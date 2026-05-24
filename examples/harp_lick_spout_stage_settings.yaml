@@ -17,7 +17,7 @@ driver_b:
   maximum_run_current: 0.5
 
 axis_mapping:
-  # Default: board A drives spout axes, board B drives base transverse
+  # Default: board A drives three axes, board B drives two
   left_elevation:
     board: a
     motor: 0
@@ -28,8 +28,8 @@ axis_mapping:
     board: a
     motor: 2
   left_radial:
-    board: a
-    motor: 3
-  base_transverse:
     board: b
     motor: 0
+  base_transverse:
+    board: b
+    motor: 1
