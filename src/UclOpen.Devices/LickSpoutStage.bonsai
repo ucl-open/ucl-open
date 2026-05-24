@@ -9,7 +9,7 @@
   <Workflow>
     <Nodes>
       <Expression xsi:type="SubscribeSubject">
-        <Name>RigSettings</Name>
+        <Name>RigSchema</Name>
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>LickSpoutStage</Selector>
