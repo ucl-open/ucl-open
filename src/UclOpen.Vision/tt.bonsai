@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.9.0"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>CreateDisplayCalibrations</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint3d">
+                <cv:X>0</cv:X>
+                <cv:Y>0</cv:Y>
+                <cv:Z>0</cv:Z>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint3d">
+                <cv:X>2</cv:X>
+                <cv:Y>0</cv:Y>
+                <cv:Z>-8</cv:Z>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DoubleProperty">
+                <Value>20</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DoubleProperty">
+                <Value>15</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint2d">
+                <cv:X>0.5</cv:X>
+                <cv:Y>1</cv:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint2d">
+                <cv:X>0</cv:X>
+                <cv:Y>0</cv:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>left</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint3d">
+                <cv:X>0</cv:X>
+                <cv:Y>0</cv:Y>
+                <cv:Z>0</cv:Z>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint3d">
+                <cv:X>-2</cv:X>
+                <cv:Y>0</cv:Y>
+                <cv:Z>-8</cv:Z>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DoubleProperty">
+                <Value>20</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="DoubleProperty">
+                <Value>15</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint2d">
+                <cv:X>0.5</cv:X>
+                <cv:Y>1</cv:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="cv:CreatePoint2d">
+                <cv:X>0.5</cv:X>
+                <cv:Y>0</cv:Y>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>right</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Take">
+                <rx:Count>2</rx:Count>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:ToDictionary">
+              <rx:KeySelector>Item2</rx:KeySelector>
+              <rx:ElementSelector>Item1</rx:ElementSelector>
+            </Expression>
+            <Expression xsi:type="MulticastSubject">
+              <Name>SetDisplayCalibration</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="6" Label="Source1" />
+            <Edge From="1" To="6" Label="Source2" />
+            <Edge From="2" To="6" Label="Source3" />
+            <Edge From="3" To="6" Label="Source4" />
+            <Edge From="4" To="6" Label="Source5" />
+            <Edge From="5" To="6" Label="Source6" />
+            <Edge From="6" To="8" Label="Source1" />
+            <Edge From="7" To="8" Label="Source2" />
+            <Edge From="8" To="18" Label="Source1" />
+            <Edge From="9" To="15" Label="Source1" />
+            <Edge From="10" To="15" Label="Source2" />
+            <Edge From="11" To="15" Label="Source3" />
+            <Edge From="12" To="15" Label="Source4" />
+            <Edge From="13" To="15" Label="Source5" />
+            <Edge From="14" To="15" Label="Source6" />
+            <Edge From="15" To="17" Label="Source1" />
+            <Edge From="16" To="17" Label="Source2" />
+            <Edge From="17" To="18" Label="Source2" />
+            <Edge From="18" To="19" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="20" To="21" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:DelaySubscription">
+          <rx:DueTime>PT5S</rx:DueTime>
+        </Combinator>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="ScreenConfiguration.bonsai">
+        <DisplayDevice>Second</DisplayDevice>
+        <Width>1000</Width>
+        <Height>1000</Height>
+        <TargetRenderFrequency>60</TargetRenderFrequency>
+        <TargetUpdateFrequency>120</TargetUpdateFrequency>
+        <SetDisplayCalibrationSubject>SetDisplayCalibration</SetDisplayCalibrationSubject>
+        <RenderFrameSubject>RenderFrame</RenderFrameSubject>
+        <Eye>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Eye>
+        <NearClip>1E-05</NearClip>
+        <FarClip>1000</FarClip>
+        <Light>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>-10</Z>
+        </Light>
+        <Draw3DStimSubject>Draw3DStim</Draw3DStimSubject>
+        <PostDrawingSubject>PostDrawing</PostDrawingSubject>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>Draw3DStim</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawModel.bonsai">
+        <TranslationX>0</TranslationX>
+        <TranslationY>0</TranslationY>
+        <TranslationZ>10</TranslationZ>
+        <RotationZ>0</RotationZ>
+        <RotationY>4</RotationY>
+        <RotationX>0</RotationX>
+        <ScaleX>5</ScaleX>
+        <ScaleY>5</ScaleY>
+        <ScaleZ>1</ScaleZ>
+        <Ambient>
+          <X>0.2</X>
+          <Y>0.2</Y>
+          <Z>0.2</Z>
+        </Ambient>
+        <Diffuse>
+          <X>0.8</X>
+          <Y>0.8</Y>
+          <Z>0.8</Z>
+        </Diffuse>
+        <Specular>
+          <X>0.8</X>
+          <Y>0.8</Y>
+          <Z>0.8</Z>
+        </Specular>
+        <SpecularExponent>10</SpecularExponent>
+        <MeshName>Plane</MeshName>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="0" To="1" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
