@@ -1,6 +1,16 @@
+from enum import StrEnum
 from typing import ClassVar
 from pydantic import Field
 from swc.aeon.schema import BaseSchema
+
+
+class TimerFrequency(StrEnum):
+    Disabled = "Disabled"
+    Timer50Hz = "Timer50Hz"
+    Timer100Hz = "Timer100Hz"
+    Timer200Hz = "Timer200Hz"
+    Timer500Hz = "Timer500Hz"
+    Timer1000Hz = "Timer1000Hz"
 
 
 class HarpDevice(BaseSchema):
@@ -13,7 +23,13 @@ class HarpClockSynchronizer(HarpDevice):
 
 
 class HarpTimestampGeneratorGen3(HarpDevice):
+    """Harp Timestamp Generator Gen3 (who_am_i=1158). Provides hardware clock synchronisation."""
+
     who_am_i: ClassVar[int] = 1158
+    timer_frequency: TimerFrequency = Field(
+        default=TimerFrequency.Timer1000Hz,
+        description="Frequency of the timer output signal.",
+    )
 
 
 class HarpCameraControllerGen2(HarpDevice):
