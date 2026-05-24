@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UclOpen.Core\UclOpen.Core.csproj" />
+    <PackageReference Include="Harp.Hobgoblin" Version="0.1.2" />
   </ItemGroup>
 
 </Project>
