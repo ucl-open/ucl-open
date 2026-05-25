@@ -8,11 +8,18 @@ _version.py
 *.egg
 /artifacts/
 /.bonsai/
+**/.bonsai/Packages/
+**/.bonsai/*.exe
+**/.bonsai/*.settings
+**/.bonsai/Settings/
+
+# Workflow SVGs are rendered artefacts - generate with pwsh docs/build.ps1
+docs/assets/workflows/**/*.svg
+docs/workflows/**/*.svg
 
 # IDE
 .vs/
 .vscode/
-
 .coverage
 
 docs/tutorials/reaction-time/project/temp_data/

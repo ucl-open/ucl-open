@@ -2,5 +2,7 @@
   href: articles/
 - name: Tutorials
   href: tutorials/
+- name: Workflows
+  href: bonsai-operators/
 - name: API
   href: ../artifacts/docs/api/

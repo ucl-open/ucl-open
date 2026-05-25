@@ -76,7 +76,7 @@ Subject names must also be externalized so they can be set from the rig configur
 Below is a complete minimal example for a serial sensor that reads lines and publishes them, and accepts command strings from a Subject:
 
 :::workflow
-![MySensor](~/assets/workflows/MySensor.bonsai)
+![MySensor](~/workflows/MySensor.bonsai)
 :::
 
 ### Save as a local extension

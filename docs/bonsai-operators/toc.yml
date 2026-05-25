@@ -1,0 +1,41 @@
+- name: UclOpen.Devices
+  items:
+  - name: Arduino LED Driver
+    href: UclOpen.Devices/arduino-led-driver.md
+  - name: Behavior Board
+    href: UclOpen.Devices/behavior-board.md
+    items:
+    - name: PulseController
+      href: UclOpen.Devices/behavior-board.md#pulsecontroller
+    - name: CameraTriggerController
+      href: UclOpen.Devices/behavior-board.md#cameratriggercontroller
+    - name: RunningWheel
+      href: UclOpen.Devices/behavior-board.md#runningwheel
+    - name: Timestamps
+      href: UclOpen.Devices/behavior-board.md#timestamps
+  - name: Harp Lick Spout Stage
+    href: UclOpen.Devices/harp-lick-spout-stage.md
+  - name: Harp Timestamp Generator Gen3
+    href: UclOpen.Devices/harp-timestamp-generator-gen3.md
+  - name: Lick Spout Stage
+    href: UclOpen.Devices/lick-spout-stage.md
+  - name: LicketySplit
+    href: UclOpen.Devices/lickety-split.md
+  - name: Serial Device
+    href: UclOpen.Devices/serial-device.md
+  - name: Triggered Spinnaker
+    href: UclOpen.Devices/triggered-spinnaker.md
+- name: UclOpen.Logging
+  items:
+  - name: Log Controller
+    href: UclOpen.Logging/log-controller.md
+  - name: Log Data
+    href: UclOpen.Logging/log-data.md
+  - name: Log Harp Device
+    href: UclOpen.Logging/log-harp-device.md
+  - name: Log Video
+    href: UclOpen.Logging/log-video.md
+- name: UclOpen.Vision
+  items:
+  - name: Sync Quad
+    href: UclOpen.Vision/sync-quad.md
