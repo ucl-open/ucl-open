@@ -24,7 +24,7 @@ One aim of this separation is to avoid redundant changes in schema files that wo
 In the project folder we created from the template, a Python module named for your project should have been created under `src\<your_project_name>` containing skeleton schema definition files `rig.py` and `task.py`. Let's first modify `rig.py` to define our rig schema:
 
 ```
-from typing import Literal, Dict
+from typing import Literal
 from pydantic import Field
 
 from ucl_open.core.rig import Rig

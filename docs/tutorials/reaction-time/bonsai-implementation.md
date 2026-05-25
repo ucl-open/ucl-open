@@ -6,14 +6,12 @@ The experiment schemas we have created already define the available parameters t
 ### Session
 In `experiment\session.py` we can see the script for generating the session metadata. When generated fresh from the template it should have some error warnings as we have not filled in the required fields. Fill these in for an example session:
 ```
-import datetime
 import os
-import git
 
+import git
 from ucl_open.core.experiment import ExperimentSession
 
-# TODO - autofill experiment fields
-session = Experiment(
+session = ExperimentSession(
     subject_id="Plimbo",
     session_id="001",
     workflow="main.bonsai",
@@ -44,25 +42,28 @@ We'll repeat the process for the rig configuration in `examples\rig.py`:
 ```
 import os
 
-from ucl_open.vision import DisplayCalibration, DisplayExtrinsics
 from ucl_open.core import Vector3
-
-from ucl_open_reaction_time.rig import (
-    UclOpenReactionTimeRig
-)
-
 from ucl_open.devices.harp import HarpHobgoblin
-from ucl_open.vision import Screen
+from ucl_open.vision import DisplayCalibration, DisplayExtrinsics, DisplayIntrinsics, Screen, ViewportConfiguration
+
+from ucl_open_reaction_time.rig import UclOpenReactionTimeRig
 
 rig = UclOpenReactionTimeRig(
     root_path="../temp_data",
-    harp_hobgoblin=HarpHobgoblin(port_name="COM4"),
+    harp_hobgoblin=HarpHobgoblin(port_name="COM7"),
     screen=Screen(
+        window_width=1000,
+        window_height=1000,
         calibration={
             "main": DisplayCalibration(
                 extrinsics=DisplayExtrinsics(
                     rotation=Vector3(x=0.0, y=0.0, z=0.0),
                     translation=Vector3(x=0.0, y=1.309016, z=-13.27)
+                ),
+                intrinsics=DisplayIntrinsics(
+                    viewport_configuration=ViewportConfiguration(),
+                    display_width=20,
+                    display_height=15
                 )
             )
         }
@@ -82,7 +83,7 @@ if __name__ == "__main__":
     main()
 ```
 
-We don't need to do much here except import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. At this stage we'll use the default settings for `Screen` aside from creating some display extrinsics. We also add a `root_path` for data logging which for now we set to a local temporary folder for testing. Run this script with:
+Here we import the `HarpHobgoblin` schema from `ucl_open_rigs` and create an instance inside the rig definition with the USB connection COM port for our machine. The `Screen` settings work slightly differently than other parameters in ucl-open schemas. Because a visual environment can be defined by one to many separate viewports, the calibration for the screen is defined as a dictionary of named parameter sets. In our case we only want to define 1 viewport that covers the entire screen so we create a single entry called `"main"` with some `DisplayExtrinsics` that correspond to the view position, and some `DisplayIntrinsics` that correspond to the height and width of the display as well as the viewport size on screen this will be drawn to. Run this script with:
 ```
 uv run examples\rig.py
 ```
@@ -156,9 +157,9 @@ In the `Initialization` group we implement a very basic experiment control inter
 
 There are two main hardware components to set up for this experiment: 1) display screen, 2) Harp Hobgoblin which are implemented in the `Hardware` group. 
 
-The `ScreenConfiguration` group creates the display window and loads `BonVision` resources, with parameters of the display window populated from the rig schema. The rig schema allows us to define multiple screen calibrations in a dictionary, which can be used to define multiple view windows and viewports within a bonsai visual environment, but in this case we only have a single 'main' display so we index 'main' from our screen calibrations and create a single calibration object which is used in the `RenderLoop` group to define a `CubemapView` with a `ViewWindow` populated from the calibration object.
+The `ScreenConfiguration` group creates the display window and loads `BonVision` resources, with parameters of the display window populated from the rig schema. The rig schema allows us to define multiple screen calibrations in a dictionary, which can be used to define multiple view windows and viewports within a bonsai visual environment. In this case we only have 1 view, but the interface between the rig schema and the `ScreenConfiguration` is the same, we multicast the dictionary of name `ScreenCalibration`s to a subject in `ScreenConfiguration` which then dynamically populates the specified views. Note here also that we use a custom conversion operator `ConvertCalibration` for convenience to avoid verbose bonsai code converting from our schema data object to the individual data types expected by `ScreenConfiguration`.
 
-The `Hobgoblin` group contains a thin 'subject wrapper' around the bonsai operator that connects to the Harp device itself. Two subjects are exposed, one as a source of Harp commands to the device (`HobgoblinCommands`) and another as a source of Harp event (`HobgoblinEvents`). This mainly exists to allow for subscription to events from the Harp board or to send commands to the board from anywhere in the workflow. The group also exposes the `PortName` property which is populated by the rig schema. This group also defines a timestamp source subject `HarpTimestampSource` to be used as a global timing source across the workflow. This is created by filtering the Hobgoblin events to the analog data register, which provides a constant, periodic source of timestamps from the hardware.
+The `Hobgoblin` device contains a thin 'subject wrapper' around the bonsai operator that connects to the Harp device itself. Two subjects are exposed, one as a source of Harp commands to the device (`HobgoblinCommands`) and another as a source of Harp event (`HobgoblinEvents`). This mainly exists to allow for subscription to events from the Harp board or to send commands to the board from anywhere in the workflow. The group also exposes the `PortName` property which is populated by the rig schema. This group also defines a timestamp source subject `HarpTimestampSource` to be used as a global timing source across the workflow. This is created by filtering the Hobgoblin events to the analog data register, which provides a constant, periodic source of timestamps from the hardware.
 
 #### Trial Logic
 
