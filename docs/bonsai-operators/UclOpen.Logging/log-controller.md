@@ -16,7 +16,7 @@ On startup the operator reads three externalized properties — `SubjectId`, `Se
 {Path}\sub-{SubjectId}\ses-{SessionId}_date-{FormattedDate}
 ```
 
-All downstream logging operators subscribe to `PathPrefix` and append their own filename segment (e.g. `_behavior.bin`, `_camera0.avi`).
+All downstream logging operators subscribe to `PathPrefix` and append their own filename segment (e.g. `behavior.bin`, `camera0.avi`).
 
 ### Externalized properties
 

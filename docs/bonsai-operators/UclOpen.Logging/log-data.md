@@ -16,7 +16,7 @@ The workflow takes a data stream as its `Source1` input, constructs the output p
 
 | Property | Default | Description |
 |----------|---------|-------------|
-| `LogName` | - | Stem added after the path prefix (e.g. `_lick_spout`) |
+| `LogName` | - | Stem added after the path prefix (e.g. `lick_spout`) |
 | `Extension` | `.csv` | File extension including the leading dot |
 | `Selector` | `Seconds` | Comma-separated list of member names to write as columns |
 

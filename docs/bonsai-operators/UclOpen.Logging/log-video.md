@@ -21,7 +21,7 @@ File paths are built from the `PathPrefix` subject (published by [LogController]
 
 | Property | Default | Description |
 |----------|---------|-------------|
-| `LogName` | - | Stem added after the path prefix (e.g. `_camera0`) |
+| `LogName` | - | Stem added after the path prefix (e.g. `camera0`) |
 | `FrameRate` | `50` | Nominal frame rate written into the AVI container header |
 
 ### Metadata columns
