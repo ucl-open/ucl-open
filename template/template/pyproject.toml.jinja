@@ -29,6 +29,7 @@ dependencies = [
 # Changelog = "https://github.com/UclOpen/{{ dotnet_full_name }}/releases"
 [project.scripts]
 {{ project_name }} = "{{ python_folder_name }}.cli:main"
+regenerate-schemas = "{{ python_folder_name }}.regenerate:main"
 
 [tool.ruff]
 line-length = 120
