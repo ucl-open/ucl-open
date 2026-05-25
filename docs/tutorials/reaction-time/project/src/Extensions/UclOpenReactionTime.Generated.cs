@@ -5,11 +5,11 @@
 //----------------------
 
 
-namespace UclOpenReactionTimeDataSchema
+namespace UclOpenReactionTime
 {
     #pragma warning disable // Disable all warnings
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class DisplayCalibration
@@ -36,6 +36,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("intrinsics")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="intrinsics")]
         [System.ComponentModel.DescriptionAttribute("Intrinsics")]
         public DisplayIntrinsics Intrinsics
         {
@@ -54,6 +55,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("extrinsics")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="extrinsics")]
         [System.ComponentModel.DescriptionAttribute("Extrinsics")]
         public DisplayExtrinsics Extrinsics
         {
@@ -99,7 +101,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class DisplayExtrinsics
@@ -126,6 +128,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("rotation")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="rotation")]
         [System.ComponentModel.DescriptionAttribute("Euler rotation vector (radians)")]
         public Vector3 Rotation
         {
@@ -144,6 +147,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("translation")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="translation")]
         [System.ComponentModel.DescriptionAttribute("Translation vector")]
         public Vector3 Translation
         {
@@ -189,7 +193,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class DisplayIntrinsics
@@ -223,6 +227,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Pixel frame width
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("frameWidth")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="frameWidth")]
         [System.ComponentModel.DescriptionAttribute("Pixel frame width")]
         public int FrameWidth
         {
@@ -240,6 +245,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Pixel frame height
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("frameHeight")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="frameHeight")]
         [System.ComponentModel.DescriptionAttribute("Pixel frame height")]
         public int FrameHeight
         {
@@ -257,6 +263,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Physical display width
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("displayWidth")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="displayWidth")]
         [System.ComponentModel.DescriptionAttribute("Physical display width")]
         public double DisplayWidth
         {
@@ -274,6 +281,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Physical display height
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("displayHeight")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="displayHeight")]
         [System.ComponentModel.DescriptionAttribute("Physical display height")]
         public double DisplayHeight
         {
@@ -324,7 +332,7 @@ namespace UclOpenReactionTimeDataSchema
     /// <summary>
     /// The base class for creating ucl-open experiment models.
     /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [System.ComponentModel.DescriptionAttribute("The base class for creating ucl-open experiment models.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
@@ -358,6 +366,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Path to the workflow running the experiment.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("workflow", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="workflow")]
         [System.ComponentModel.DescriptionAttribute("Path to the workflow running the experiment.")]
         public string Workflow
         {
@@ -375,6 +384,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Commit hash of the experiment repo.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("commit", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="commit")]
         [System.ComponentModel.DescriptionAttribute("Commit hash of the experiment repo.")]
         public string Commit
         {
@@ -392,6 +402,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The URL of the git repository used to version experiment source code.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("repositoryUrl", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="repositoryUrl")]
         [System.ComponentModel.DescriptionAttribute("The URL of the git repository used to version experiment source code.")]
         public string RepositoryUrl
         {
@@ -409,6 +420,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The subject id for this session.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("subjectId", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="subjectId")]
         [System.ComponentModel.DescriptionAttribute("The subject id for this session.")]
         public string SubjectId
         {
@@ -426,6 +438,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The session identifier.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("sessionId", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="sessionId")]
         [System.ComponentModel.DescriptionAttribute("The session identifier.")]
         public string SessionId
         {
@@ -474,7 +487,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class HarpHobgoblin
@@ -495,6 +508,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The name of the device serial port.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("portName", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="portName")]
         [System.ComponentModel.DescriptionAttribute("The name of the device serial port.")]
         public string PortName
         {
@@ -539,7 +553,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class Screen
@@ -584,6 +598,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Display index
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("displayIndex")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="displayIndex")]
         [System.ComponentModel.DescriptionAttribute("Display index")]
         public int DisplayIndex
         {
@@ -601,6 +616,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Target render frequency
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("targetRenderFrequency")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="targetRenderFrequency")]
         [System.ComponentModel.DescriptionAttribute("Target render frequency")]
         public double TargetRenderFrequency
         {
@@ -618,6 +634,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Target update frequency
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("targetUpdateFrequency")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="targetUpdateFrequency")]
         [System.ComponentModel.DescriptionAttribute("Target update frequency")]
         public double TargetUpdateFrequency
         {
@@ -635,6 +652,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Calibration directory
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("textureAssetsDirectory")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="textureAssetsDirectory")]
         [System.ComponentModel.DescriptionAttribute("Calibration directory")]
         public string TextureAssetsDirectory
         {
@@ -653,6 +671,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("calibration")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="calibration")]
         [System.ComponentModel.DescriptionAttribute("Calibration parameters for a set of named display monitors for visual stimuli")]
         public System.Collections.Generic.Dictionary<string, DisplayCalibration> Calibration
         {
@@ -670,6 +689,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Brightness
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("brightness")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="brightness")]
         [System.ComponentModel.DescriptionAttribute("Brightness")]
         public double Brightness
         {
@@ -687,6 +707,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Contrast
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("contrast")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="contrast")]
         [System.ComponentModel.DescriptionAttribute("Contrast")]
         public double Contrast
         {
@@ -737,7 +758,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class Trial
@@ -761,6 +782,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Temporal frequency of the gratings in this stimulus
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("temporalFrequency", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="temporalFrequency")]
         [System.ComponentModel.DescriptionAttribute("Temporal frequency of the gratings in this stimulus")]
         public double TemporalFrequency
         {
@@ -778,6 +800,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Target response time (seconds) delay for the subject after this stimulus is presented
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("targetDelay", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="targetDelay")]
         [System.ComponentModel.DescriptionAttribute("Target response time (seconds) delay for the subject after this stimulus is prese" +
             "nted")]
         public double TargetDelay
@@ -824,7 +847,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class UclOpenReactionTimeRig
@@ -857,6 +880,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The root path on which to log all data.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("rootPath", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="rootPath")]
         [System.ComponentModel.DescriptionAttribute("The root path on which to log all data.")]
         public string RootPath
         {
@@ -871,6 +895,7 @@ namespace UclOpenReactionTimeDataSchema
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("version")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="version")]
         public string Version
         {
             get
@@ -888,6 +913,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("harpHobgoblin", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="harpHobgoblin")]
         [System.ComponentModel.DescriptionAttribute("Harp Hobgoblin device")]
         public HarpHobgoblin HarpHobgoblin
         {
@@ -906,6 +932,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("screen", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="screen")]
         [System.ComponentModel.DescriptionAttribute("The main display for visual stimuli")]
         public Screen Screen
         {
@@ -953,7 +980,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class UclOpenReactionTimeTaskLogic
@@ -980,6 +1007,7 @@ namespace UclOpenReactionTimeDataSchema
         }
     
         [Newtonsoft.Json.JsonPropertyAttribute("version")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="version")]
         public string Version
         {
             get
@@ -996,6 +1024,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Name of the task logic
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("name")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="name")]
         [System.ComponentModel.DescriptionAttribute("Name of the task logic")]
         public string Name
         {
@@ -1014,6 +1043,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("taskParameters", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="taskParameters")]
         [System.ComponentModel.DescriptionAttribute("Parameters of the task logic")]
         public UclOpenReactionTimeTaskParameters TaskParameters
         {
@@ -1060,7 +1090,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class UclOpenReactionTimeTaskParameters
@@ -1092,6 +1122,7 @@ namespace UclOpenReactionTimeDataSchema
         /// </summary>
         [System.Xml.Serialization.XmlIgnoreAttribute()]
         [Newtonsoft.Json.JsonPropertyAttribute("trials", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="trials")]
         [System.ComponentModel.DescriptionAttribute("The sequence of trials that will be delivered in the experiment")]
         public System.Collections.Generic.List<Trial> Trials
         {
@@ -1109,6 +1140,7 @@ namespace UclOpenReactionTimeDataSchema
         /// The maximum amount of time (seconds) allowed for a response in any trial. Exceeding this time should result in the trial aborting and moving to the next trial in the sequence
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("maxTrialTime", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="maxTrialTime")]
         [System.ComponentModel.DescriptionAttribute("The maximum amount of time (seconds) allowed for a response in any trial. Exceedi" +
             "ng this time should result in the trial aborting and moving to the next trial in" +
             " the sequence")]
@@ -1128,6 +1160,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Time (in seconds) between initiation of a new trial and onset of presentation of the trial stimulus
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("initialDelayTime", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="initialDelayTime")]
         [System.ComponentModel.DescriptionAttribute("Time (in seconds) between initiation of a new trial and onset of presentation of " +
             "the trial stimulus")]
         public double InitialDelayTime
@@ -1146,6 +1179,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Seed of the random number generator for these task parameters
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("rngSeed")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="rngSeed")]
         [System.ComponentModel.DescriptionAttribute("Seed of the random number generator for these task parameters")]
         public double? RngSeed
         {
@@ -1193,7 +1227,7 @@ namespace UclOpenReactionTimeDataSchema
     }
 
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
     [Bonsai.CombinatorAttribute(MethodName="Generate")]
     public partial class Vector3
@@ -1220,6 +1254,7 @@ namespace UclOpenReactionTimeDataSchema
         /// X coordinate of the point.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("x", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="x")]
         [System.ComponentModel.DescriptionAttribute("X coordinate of the point.")]
         public double X
         {
@@ -1237,6 +1272,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Y coordinate of the point.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("y", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="y")]
         [System.ComponentModel.DescriptionAttribute("Y coordinate of the point.")]
         public double Y
         {
@@ -1254,6 +1290,7 @@ namespace UclOpenReactionTimeDataSchema
         /// Z coordinate of the point.
         /// </summary>
         [Newtonsoft.Json.JsonPropertyAttribute("z", Required=Newtonsoft.Json.Required.Always)]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="z")]
         [System.ComponentModel.DescriptionAttribute("Z coordinate of the point.")]
         public double Z
         {
@@ -1303,7 +1340,7 @@ namespace UclOpenReactionTimeDataSchema
     /// <summary>
     /// Serializes a sequence of data model objects into JSON strings.
     /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [System.ComponentModel.DescriptionAttribute("Serializes a sequence of data model objects into JSON strings.")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Transform)]
     [Bonsai.CombinatorAttribute()]
@@ -1378,7 +1415,7 @@ namespace UclOpenReactionTimeDataSchema
     /// <summary>
     /// Deserializes a sequence of JSON strings into data model objects.
     /// </summary>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
     [System.ComponentModel.DescriptionAttribute("Deserializes a sequence of JSON strings into data model objects.")]
     [System.ComponentModel.DefaultPropertyAttribute("Type")]
     [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Transform)]
@@ -1417,6 +1454,141 @@ namespace UclOpenReactionTimeDataSchema
         private static System.IObservable<T> Process<T>(System.IObservable<string> source)
         {
             return System.Reactive.Linq.Observable.Select(source, value => Newtonsoft.Json.JsonConvert.DeserializeObject<T>(value));
+        }
+    }
+
+
+    /// <summary>
+    /// Serializes a sequence of data model objects into YAML strings.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Serializes a sequence of data model objects into YAML strings.")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Transform)]
+    [Bonsai.CombinatorAttribute()]
+    public partial class SerializeToYaml
+    {
+    
+        private System.IObservable<string> Process<T>(System.IObservable<T> source)
+        {
+            return System.Reactive.Linq.Observable.Defer(() =>
+            {
+                var serializer = new YamlDotNet.Serialization.SerializerBuilder()
+                      .WithTypeConverter(new YamlDotNet.Serialization.Converters.DateTimeOffsetConverter())
+                      .Build();
+                return System.Reactive.Linq.Observable.Select(source, value => serializer.Serialize(value)); 
+            });
+        }
+
+        public System.IObservable<string> Process(System.IObservable<DisplayCalibration> source)
+        {
+            return Process<DisplayCalibration>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<DisplayExtrinsics> source)
+        {
+            return Process<DisplayExtrinsics>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<DisplayIntrinsics> source)
+        {
+            return Process<DisplayIntrinsics>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<ExperimentSession> source)
+        {
+            return Process<ExperimentSession>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<HarpHobgoblin> source)
+        {
+            return Process<HarpHobgoblin>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Screen> source)
+        {
+            return Process<Screen>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Trial> source)
+        {
+            return Process<Trial>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<UclOpenReactionTimeRig> source)
+        {
+            return Process<UclOpenReactionTimeRig>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<UclOpenReactionTimeTaskLogic> source)
+        {
+            return Process<UclOpenReactionTimeTaskLogic>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<UclOpenReactionTimeTaskParameters> source)
+        {
+            return Process<UclOpenReactionTimeTaskParameters>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Vector3> source)
+        {
+            return Process<Vector3>(source);
+        }
+    }
+
+
+    /// <summary>
+    /// Deserializes a sequence of YAML strings into data model objects.
+    /// </summary>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
+    [System.ComponentModel.DescriptionAttribute("Deserializes a sequence of YAML strings into data model objects.")]
+    [System.ComponentModel.DefaultPropertyAttribute("Type")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Transform)]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayCalibration>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayExtrinsics>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<DisplayIntrinsics>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ExperimentSession>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<HarpHobgoblin>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Screen>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Trial>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeRig>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskLogic>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskParameters>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Vector3>))]
+    public partial class DeserializeFromYaml : Bonsai.Expressions.SingleArgumentExpressionBuilder
+    {
+    
+        public DeserializeFromYaml()
+        {
+            Type = new Bonsai.Expressions.TypeMapping<DisplayCalibration>();
+        }
+
+        public Bonsai.Expressions.TypeMapping Type { get; set; }
+
+        public override System.Linq.Expressions.Expression Build(System.Collections.Generic.IEnumerable<System.Linq.Expressions.Expression> arguments)
+        {
+            var typeMapping = (Bonsai.Expressions.TypeMapping)Type;
+            var returnType = typeMapping.GetType().GetGenericArguments()[0];
+            return System.Linq.Expressions.Expression.Call(
+                typeof(DeserializeFromYaml),
+                "Process",
+                new System.Type[] { returnType },
+                System.Linq.Enumerable.Single(arguments));
+        }
+
+        private static System.IObservable<T> Process<T>(System.IObservable<string> source)
+        {
+            return System.Reactive.Linq.Observable.Defer(() =>
+            {
+                var serializer = new YamlDotNet.Serialization.DeserializerBuilder()
+                      .WithTypeConverter(new YamlDotNet.Serialization.Converters.DateTimeOffsetConverter())
+                      .Build();
+                return System.Reactive.Linq.Observable.Select(source, value =>
+                {
+                    var reader = new System.IO.StringReader(value);
+                    var parser = new YamlDotNet.Core.MergingParser(new YamlDotNet.Core.Parser(reader));
+                    return serializer.Deserialize<T>(parser);
+                });
+            });
         }
     }
 }
