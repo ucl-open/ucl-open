@@ -599,7 +599,7 @@ Item2.Light as Light)</scr:Expression>
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:DelaySubscription">
-                <rx:DueTime>PT2S</rx:DueTime>
+                <rx:DueTime>PT5S</rx:DueTime>
               </Combinator>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
@@ -613,49 +613,12 @@ Item2.Light as Light)</scr:Expression>
                 <Property Name="PortName" />
               </PropertyMappings>
             </Expression>
-            <Expression xsi:type="GroupWorkflow">
-              <Name>Hobgoblin</Name>
-              <Workflow>
-                <Nodes>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Name" DisplayName="CommandsSubjectName" Description="The name of the input &quot;commands&quot; Subject" Category="Subjects" />
-                  </Expression>
-                  <Expression xsi:type="rx:BehaviorSubject" TypeArguments="harp:HarpMessage">
-                    <rx:Name>HobgoblinCommands</rx:Name>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="PortName" />
-                    <Property Name="DumpRegisters" />
-                    <Property Name="Heartbeat" />
-                  </Expression>
-                  <Expression xsi:type="Combinator">
-                    <Combinator xsi:type="p4:Device">
-                      <harp:OperationMode>Active</harp:OperationMode>
-                      <harp:OperationLed>On</harp:OperationLed>
-                      <harp:DumpRegisters>true</harp:DumpRegisters>
-                      <harp:VisualIndicators>On</harp:VisualIndicators>
-                      <harp:Heartbeat>Disabled</harp:Heartbeat>
-                      <harp:IgnoreErrors>false</harp:IgnoreErrors>
-                      <harp:PortName>COM7</harp:PortName>
-                    </Combinator>
-                  </Expression>
-                  <Expression xsi:type="ExternalizedMapping">
-                    <Property Name="Name" DisplayName="EventsSubjectName" Description="The name of the output &quot;Events&quot; Subject" Category="Subjects" />
-                  </Expression>
-                  <Expression xsi:type="rx:PublishSubject">
-                    <Name>HobgoblinEvents</Name>
-                  </Expression>
-                  <Expression xsi:type="WorkflowOutput" />
-                </Nodes>
-                <Edges>
-                  <Edge From="0" To="1" Label="Source1" />
-                  <Edge From="1" To="3" Label="Source1" />
-                  <Edge From="2" To="3" Label="Source2" />
-                  <Edge From="3" To="5" Label="Source1" />
-                  <Edge From="4" To="5" Label="Source2" />
-                  <Edge From="5" To="6" Label="Source1" />
-                </Edges>
-              </Workflow>
+            <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Devices:Hobgoblin.bonsai">
+              <CommandsSubjectName>HobgoblinCommands</CommandsSubjectName>
+              <PortName>COM7</PortName>
+              <DumpRegisters>true</DumpRegisters>
+              <Heartbeat>Disabled</Heartbeat>
+              <EventsSubjectName>HobgoblinEvents</EventsSubjectName>
             </Expression>
             <Expression xsi:type="SubscribeSubject">
               <Name>HobgoblinEvents</Name>
@@ -774,7 +737,7 @@ Item2.Light as Light)</scr:Expression>
               <ExtentX>1</ExtentX>
               <ExtentY>0.5</ExtentY>
               <SpatialFrequency>10</SpatialFrequency>
-              <TemporalFrequency>2</TemporalFrequency>
+              <TemporalFrequency>1</TemporalFrequency>
               <Phase>0</Phase>
               <Angle>0</Angle>
               <SquareWave>false</SquareWave>
@@ -943,7 +906,7 @@ Item2.Light as Light)</scr:Expression>
             <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
               <ExtentX>1</ExtentX>
               <ExtentY>1</ExtentY>
-              <Text>-0.638112000000547</Text>
+              <Text>-0.820704000000035</Text>
               <Font>Microsoft Sans Serif, 100pt</Font>
               <Alignment>Center</Alignment>
               <LineAlignment>Center</LineAlignment>
