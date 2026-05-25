@@ -3,7 +3,7 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:port="clr-namespace:Bonsai.IO.Ports;assembly=Bonsai.System"
-                 xmlns:p1="clr-namespace:;assembly=Extensions"
+                 xmlns:p1="clr-namespace:;assembly=UclOpen.Devices"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Description>Custom serial driver controlling a LickSpoutStage controling the positon of two lick spouts actuated by 5 stepper motors</Description>
   <Workflow>
