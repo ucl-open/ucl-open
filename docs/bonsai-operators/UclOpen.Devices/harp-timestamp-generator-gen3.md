@@ -44,7 +44,7 @@ timestamp_generator:
 ## Bonsai workflow
 
 :::workflow
-![TimestampGeneratorGen3](~/assets/workflows/TimestampGeneratorGen3.svg){data-bonsai="~/src/UclOpen.Devices/TimestampGeneratorGen3.bonsai"}
+![TimestampGeneratorGen3](~/assets/workflows/devices/TimestampGeneratorGen3.svg){data-bonsai="~/src/UclOpen.Devices/TimestampGeneratorGen3.bonsai"}
 :::
 
 The workflow has three logical sections.
@@ -64,7 +64,7 @@ Three device properties are externalized so they can be set from the rig configu
 The `Timestamps` nested workflow subscribes to the same events subject and derives two outputs:
 
 :::workflow
-![TimestampGeneratorGen3 Timestamps](~/assets/workflows/TimestampGeneratorGen3_Timestamps.bonsai)
+![TimestampGeneratorGen3 Timestamps](~/workflows/TimestampGeneratorGen3_Timestamps.bonsai)
 :::
 
 - **`Heartbeats` subject** - the raw once-per-second `TimestampSeconds` event stream, useful for monitoring clock health and sychronization across devices.
@@ -79,5 +79,5 @@ To stamp data from a non-Harp device with the hardware clock, subscribe to the `
 > **Note:** Unlike native Harp devices, this timestamp is assigned in software when the event arrives on the PC, not in hardware at the moment of acquisition. It is therefore subject to PC scheduling jitter and USB latency. For applications requiring sub-millisecond timing accuracy, use a Harp device directly.
 
 :::workflow
-![UsingTimebase](~/assets/workflows/UsingTimebase.bonsai)
+![UsingTimebase](~/workflows/UsingTimebase.bonsai)
 :::

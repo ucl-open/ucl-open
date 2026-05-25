@@ -55,7 +55,7 @@ class Rig(...):
 ## Bonsai workflow
 
 :::workflow
-![BehaviorBoard](~/assets/workflows/devices/BehaviorBoard.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/BehaviorBoard.bonsai"}
+![BehaviorBoard](~/assets/workflows/devices/BehaviorBoard/BehaviorBoard.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/BehaviorBoard.bonsai"}
 :::
 
 The top-level workflow opens the Harp serial connection, publishes the raw event stream on a named subject, and routes events into the nested sub-workflows below. Each sub-workflow exposes its own subject names so downstream nodes can subscribe to just the streams they need.
@@ -67,7 +67,7 @@ Sub-operators are nested workflows within the Behavior Board that interface with
 ### PulseController
 
 :::workflow
-![PulseController](~/assets/workflows/devices/PulseController.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/PulseController.bonsai"}
+![PulseController](~/assets/workflows/devices/BehaviorBoard/PulseController.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/PulseController.bonsai"}
 :::
 
 Generates pulses on the digital output lines listed in `active_pulses`, with widths configured by `pulse_widths`. Used to drive valves and other on/off actuators in response to commands on its input subject.
@@ -75,7 +75,7 @@ Generates pulses on the digital output lines listed in `active_pulses`, with wid
 ### CameraTriggerController
 
 :::workflow
-![CameraTriggerController](~/assets/workflows/devices/CameraTriggerController.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/CameraTriggerController.bonsai"}
+![CameraTriggerController](~/assets/workflows/devices/BehaviorBoard/CameraTriggerController.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/CameraTriggerController.bonsai"}
 :::
 
 Emits camera trigger pulses on `CameraOutput0` and `CameraOutput1` at the configured frequencies. Pair with a triggered camera module (such as [Triggered Spinnaker](triggered-spinnaker.md)) to align video to the Harp clock.
@@ -83,7 +83,7 @@ Emits camera trigger pulses on `CameraOutput0` and `CameraOutput1` at the config
 ### RunningWheel
 
 :::workflow
-![RunningWheel](~/assets/workflows/devices/RunningWheel.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/RunningWheel.bonsai"}
+![RunningWheel](~/assets/workflows/devices/BehaviorBoard/RunningWheel.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/RunningWheel.bonsai"}
 :::
 
 Reads the rotary encoder and converts counts into wheel speed and distance using `counts_per_revolution` and `wheel_diameter` from the rig configuration.
@@ -91,7 +91,7 @@ Reads the rotary encoder and converts counts into wheel speed and distance using
 ### Timestamps
 
 :::workflow
-![Timestamps](~/assets/workflows/devices/Timestamps.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/Timestamps.bonsai"}
+![Timestamps](~/assets/workflows/devices/BehaviorBoard/Timestamps.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/Timestamps.bonsai"}
 :::
 
 Derives a hardware-clock timebase from the Behavior Board's event stream and publishes it on a named subject. Other modules can use `WithLatestFrom` against this subject to stamp their own data with the Harp clock, keeping all rig data on a single timebase.

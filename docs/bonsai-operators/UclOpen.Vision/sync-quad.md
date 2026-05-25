@@ -7,7 +7,7 @@
 ## Bonsai workflow
 
 :::workflow
-![SyncQuad](~/assets/workflows/vision/SyncQuad.svg){data-bonsai="~/src/UclOpen.Vision/SyncQuad/SyncQuad.bonsai"}
+![SyncQuad](~/assets/workflows/vision/SyncQuad/SyncQuad.svg){data-bonsai="~/src/UclOpen.Vision/SyncQuad/SyncQuad.bonsai"}
 :::
 
 The workflow subscribes to two subjects:
