@@ -15,7 +15,7 @@ The `.bonsai` file in `src/UclOpen.Devices/` is a thin reusable group around the
 ## Bonsai workflow
 
 :::workflow
-![TriggeredSpinnaker](~/assets/workflows/devices/TriggeredSpinnaker.svg){data-bonsai="~/src/UclOpen.Devices/TriggeredSpinnaker.bonsai"}
+![TriggeredSpinnaker](~/assets/workflows-static/devices/TriggeredSpinnaker.svg){data-bonsai="~/src/UclOpen.Devices/TriggeredSpinnaker.bonsai"}
 :::
 
 The workflow instantiates the `TriggeredSpinnaker` operator with the configured camera index, publishes the frame stream on a named subject, and forwards each frame's `VideoDataFrame` to downstream consumers (display, encoders, writers). Combine this module with a Behavior Board `CameraTriggerController` to produce a deterministic, Harp-timestamped video stream.

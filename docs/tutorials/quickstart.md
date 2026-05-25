@@ -213,7 +213,7 @@ To use the parameters we've defined in our configuration in Bonsai, we need to:
 For example, for our rig configuration:
 
 :::workflow
-![IngestConfiguration](~/workflows/IngestConfiguration.bonsai)
+![IngestConfiguration](~/assets/workflows-static/IngestConfiguration.svg){data-bonsai="~/workflows/IngestConfiguration.bonsai"}
 :::
 
 Because of the auto-generated code we generated with `regenerate.py`, Bonsai can deserialize a raw `.json` file into accessible data classes and properties which we can use to parameterise parts of the workflow.
