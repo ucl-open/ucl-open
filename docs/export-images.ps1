@@ -31,7 +31,7 @@ function Process-Workflow-Collection([bool]$useGallery, [string]$workflowPath, [
 Push-Location $PSScriptRoot
 try {
     if (Test-Path -Path 'workflows/') {
-        Process-Workflow-Collection $UseGalleryForWorkflowsDirectory './workflows' '../.bonsai/'
+        Process-Workflow-Collection $UseGalleryForWorkflowsDirectory './workflows' './.bonsai/'
     }
 
     if (Test-Path -Path 'examples/') {
