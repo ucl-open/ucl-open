@@ -7,6 +7,7 @@ This guide explains how to add new content to the ucl-open documentation site, w
 | Tool | Purpose | Install |
 |------|---------|---------|
 | [Git](https://git-scm.com/) | Version control | Required |
+| [PowerShell 7](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows) | Running build scripts (`pwsh`) | Required for workflow diagrams |
 | [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) | Building the site with DocFX | Required |
 | [Bonsai](https://bonsai-rx.org/) | Generating workflow SVGs | Required for workflow diagrams |
 
