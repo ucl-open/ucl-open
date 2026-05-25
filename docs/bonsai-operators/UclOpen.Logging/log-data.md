@@ -24,13 +24,6 @@ The workflow takes a data stream as its `Source1` input, constructs the output p
 
 ## Usage
 
-Connect any observable sequence to `LogData` to log it. Use the `Selector` to pick which fields to write:
-
-```
-# Log encoder counts with hardware timestamp
-RunningWheel --> LogData
-                   LogName: "_running_wheel"
-                   Selector: "Seconds,Value"
-```
+Connect any data stream to `LogData` to log it. Use the `Selector` property editor to pick which fields to write. Column names will match the names of the fields.
 
 Multiple `LogData` operators can run in parallel in the same workflow; each writes to its own file under the shared `PathPrefix`.
