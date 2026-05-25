@@ -14,7 +14,7 @@ The Harp Timestamp Generator Gen3 (`who_am_i = 1158`) is a hardware clock synchr
 | `port_name` | `str` | - | Serial port the device is connected to (e.g. `COM3`) |
 | `timer_frequency` | `TimerFrequency` | `Timer1000Hz` | Rate at which timestamp events are sent to Bonsai |
 
-`TimerFrequency` is used to set the rate at which clock events are generated on the Harp device: `Disabled`, `Timer50Hz`, `Timer100Hz`, `Timer200Hz`, `Timer500Hz`, `Timer1000Hz`. These are collected by Bonsai and published to a subject that can then be used as the timestamps for the rest of your workflow. 
+`TimerFrequency` is used to set the rate at which clock events are generated on the Harp device: `Disabled`, `Timer50Hz`, `Timer100Hz`, `Timer200Hz`, `Timer500Hz`, `Timer1000Hz`. These are exposed in Bonsai by a subject that can then be used as the timestamps for the rest of your workflow. 
 
 ### Configuration example
 
