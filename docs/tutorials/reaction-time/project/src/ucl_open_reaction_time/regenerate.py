@@ -1,10 +1,11 @@
+import json
+import os
 from pathlib import Path
 from typing import Union
-import json
-import pydantic
-import os
 
+import pydantic
 from ucl_open.core import ExperimentSession
+
 import ucl_open_reaction_time.rig
 import ucl_open_reaction_time.task
 

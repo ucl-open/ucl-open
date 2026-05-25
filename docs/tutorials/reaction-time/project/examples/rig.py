@@ -2,7 +2,7 @@ import os
 
 from ucl_open.core import Vector3
 from ucl_open.devices.harp import HarpHobgoblin
-from ucl_open.vision import DisplayCalibration, DisplayExtrinsics, DisplayIntrinsics, ViewportConfiguration, Screen
+from ucl_open.vision import DisplayCalibration, DisplayExtrinsics, DisplayIntrinsics, Screen, ViewportConfiguration
 
 from ucl_open_reaction_time.rig import UclOpenReactionTimeRig
 
