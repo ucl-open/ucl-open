@@ -1,16 +1,14 @@
 from pathlib import Path
 from typing import Union
-
+import json
 import pydantic
-from aind_behavior_services.schema import BonsaiSgenSerializers, convert_pydantic_to_bonsai
-from ucl_open.core.experiment import ExperimentSession
 
+from ucl_open.core.experiment import ExperimentSession
 import ucl_open_reaction_time.rig
 import ucl_open_reaction_time.task
 
 SCHEMA_ROOT = Path("./src/DataSchemas/")
-EXTENSIONS_ROOT = Path("./src/Extensions/")
-NAMESPACE_PREFIX = "UclOpenReactionTimeDataSchema"
+SCHEMA_FILE = SCHEMA_ROOT / "ucl-open-reaction-time.json"
 
 def main():
     models = [
@@ -19,16 +17,10 @@ def main():
         ExperimentSession
     ]
     model = pydantic.RootModel[Union[tuple(models)]]
-
-    convert_pydantic_to_bonsai(
-        model, # type: ignore
-        model_name="ucl_open_reaction_time",
-        root_element="Root",
-        cs_namespace=NAMESPACE_PREFIX,
-        json_schema_output_dir=SCHEMA_ROOT,
-        cs_output_dir=EXTENSIONS_ROOT,
-        cs_serializer=[BonsaiSgenSerializers.JSON],
-    )
+    schema = model.model_json_schema(by_alias=True, mode="serialization", union_format="primitive_type_array")
+    SCHEMA_ROOT.mkdir(parents=True, exist_ok=True)
+    SCHEMA_FILE.write_text(json.dumps(schema, indent=2))
+    print(f"Schema written to {SCHEMA_FILE}")
 
 
 if __name__ == "__main__":
