@@ -1,8 +1,4 @@
 - name: Introduction
   href: introduction.md
-- name: Getting Started
-  href: getting-started.md
-- name: Writing a New Article
-  href: contributing.md
 - name: Project Structure
   href: project-structure.md
