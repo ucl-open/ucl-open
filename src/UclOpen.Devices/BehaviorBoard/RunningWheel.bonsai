@@ -11,7 +11,7 @@
     <Nodes>
       <Expression xsi:type="p1:CreateMessage">
         <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
-        <Payload xsi:type="beh:CreateEnableEncodersPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+        <Payload xsi:type="p1:CreateEnableEncodersPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
           <p1:EnableEncoders>EncoderPort2</p1:EnableEncoders>
         </Payload>
       </Expression>
@@ -22,7 +22,7 @@
       </Expression>
       <Expression xsi:type="p1:CreateMessage">
         <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
-        <Payload xsi:type="beh:CreateEncoderModePayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+        <Payload xsi:type="p1:CreateEncoderModePayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
           <p1:EncoderMode>Displacement</p1:EncoderMode>
         </Payload>
       </Expression>
@@ -33,7 +33,7 @@
       </Expression>
       <Expression xsi:type="p1:CreateMessage">
         <MessageType xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">Write</MessageType>
-        <Payload xsi:type="beh:CreateEncoderResetPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
+        <Payload xsi:type="p1:CreateEncoderResetPayload" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp">
           <p1:EncoderReset>EncoderPort2</p1:EncoderReset>
         </Payload>
       </Expression>
@@ -69,7 +69,7 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="p1:Parse">
-        <Register xsi:type="beh:AnalogData" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp" />
+        <Register xsi:type="p1:AnalogData" xmlns="clr-namespace:Bonsai.Harp;assembly=Bonsai.Harp" />
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Encoder</Selector>
