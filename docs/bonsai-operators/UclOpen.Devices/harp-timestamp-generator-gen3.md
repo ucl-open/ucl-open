@@ -14,7 +14,7 @@ The Harp Timestamp Generator Gen3 (`who_am_i = 1158`) is a hardware clock synchr
 | `port_name` | `str` | - | Serial port the device is connected to (e.g. `COM3`) |
 | `timer_frequency` | `TimerFrequency` | `Timer1000Hz` | Rate at which timestamp events are sent to Bonsai |
 
-`TimerFrequency` is used to set the rate at which clock events are generated in Bonsai: `Disabled`, `Timer50Hz`, `Timer100Hz`, `Timer200Hz`, `Timer500Hz`, `Timer1000Hz`. These can then be used as the timestamps for the rest of your workflow. 
+`TimerFrequency` is used to set the rate at which clock events are generated on the Harp device: `Disabled`, `Timer50Hz`, `Timer100Hz`, `Timer200Hz`, `Timer500Hz`, `Timer1000Hz`. These are exposed in Bonsai by a subject that can then be used as the timestamps for the rest of your workflow. 
 
 ### Configuration example
 
@@ -23,10 +23,12 @@ In your `rig.py`:
 ```python
 from ucl_open.devices import HarpTimestampGeneratorGen3, TimerFrequency
 
-timestamp_generator: HarpTimestampGeneratorGen3 = HarpTimestampGeneratorGen3(
-    port_name="COM3",
-    timer_frequency=TimerFrequency.Timer1000Hz,
-)
+class Rig(...):
+    ...
+    timestamp_generator: HarpTimestampGeneratorGen3 = HarpTimestampGeneratorGen3(
+        port_name="COM3",
+        timer_frequency=TimerFrequency.Timer1000Hz,
+    )
 ```
 
 Or as YAML:
@@ -42,7 +44,7 @@ timestamp_generator:
 ## Bonsai workflow
 
 :::workflow
-![TimestampGeneratorGen3](~/assets/workflows/TimestampGeneratorGen3.bonsai)
+![TimestampGeneratorGen3](~/assets/workflows/devices/TimestampGeneratorGen3.svg){data-bonsai="~/src/UclOpen.Devices/TimestampGeneratorGen3.bonsai"}
 :::
 
 The workflow has three logical sections.
@@ -62,7 +64,7 @@ Three device properties are externalized so they can be set from the rig configu
 The `Timestamps` nested workflow subscribes to the same events subject and derives two outputs:
 
 :::workflow
-![TimestampGeneratorGen3 Timestamps](~/assets/workflows/TimestampGeneratorGen3_Timestamps.bonsai)
+![TimestampGeneratorGen3 Timestamps](~/workflows/TimestampGeneratorGen3_Timestamps.bonsai)
 :::
 
 - **`Heartbeats` subject** - the raw once-per-second `TimestampSeconds` event stream, useful for monitoring clock health and sychronization across devices.
@@ -72,10 +74,10 @@ The `Timestamps` nested workflow subscribes to the same events subject and deriv
 
 ## Using the timebase in other modules
 
-To stamp data from a non-Harp device with the hardware clock, subscribe to the `Timestamp` subject from the `Timestamps` group and use `WithLatestFrom`:
+To stamp data from a non-Harp device with the hardware clock, subscribe to the `Timestamp` subject from the `Timestamps` group, pair it with your data stream using `WithLatestFrom`, then pass the result to `CreateTimestamped`:
 
-```
-[Your data stream] ──→ WithLatestFrom ──→ [Timestamped data]
-                              ↑
-                        Timestamp (BehaviorSubject)
-```
+> **Note:** Unlike native Harp devices, this timestamp is assigned in software when the event arrives on the PC, not in hardware at the moment of acquisition. It is therefore subject to PC scheduling jitter and USB latency. For applications requiring sub-millisecond timing accuracy, use a Harp device directly.
+
+:::workflow
+![UsingTimebase](~/workflows/UsingTimebase.bonsai)
+:::

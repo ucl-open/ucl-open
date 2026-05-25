@@ -21,8 +21,8 @@
         "files": [
           "*.md",
           "toc.yml",
-          "{articles,tutorials,examples}/**/*.md",
-          "{articles,tutorials,examples}/**/toc.yml"
+          "{articles,tutorials,examples,bonsai-operators}/**/*.md",
+          "{articles,tutorials,examples,bonsai-operators}/**/toc.yml"
         ],
         "exclude": "README.md"
       },
@@ -38,8 +38,14 @@
           "images/**",
           "assets/**",
           "workflows/**/*.{bonsai,svg}",
-          "{articles,tutorials,examples}/**/*.{bonsai,svg}"
+          "{articles,tutorials,examples,bonsai-operators}/**/*.{bonsai,svg}"
         ]
+      },
+      {
+        "src": "../src/",
+        "dest": "src",
+        "files": "**/*.bonsai",
+        "exclude": "**/*.Tests/**"
       }
     ],
     "overwrite": [
