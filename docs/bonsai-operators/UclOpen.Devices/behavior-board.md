@@ -1,6 +1,6 @@
 # Behavior Board
 
-The Behavior Board (`who_am_i = 1216`) is a Harp behaviour controller used as the main I/O hub on UCL Open rigs. It bundles three optional modules — a pulse controller for valves and other digital outputs, a camera trigger controller, and a running-wheel encoder reader — that can be enabled independently per rig.
+The Behavior Board (`who_am_i = 1216`) is a Harp board commonly used as an I/O hub on UCL Open rigs. It bundles three optional modules: a pulse controller for valves and other digital outputs, a camera trigger controller, and a running-wheel encoder reader. Each of these modules can be enabled independently per rig.
 
 ---
 
