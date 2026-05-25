@@ -64,7 +64,7 @@ Jinja-templated example scripts that demonstrate how to instantiate each schema.
 Pre-built NuGet packages for the core ucl-open C# libraries (`UclOpen.Core`, `UclOpen.Devices`, `UclOpen.Logging`, `UclOpen.Video`). These are referenced by the Bonsai environment via the local NuGet feed configured in `.bonsai/NuGet.config`.
 
 **scripts/**
-Helper scripts for deploying the project to a rig machine. See the [Build and Deploy](building-deploying.md) section for details.
+Helper scripts for deploying the project to a rig machine. See the [Build and Deploy](../tutorials/building-deploying.md) section for details.
 
 ### The schema compile step
 
