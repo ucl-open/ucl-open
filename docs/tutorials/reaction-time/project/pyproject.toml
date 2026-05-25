@@ -3,9 +3,9 @@ requires = ["uv_build>=0.8.22"]
 build-backend = "uv_build"
 
 [project]
-name = "{{ python_package_name }}"
-description = "A library that defines a ucl-open data schema for the {{ project_name }} experiment."
-authors = [ {name = "{{ author_name }}", email = "{{author_email}}"}]
+name = "ucl-open-reaction-time"
+description = "A library that defines a ucl-open data schema for the reaction-time experiment."
+authors = [ {name = "RoboDoig", email = "a.erskine@neurogears.org"}]
 license = "MIT"
 requires-python = ">=3.11, <3.12"
 classifiers = [
@@ -18,18 +18,17 @@ readme = {file = "README.md", content-type = "text/markdown"}
 dependencies = [
   "swc-aeon>=0.2.0",
   "ucl-open",
-  "pydantic-settings"
-  "aind_behavior_services>=0.13"
+  "pydantic-settings",
+  "GitPython"
 ]
 
 # [project.urls]
-# Documentation = "https://ucl-open.github.io/{{ dotnet_full_name }}/"
-# Repository = "https://github.com/UclOpen/{{ dotnet_full_name }}/"
-# Issues = "https://github.com/UclOpen/{{ dotnet_full_name }}/issues"
-# Changelog = "https://github.com/UclOpen/{{ dotnet_full_name }}/releases"
+# Documentation = "https://ucl-open.github.io/Ucl.Open.ReactionTime/"
+# Repository = "https://github.com/UclOpen/Ucl.Open.ReactionTime/"
+# Issues = "https://github.com/UclOpen/Ucl.Open.ReactionTime/issues"
+# Changelog = "https://github.com/UclOpen/Ucl.Open.ReactionTime/releases"
 [project.scripts]
-{{ project_name }} = "{{ python_folder_name }}.cli:main"
-regenerate-schemas = "{{ python_folder_name }}.regenerate:main"
+reaction-time = "ucl_open_reaction_time.cli:main"
 
 [tool.ruff]
 line-length = 120

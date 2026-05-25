@@ -1,5 +1,5 @@
 from ucl_open.vision.vision import SyncQuad, RandomFlip
-from ucl_open.vision.displays import DisplayIntrinsics, DisplayExtrinsics, DisplayCalibration, Screen
+from ucl_open.vision.displays import DisplayIntrinsics, DisplayExtrinsics, DisplayCalibration, ViewportConfiguration, Screen
 
 __all__ = [
     "SyncQuad",
@@ -7,5 +7,6 @@ __all__ = [
     "DisplayIntrinsics",
     "DisplayExtrinsics",
     "DisplayCalibration",
+    "ViewportConfiguration",
     "Screen",
 ]

@@ -7,6 +7,7 @@ _version.py
 *.egg-info/
 *.egg
 /artifacts/
+/.bonsai/
 **/.bonsai/Packages/
 **/.bonsai/*.exe
 **/.bonsai/*.settings
@@ -20,3 +21,7 @@ docs/workflows/**/*.svg
 .vs/
 .vscode/
 .coverage
+
+docs/tutorials/reaction-time/project/temp_data/
+
+*.lscache
