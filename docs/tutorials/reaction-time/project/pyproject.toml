@@ -48,5 +48,5 @@ ignore-words-list = 'nd'
 required-version = '>=0.8.4'
 
 [tool.uv.sources]
-ucl-open = {git = "https://github.com/ucl-open/ucl-open", branch = "main"}
+ucl-open = {git = "https://github.com/ucl-open/ucl-open", branch = "update-project-tutorial"}
 swc-aeon = { git = "https://github.com/SainsburyWellcomeCentre/aeon_api.git", branch = "main" }

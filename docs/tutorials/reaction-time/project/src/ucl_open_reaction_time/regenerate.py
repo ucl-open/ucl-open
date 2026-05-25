@@ -9,7 +9,7 @@ import ucl_open_reaction_time.rig
 import ucl_open_reaction_time.task
 
 SCHEMA_ROOT = Path("./src/DataSchemas/")
-SCHEMA_FILE = SCHEMA_ROOT / "ucl-open-reaction-time.json"
+SCHEMA_FILE = SCHEMA_ROOT / "ucl_open_reaction_time.json"
 
 
 def main():

@@ -18,7 +18,11 @@ rig = UclOpenReactionTimeRig(
                     rotation=Vector3(x=0.0, y=0.0, z=0.0),
                     translation=Vector3(x=0.0, y=1.309016, z=-13.27)
                 ),
-                intrinsics=DisplayIntrinsics()
+                intrinsics=DisplayIntrinsics(
+                    viewport_configuration=ViewportConfiguration(),
+                    display_width=20,
+                    display_height=15
+                )
             )
         }
     )

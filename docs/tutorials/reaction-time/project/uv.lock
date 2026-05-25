@@ -479,7 +479,7 @@ wheels = [
 [[package]]
 name = "ucl-open"
 version = "0.0.0"
-source = { git = "https://github.com/ucl-open/ucl-open?branch=main#7661da64e5efd60f0ca3d0b88362d5aac98c2f53" }
+source = { git = "https://github.com/ucl-open/ucl-open?branch=update-project-tutorial#cc7f2c3768789f726bd6e07556fa00cf2ab11987" }
 dependencies = [
     { name = "pydantic" },
     { name = "pydantic-yaml" },
@@ -502,5 +502,5 @@ requires-dist = [
     { name = "gitpython" },
     { name = "pydantic-settings" },
     { name = "swc-aeon", git = "https://github.com/SainsburyWellcomeCentre/aeon_api.git?branch=main" },
-    { name = "ucl-open", git = "https://github.com/ucl-open/ucl-open?branch=main" },
+    { name = "ucl-open", git = "https://github.com/ucl-open/ucl-open?branch=update-project-tutorial" },
 ]

@@ -199,9 +199,7 @@ namespace UclOpenReactionTime
     public partial class DisplayIntrinsics
     {
     
-        private int _frameWidth;
-    
-        private int _frameHeight;
+        private ViewportConfiguration _viewportConfiguration;
     
         private double _displayWidth;
     
@@ -209,53 +207,34 @@ namespace UclOpenReactionTime
     
         public DisplayIntrinsics()
         {
-            _frameWidth = 1920;
-            _frameHeight = 1080;
+            _viewportConfiguration = new ViewportConfiguration();
             _displayWidth = 20D;
             _displayHeight = 15D;
         }
     
         protected DisplayIntrinsics(DisplayIntrinsics other)
         {
-            _frameWidth = other._frameWidth;
-            _frameHeight = other._frameHeight;
+            _viewportConfiguration = other._viewportConfiguration;
             _displayWidth = other._displayWidth;
             _displayHeight = other._displayHeight;
         }
     
         /// <summary>
-        /// Pixel frame width
+        /// The viewport configuration for this display intrinsic
         /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("frameWidth")]
-        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="frameWidth")]
-        [System.ComponentModel.DescriptionAttribute("Pixel frame width")]
-        public int FrameWidth
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        [Newtonsoft.Json.JsonPropertyAttribute("viewportConfiguration")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="viewportConfiguration")]
+        [System.ComponentModel.DescriptionAttribute("The viewport configuration for this display intrinsic")]
+        public ViewportConfiguration ViewportConfiguration
         {
             get
             {
-                return _frameWidth;
+                return _viewportConfiguration;
             }
             set
             {
-                _frameWidth = value;
-            }
-        }
-    
-        /// <summary>
-        /// Pixel frame height
-        /// </summary>
-        [Newtonsoft.Json.JsonPropertyAttribute("frameHeight")]
-        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="frameHeight")]
-        [System.ComponentModel.DescriptionAttribute("Pixel frame height")]
-        public int FrameHeight
-        {
-            get
-            {
-                return _frameHeight;
-            }
-            set
-            {
-                _frameHeight = value;
+                _viewportConfiguration = value;
             }
         }
     
@@ -307,8 +286,7 @@ namespace UclOpenReactionTime
     
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
-            stringBuilder.Append("FrameWidth = " + _frameWidth + ", ");
-            stringBuilder.Append("FrameHeight = " + _frameHeight + ", ");
+            stringBuilder.Append("ViewportConfiguration = " + _viewportConfiguration + ", ");
             stringBuilder.Append("DisplayWidth = " + _displayWidth + ", ");
             stringBuilder.Append("DisplayHeight = " + _displayHeight);
             return true;
@@ -561,6 +539,10 @@ namespace UclOpenReactionTime
     
         private int _displayIndex;
     
+        private int _windowWidth;
+    
+        private int _windowHeight;
+    
         private double _targetRenderFrequency;
     
         private double _targetUpdateFrequency;
@@ -576,6 +558,8 @@ namespace UclOpenReactionTime
         public Screen()
         {
             _displayIndex = 1;
+            _windowWidth = 1920;
+            _windowHeight = 1080;
             _targetRenderFrequency = 60D;
             _targetUpdateFrequency = 120D;
             _textureAssetsDirectory = "Textures";
@@ -586,6 +570,8 @@ namespace UclOpenReactionTime
         protected Screen(Screen other)
         {
             _displayIndex = other._displayIndex;
+            _windowWidth = other._windowWidth;
+            _windowHeight = other._windowHeight;
             _targetRenderFrequency = other._targetRenderFrequency;
             _targetUpdateFrequency = other._targetUpdateFrequency;
             _textureAssetsDirectory = other._textureAssetsDirectory;
@@ -609,6 +595,42 @@ namespace UclOpenReactionTime
             set
             {
                 _displayIndex = value;
+            }
+        }
+    
+        /// <summary>
+        /// Width of the screen in pixels
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("windowWidth")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="windowWidth")]
+        [System.ComponentModel.DescriptionAttribute("Width of the screen in pixels")]
+        public int WindowWidth
+        {
+            get
+            {
+                return _windowWidth;
+            }
+            set
+            {
+                _windowWidth = value;
+            }
+        }
+    
+        /// <summary>
+        /// Height of the screen in pixels
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("windowHeight")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="windowHeight")]
+        [System.ComponentModel.DescriptionAttribute("Height of the screen in pixels")]
+        public int WindowHeight
+        {
+            get
+            {
+                return _windowHeight;
+            }
+            set
+            {
+                _windowHeight = value;
             }
         }
     
@@ -734,6 +756,8 @@ namespace UclOpenReactionTime
         protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
         {
             stringBuilder.Append("DisplayIndex = " + _displayIndex + ", ");
+            stringBuilder.Append("WindowWidth = " + _windowWidth + ", ");
+            stringBuilder.Append("WindowHeight = " + _windowHeight + ", ");
             stringBuilder.Append("TargetRenderFrequency = " + _targetRenderFrequency + ", ");
             stringBuilder.Append("TargetUpdateFrequency = " + _targetUpdateFrequency + ", ");
             stringBuilder.Append("TextureAssetsDirectory = " + _textureAssetsDirectory + ", ");
@@ -1337,6 +1361,188 @@ namespace UclOpenReactionTime
     }
 
 
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class ViewportConfiguration
+    {
+    
+        private double _width;
+    
+        private double _height;
+    
+        private double _x;
+    
+        private double _y;
+    
+        public ViewportConfiguration()
+        {
+            _width = 1D;
+            _height = 1D;
+            _x = 0D;
+            _y = 0D;
+        }
+    
+        protected ViewportConfiguration(ViewportConfiguration other)
+        {
+            _width = other._width;
+            _height = other._height;
+            _x = other._x;
+            _y = other._y;
+        }
+    
+        /// <summary>
+        /// The width of the viewport as a fraction of total screen width
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("width")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="width")]
+        [System.ComponentModel.DescriptionAttribute("The width of the viewport as a fraction of total screen width")]
+        public double Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                _width = value;
+            }
+        }
+    
+        /// <summary>
+        /// The height of the viewport as a fraction of total screen width
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("height")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="height")]
+        [System.ComponentModel.DescriptionAttribute("The height of the viewport as a fraction of total screen width")]
+        public double Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                _height = value;
+            }
+        }
+    
+        /// <summary>
+        /// The x-coordinate of the lower left corner of the viewport as a fraction of total screen width
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("x")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="x")]
+        [System.ComponentModel.DescriptionAttribute("The x-coordinate of the lower left corner of the viewport as a fraction of total " +
+            "screen width")]
+        public double X
+        {
+            get
+            {
+                return _x;
+            }
+            set
+            {
+                _x = value;
+            }
+        }
+    
+        /// <summary>
+        /// The y-coordinate of the lower left corner of the viewport as a fraction of total screen height
+        /// </summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("y")]
+        [YamlDotNet.Serialization.YamlMemberAttribute(Alias="y")]
+        [System.ComponentModel.DescriptionAttribute("The y-coordinate of the lower left corner of the viewport as a fraction of total " +
+            "screen height")]
+        public double Y
+        {
+            get
+            {
+                return _y;
+            }
+            set
+            {
+                _y = value;
+            }
+        }
+    
+        public System.IObservable<ViewportConfiguration> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new ViewportConfiguration(this)));
+        }
+    
+        public System.IObservable<ViewportConfiguration> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new ViewportConfiguration(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            stringBuilder.Append("Width = " + _width + ", ");
+            stringBuilder.Append("Height = " + _height + ", ");
+            stringBuilder.Append("X = " + _x + ", ");
+            stringBuilder.Append("Y = " + _y);
+            return true;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Bonsai.Sgen", "0.7.2.0 (Newtonsoft.Json v13.0.0.0, YamlDotNet v16.0.0.0)")]
+    [Bonsai.WorkflowElementCategoryAttribute(Bonsai.ElementCategory.Source)]
+    [Bonsai.CombinatorAttribute(MethodName="Generate")]
+    public partial class Json
+    {
+    
+        public Json()
+        {
+        }
+    
+        protected Json(Json other)
+        {
+        }
+    
+        public System.IObservable<Json> Generate()
+        {
+            return System.Reactive.Linq.Observable.Defer(() => System.Reactive.Linq.Observable.Return(new Json(this)));
+        }
+    
+        public System.IObservable<Json> Generate<TSource>(System.IObservable<TSource> source)
+        {
+            return System.Reactive.Linq.Observable.Select(source, _ => new Json(this));
+        }
+    
+        protected virtual bool PrintMembers(System.Text.StringBuilder stringBuilder)
+        {
+            return false;
+        }
+    
+        public override string ToString()
+        {
+            System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+            stringBuilder.Append(GetType().Name);
+            stringBuilder.Append(" { ");
+            if (PrintMembers(stringBuilder))
+            {
+                stringBuilder.Append(" ");
+            }
+            stringBuilder.Append("}");
+            return stringBuilder.ToString();
+        }
+    }
+
+
     /// <summary>
     /// Serializes a sequence of data model objects into JSON strings.
     /// </summary>
@@ -1409,6 +1615,16 @@ namespace UclOpenReactionTime
         {
             return Process<Vector3>(source);
         }
+
+        public System.IObservable<string> Process(System.IObservable<ViewportConfiguration> source)
+        {
+            return Process<ViewportConfiguration>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Json> source)
+        {
+            return Process<Json>(source);
+        }
     }
 
 
@@ -1430,12 +1646,14 @@ namespace UclOpenReactionTime
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskLogic>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Vector3>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ViewportConfiguration>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Json>))]
     public partial class DeserializeFromJson : Bonsai.Expressions.SingleArgumentExpressionBuilder
     {
     
         public DeserializeFromJson()
         {
-            Type = new Bonsai.Expressions.TypeMapping<DisplayCalibration>();
+            Type = new Bonsai.Expressions.TypeMapping<Json>();
         }
 
         public Bonsai.Expressions.TypeMapping Type { get; set; }
@@ -1533,6 +1751,16 @@ namespace UclOpenReactionTime
         {
             return Process<Vector3>(source);
         }
+
+        public System.IObservable<string> Process(System.IObservable<ViewportConfiguration> source)
+        {
+            return Process<ViewportConfiguration>(source);
+        }
+
+        public System.IObservable<string> Process(System.IObservable<Json> source)
+        {
+            return Process<Json>(source);
+        }
     }
 
 
@@ -1554,12 +1782,14 @@ namespace UclOpenReactionTime
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskLogic>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<UclOpenReactionTimeTaskParameters>))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Vector3>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<ViewportConfiguration>))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Bonsai.Expressions.TypeMapping<Json>))]
     public partial class DeserializeFromYaml : Bonsai.Expressions.SingleArgumentExpressionBuilder
     {
     
         public DeserializeFromYaml()
         {
-            Type = new Bonsai.Expressions.TypeMapping<DisplayCalibration>();
+            Type = new Bonsai.Expressions.TypeMapping<Json>();
         }
 
         public Bonsai.Expressions.TypeMapping Type { get; set; }
