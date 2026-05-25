@@ -4,5 +4,7 @@
   href: tutorials/
 - name: Workflows
   href: bonsai-operators/
+- name: Contributing
+  href: contributing/
 - name: API
   href: ../artifacts/docs/api/

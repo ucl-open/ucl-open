@@ -1,0 +1,6 @@
+- name: Developer Setup
+  href: dev-setup.md
+- name: Writing a New Article
+  href: contributing.md
+- name: Adding a Hardware Module
+  href: hardware-modules.md

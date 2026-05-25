@@ -21,8 +21,8 @@
         "files": [
           "*.md",
           "toc.yml",
-          "{articles,tutorials,examples,bonsai-operators}/**/*.md",
-          "{articles,tutorials,examples,bonsai-operators}/**/toc.yml"
+          "{articles,tutorials,examples,bonsai-operators,contributing}/**/*.md",
+          "{articles,tutorials,examples,bonsai-operators,contributing}/**/toc.yml"
         ],
         "exclude": "README.md"
       },
@@ -38,7 +38,7 @@
           "images/**",
           "assets/**",
           "workflows/**/*.{bonsai,svg}",
-          "{articles,tutorials,examples,bonsai-operators}/**/*.{bonsai,svg}"
+          "{articles,tutorials,examples,bonsai-operators,contributing}/**/*.{bonsai,svg}"
         ]
       },
       {

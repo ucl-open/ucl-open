@@ -13,14 +13,17 @@ This guide explains how to add new content to the ucl-open documentation site, w
 ## Site structure
 
 ```
-docs/                   ← root
-├── docfx.json          ← build configuration
-├── toc.yml             ← top-level navigation (tabs)
-├── index.md            ← landing page
-├── docs/               ← general documentation section
+docs/                   <- root
+├── docfx.json          <- build configuration
+├── toc.yml             <- top-level navigation (tabs)
+├── index.md            <- landing page
+├── articles/           <- conceptual documentation section
 │   ├── toc.yml
 │   └── *.md
-└── tutorials/          ← step-by-step tutorials section
+├── tutorials/          <- step-by-step tutorials section
+│   ├── toc.yml
+│   └── *.md
+└── contributing/       <- contributing guides section
     ├── toc.yml
     └── *.md
 ```
@@ -33,8 +36,9 @@ The top-level `toc.yml` defines the navigation tabs. Each tab points to a subfol
 
 Add a `.md` file to the appropriate section folder:
 
-- **`docs/`**: reference material, conceptual overviews.
-- **`tutorials/`**: how-to guides, step-by-step walkthroughs with a defined start and end
+- **`articles/`**: reference material, conceptual overviews.
+- **`tutorials/`**: how-to guides, step-by-step walkthroughs with a defined start and end.
+- **`contributing/`**: guides for contributing to the platform itself.
 
 Use lowercase kebab-case for filenames, e.g. `hardware-modules.md`.
 
@@ -78,7 +82,7 @@ Link to other pages using relative paths:
 For example:
 
 ```markdown
-See the [Project Structure](project-structure.md) page.
+See the [Project Structure](../articles/project-structure.md) page.
 See the [ucl-open](https://github.com/ucl-open) website.
 ```
 
@@ -132,19 +136,19 @@ This renders an SVG diagram of the workflow with a button to copy the XML. The `
 
 **Generating SVGs**
 
-Place your `.bonsai` file in `assets/workflows/` and run the export script from the `docs/` root:
+Place your `.bonsai` file in `assets/workflows/` and run the build script from the repository root:
 
 ```powershell
-.\bonsai\modules\Export-Image.ps1 -workflowPath .\assets\workflows -bootstrapperPath ..\acquisition\.bonsai\Bonsai.exe
+pwsh docs/build.ps1
 ```
 
-This calls `Bonsai.exe --export-image` on each workflow and post-processes the SVG for dark mode. If your Bonsai environment is elsewhere, adjust the `-bootstrapperPath` accordingly.
+This calls `Bonsai.exe --export-image` on each workflow and post-processes the SVG for dark mode.
 
 Commit both the `.bonsai` and the `.svg` files.
 
 ## Contributing via pull request
 
-The `main` branch is protected — changes must be submitted via a pull request (PR).
+The `main` branch is protected - changes must be submitted via a pull request (PR).
 
 ### 1. Create a branch
 
@@ -175,10 +179,10 @@ Ensure you have the `docfx` tool installed:
 dotnet tool install -g docfx
 ```
 
-From the root `docs/` directory, run:
+From the repository root, run:
 
 ```
-docfx --serve
+dotnet docfx docs/docfx.json --serve
 ```
 
 This builds the site to `_site/` and starts a local server at `http://localhost:8080`. The site will rebuild automatically when you save changes.
@@ -186,7 +190,7 @@ This builds the site to `_site/` and starts a local server at `http://localhost:
 To build without serving:
 
 ```
-docfx build
+dotnet docfx docs/docfx.json build
 ```
 
 > [!NOTE]
