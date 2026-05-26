@@ -1,5 +1,5 @@
 _templates_suffix: .jinja
-_subdirectory: template
+_subdirectory: template/template
 
 project_name:
   # Eg: new-project
@@ -9,7 +9,7 @@ project_name:
   validator: >-
     {% if not (project_name | regex_search('^[a-z][a-z0-9\\-]*$')) %}
     Project name must start with a lowercase letter and contain only lowercase letters, digits, or hyphens.
-    {% endif %} 
+    {% endif %}
 
 author_name:
   # Eg: John Doe
