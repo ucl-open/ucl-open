@@ -26,9 +26,11 @@ try {
     Write-Host "Bootstrapping Bonsai environment..."
     & $bonsaiExe --no-editor
 
+    dotnet build ..\UclOpen.sln -c release
+
     $libPaths = @()
-    $libPaths += Get-ChildItem "..\artifacts\bin\*\release_net4*" -Directory | Select-Object -Expand FullName
-    $libPaths += "..\artifacts\package\release"
+    $libPaths += Get-ChildItem "..\artifacts\bin\*\release_net4*" -Directory -ErrorAction SilentlyContinue | Select-Object -Expand FullName
+    if (Test-Path "..\artifacts\package\release") { $libPaths += Resolve-Path "..\artifacts\package\release" }
 
     ./export-images.ps1 $libPaths
     dotnet docfx metadata
