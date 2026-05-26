@@ -28,16 +28,16 @@ Schemas are `pydantic` models of the parameters that control an experiment. They
 To define a rig that contains a single Arduino device that writes data over serial, in `rig.py`:
 
 ```
-from typing import Literal
+from typing import Literal, Dict
 from pydantic import Field
 
-from ucl_open.rigs.base import BaseSchema
-from ucl_open.rigs.device import SerialDevice
+from ucl_open.core.rig import Rig
+from ucl_open.devices import SerialDevice
 
 from <your_project_name> import __semver__
 
 
-class <YourProjectName>Rig(BaseSchema):
+class <YourProjectName>Rig(Rig):
     version: Literal[__semver__] = __semver__
     arduino: SerialDevice = Field(description="Arduino with serial write data")
 ```
@@ -138,7 +138,7 @@ from ucl_open_implementation_example.rig import (
     <YourProjectName>ExampleRig
 )
 
-from ucl_open.rigs.device import SerialDevice
+from ucl_open.devices import SerialDevice
 
 rig = <YourProjectName>ExampleRig(
     arduino=SerialDevice(port_name="COM4")
