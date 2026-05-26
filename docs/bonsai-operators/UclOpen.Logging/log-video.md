@@ -40,7 +40,7 @@ The CSV file contains one row per frame with these columns:
 
 ## Usage
 
-Connect a camera stream (i.e. from [Triggered Spinnaker](../UclOpen.Devices/triggered-spinnaker.md)) to `LogVideo`:
+Connect a camera stream (i.e from [Triggered Spinnaker](../UclOpen.Devices/triggered-spinnaker.md)) to `LogVideo`:
 
 
 One `LogVideo` instance is needed per camera. The `FrameRate` parameter controls the AVI container header only; the actual frame rate is determined by the camera trigger.

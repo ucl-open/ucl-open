@@ -6,9 +6,9 @@ ucl-open is a platform for building standardised, reproducible experiment rigs i
 
 ### Python schemas
 
-The `ucl-open` Python package provides [Pydantic](https://docs.pydantic.dev/) models for every piece of hardware and experiment parameter the platform supports: rig devices, video streams, logging paths, vision stimuli, and so on. Schemas are the source of truth — if you add a device to a rig, you add it here first.
+The `ucl-open` Python package provides [Pydantic](https://docs.pydantic.dev/) models for every piece of hardware and experiment parameter the platform supports: rig devices, video streams, logging paths, vision stimuli, and so on. Schemas are the source of truth, and define all configurable properties of UclOpen Bonsai operators.
 
-When you run `regenerate.py` in a project scaffolded from the template, those models are compiled to JSON Schema and then to C# classes using [Bonsai.Sgen](https://github.com/bonsai-rx/sgen). The generated classes are committed alongside the workflow so that rig machines never need a Python installation.
+When you run `regenerate.py` in a project scaffolded from the template, those models are compiled to JSON Schema and then to C# classes using [Bonsai.Sgen](https://github.com/bonsai-rx/sgen). Bonsai is then able to read these classes, giving us a common description across Python and Bonsai.
 
 ### Bonsai operators
 
@@ -22,7 +22,7 @@ Operators are configured through externalized properties that map directly to fi
 
 ### Copier template
 
-Running `copier copy` against the ucl-open template scaffolds a new experiment repository with the right directory layout, a pinned Bonsai environment, a `regenerate.py` pipeline, and deploy scripts. You fill in the rig and task schemas; the template handles the plumbing.
+Running `copier copy` against the ucl-open template scaffolds a new experiment repository with the right directory layout, a pinned Bonsai environment, a `regenerate.py` pipeline, and deploy scripts. The experimenter fills in the rig and task schemas while the template handles the plumbing and filesystem structure.
 
 ## How the parts fit together
 
@@ -33,4 +33,4 @@ Running `copier copy` against the ucl-open template scaffolds a new experiment r
 
 ## Getting started
 
-Follow the [Tutorials](../tutorials/introduction.md) to build a complete experiment from scratch, starting with [Prerequisites](../tutorials/prerequisites.md) and the [Quickstart](../tutorials/quickstart.md).
+A complete end-to end tutorial can be found in [Tutorials](../tutorials/introduction.md), which builds a complete experiment from scratch, starting with [Prerequisites](../tutorials/prerequisites.md).

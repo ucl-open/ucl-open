@@ -1,4 +1,4 @@
-# Project Structure
+# Experimental Repository Structure
 
 When you run the copier template you are asked for three inputs:
 
@@ -49,7 +49,7 @@ my-experiment/
 ### Key directories
 
 **.bonsai/**
-The self-contained Bonsai environment for this project. Running `Setup.cmd` installs all required Bonsai packages into this directory so that the experiment is reproducible and isolated from other Bonsai installations on the machine.
+The self-contained Bonsai environment for this project. The Bonsai bootstrapper will install all required Bonsai packages into this directory so that the experiment is isolated from other Bonsai installations on the machine.
 
 **src/ucl_open_my_experiment/**
 The Python module where you define your experiment schemas. This is the main file you will edit when specifying experiment parameters. The module name is derived automatically from your `prefix` and `project_name` inputs.
@@ -70,11 +70,11 @@ Helper scripts for deploying the project to a rig machine. See the [Build and De
 
 Before opening Bonsai you need to run `regenerate.py` at least once. This script:
 
-1. Combines the `rig.py` and `task.py` schemas into a single JSON schema file at `src/DataSchemas/<python_folder_name>.json`
-2. Calls `Bonsai.Sgen` to generate `src/Extensions/<python_class_prefix>.Generated.cs` — the C# classes Bonsai will use to read your parameter files
+1. Combines the `rig.py` and `task.py` schemas into a single JSON schema file in `src/DataSchemas/`
+2. Calls `Bonsai.Sgen` to generate the C# classes Bonsai will use to read your parameter files in `src/Extensions/`
 
 ```
 uv run src/ucl_open_my_experiment/regenerate.py
 ```
 
-You will need to re-run this step any time you change your Python schemas. The generated files are committed to the repository so that the project can be built on a rig machine without a Python environment.
+You will need to re-run this step any time you change your Python schemas.
