@@ -52,7 +52,7 @@ reportMatchNotExhaustive = "error"
 # *Note*: we may want to set all 'ReportOptional*' rules to "none", but leaving 'em default for now
 venvPath = "."
 venv = ".venv"
-exclude = [".venv/*"]
+exclude = [".venv/*", "docs/tutorials/reaction-time/project/*"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
