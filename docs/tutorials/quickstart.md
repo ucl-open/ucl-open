@@ -1,6 +1,6 @@
 ## New Project
 
-In order for ucl-open projects to have a somewhat standardised structure, a [copier](https://copier.readthedocs.io/en/stable/) template is [provided](https://github.com/ucl-open/rig-template) as part of the framework. 
+In order for ucl-open projects to have a somewhat standardised structure, a [copier](https://copier.readthedocs.io/en/stable/) template is [provided](https://github.com/ucl-open/ucl-open/tree/main/template) as part of the framework. 
 
 First, install the `copier` tool from the command line (should only need to be done once per machine):
 

@@ -6,7 +6,10 @@ in `ucl-open/ucl-open` using the **Copier** CLI. This tool allows you to recreat
 All powershell commands can be run from the command line or from a terminal in VSCode.
 
 Template source:  
-https://github.com/ucl-open/ucl-open (subdirectory: `template/`)
+https://github.com/ucl-open/ucl-open
+
+Copier reads `copier.yml` from the repository root and renders the template body from the
+path its `_subdirectory` setting names.
 
 Copier documentation:  
 https://copier.readthedocs.io/en/stable/
@@ -68,7 +71,7 @@ Run Copier from the directory where you want the new project folder created:
 Example:
 
 ```powershell
-copier copy --vcs-ref HEAD gh:ucl-open/ucl-open --subdirectory template ./my-new-project
+copier copy --vcs-ref HEAD gh:ucl-open/ucl-open ./my-new-project
 ```
 The `--vcs-ref` flag specifies a branch or tag. Use a specific release tag (e.g. `v0.1.0`) to pin to a known-good version, or `HEAD` to use the latest commit on the default branch.
 Copier will prompt you for some basic template variables and then generate the files and directory structure.
