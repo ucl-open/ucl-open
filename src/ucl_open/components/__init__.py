@@ -1,3 +1,9 @@
+from ucl_open.components.audio import (
+    SphericalPosition,
+    Speaker,
+    AudioDevice,
+    SpeakerArray,
+)
 from ucl_open.components.calibration import ProjectionCalibration
 from ucl_open.components.outputs import (
     BehaviorBoardOutput,
@@ -11,6 +17,10 @@ from ucl_open.components.valve import (
 )
 
 __all__ = [
+    "SphericalPosition",
+    "Speaker",
+    "AudioDevice",
+    "SpeakerArray",
     "ProjectionCalibration",
     "BehaviorBoardOutput",
     "OutputExpanderOutput",
