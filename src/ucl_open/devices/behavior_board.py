@@ -1,8 +1,17 @@
-from typing import List
-from pydantic import Field
+from pydantic import Field, RootModel
+from pydantic.json_schema import JsonSchemaValue
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.harp import HarpBehavior
-from ucl_open.core.base import UShort
+from ucl_open.core.base import UShort, bind_typename
+
+
+class DigitalOutputs(RootModel[str]):
+    """A set of behavior board digital output lines, written comma separated."""
+
+    @classmethod
+    def __get_pydantic_json_schema__(cls, core_schema, handler) -> JsonSchemaValue:
+        """Binds the device's own flags enum, so generated properties can be assigned it."""
+        return bind_typename(handler(core_schema), "Harp.Behavior.DigitalOutputs")
 
 
 class CameraTriggerController(BaseSchema):
@@ -24,23 +33,19 @@ class PulseWidths(BaseSchema):
     A line that is not used on a rig may be omitted.
     """
 
-    pulse_do1: UShort | None = Field(
-        default=None, alias="PulseDO1", description="Pulse duration on DO1, in milliseconds."
-    )
-    pulse_do2: UShort | None = Field(
-        default=None, alias="PulseDO2", description="Pulse duration on DO2, in milliseconds."
-    )
-    pulse_do3: UShort | None = Field(
-        default=None, alias="PulseDO3", description="Pulse duration on DO3, in milliseconds."
+    pulse_do1: UShort = Field(alias="PulseDO1", description="Pulse duration on DO1, in milliseconds.")
+    pulse_do2: UShort = Field(alias="PulseDO2", description="Pulse duration on DO2, in milliseconds.")
+    pulse_do3: UShort = Field(
+        default=0, alias="PulseDO3", description="Pulse duration on DO3, in milliseconds."
     )
 
 
 class PulseController(BaseSchema):
     """Represents the PulseController module on the BehaviorBoard."""
 
-    output_pulse_enable: List[str] = Field(
-        default=["DO1", "DO2", "DO3"],
-        description="List of digital output lines that are enabled for pulse generation.",
+    output_pulse_enable: DigitalOutputs = Field(
+        default="DO1, DO2, DO3",
+        description="Digital output lines enabled for pulse generation, comma separated.",
     )
     pulse_widths: PulseWidths = Field(description="Pulse width configuration for DO1, DO2, and DO3 lines.")
 
