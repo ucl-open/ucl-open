@@ -44,7 +44,7 @@ class PulseController(BaseSchema):
     """Represents the PulseController module on the BehaviorBoard."""
 
     output_pulse_enable: DigitalOutputs = Field(
-        default="DO1, DO2, DO3",
+        default=DigitalOutputs("DO1, DO2, DO3"),
         description="Digital output lines enabled for pulse generation, comma separated.",
     )
     pulse_widths: PulseWidths = Field(description="Pulse width configuration for DO1, DO2, and DO3 lines.")
