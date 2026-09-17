@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Core", "src\UclOpen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Devices", "src\UclOpen.Devices\UclOpen.Devices.csproj", "{A7911D56-69A0-4795-BCDA-80D4EEC22C26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.HarpLogTool", "src\UclOpen.HarpLogTool\UclOpen.HarpLogTool.csproj", "{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging", "src\UclOpen.Logging\UclOpen.Logging.csproj", "{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging.Tests", "src\UclOpen.Logging.Tests\UclOpen.Logging.Tests.csproj", "{995E0FD9-592B-497D-9BB0-D01357EB72D6}"
@@ -40,6 +42,10 @@ Global
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
