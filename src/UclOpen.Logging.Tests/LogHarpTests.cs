@@ -125,10 +125,10 @@ namespace UclOpen.Logging.Tests
         // whole register logs, so the larger rows are expected to fail until that is fixed. The
         // small rows are kept to guard the cases that do work.
         [DataTestMethod]
-        [DataRow("SimulatedBehavior", 1)]
+        [DataRow("TestData", 1)]
         [DataRow("SimulatedBehavior", 3)]
         [DataRow("SimulatedBehavior", 20)]
-        [DataRow("TestHarp", 100)]
+        [DataRow("TestData", 100)]
         public void LogHarpDevice_SimulatedBehavior_WritesRequestedSampleCountAcrossRegisters(
             string logName,
             int count)
