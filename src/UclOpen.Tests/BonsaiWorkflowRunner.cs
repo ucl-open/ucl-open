@@ -21,18 +21,23 @@ namespace UclOpen.Tests
         /// <param name="workflowFileName">File name of the workflow, relative to the test output directory.</param>
         /// <param name="properties">Externalized workflow properties to assign, passed through as -p arguments.</param>
         /// <param name="timeout">How long to wait before killing the workflow. Defaults to two minutes.</param>
+        /// <param name="workflowDirectory">
+        /// Directory holding the workflow and the extensions to put on the Bonsai library path.
+        /// Defaults to the output directory of the calling test assembly.
+        /// </param>
         public static BonsaiWorkflowResult Run(
             string workflowFileName,
             IEnumerable<KeyValuePair<string, string>> properties = null,
-            TimeSpan? timeout = null)
+            TimeSpan? timeout = null,
+            string workflowDirectory = null)
         {
             var executablePath = GetBonsaiExecutablePath();
-            var outputDirectory = GetOutputDirectory();
+            var outputDirectory = workflowDirectory ?? GetOutputDirectory();
             var workflowPath = Path.Combine(outputDirectory, workflowFileName);
             if (!File.Exists(workflowPath))
             {
                 throw new FileNotFoundException(
-                    $"The workflow '{workflowFileName}' was not copied to the test output directory. " +
+                    $"The workflow '{workflowFileName}' was not found in '{outputDirectory}'. " +
                     "Ensure it is included as None with CopyToOutputDirectory in the project file.",
                     workflowPath);
             }

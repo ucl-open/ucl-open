@@ -41,6 +41,10 @@ namespace UclOpen.Tests
         [Description("The type of the emitted messages.")]
         public MessageType MessageType { get; set; } = MessageType.Event;
 
+        [Description("Replaces the random payload with the index of the message, so that a log can be " +
+                     "checked for messages which were never recorded.")]
+        public bool SequencePayload { get; set; }
+
         /// <summary>
         /// Generates an observable sequence of simulated Harp messages.
         /// </summary>
@@ -49,6 +53,7 @@ namespace UclOpen.Tests
             var period = Period;
             var seed = Seed;
             var messageType = MessageType;
+            var sequencePayload = SequencePayload;
 
             // Deferred so that each subscription gets its own generator state rather than
             // sharing a single sequence across subscriptions.
@@ -59,7 +64,14 @@ namespace UclOpen.Tests
                 {
                     var register = registers[random.Next(registers.Count)];
                     var payload = new byte[GetPayloadSize(register)];
+
+                    // Drawn even when it is about to be overwritten, so that enabling sequence
+                    // payloads does not shift the random stream and change which registers are used.
                     random.NextBytes(payload);
+                    if (sequencePayload)
+                    {
+                        WriteSequenceNumber(payload, index);
+                    }
 
                     // Timestamps come from the internal timer rather than the wall clock, so that
                     // a simulated run produces the same timestamps every time.
@@ -72,6 +84,18 @@ namespace UclOpen.Tests
                         payload);
                 });
             });
+        }
+
+        /// <summary>
+        /// Writes the message index into the payload, least significant byte first. Registers with a
+        /// single byte payload can only carry indices up to 255 before wrapping.
+        /// </summary>
+        static void WriteSequenceNumber(byte[] payload, long index)
+        {
+            for (var i = 0; i < payload.Length && i < sizeof(long); i++)
+            {
+                payload[i] = (byte)(index >> (i * 8));
+            }
         }
 
         static int GetPayloadSize(HarpRegisterInfo register)
