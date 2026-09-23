@@ -51,9 +51,6 @@ namespace UclOpen.Logging.Tests
         public void LogHarpDevice_SimulatedBehavior_WritesExpectedDirectoryStructure()
         {
             const string LogName = "SimulatedBehavior";
-            // Deliberately a small count. Logging is currently unreliable once several registers are
-            // written concurrently, so a larger count would make this structural check flaky for
-            // reasons that have nothing to do with the layout it is verifying.
             var result = RunWorkflow(LogName, count: 3);
             var logFiles = GetLogFiles(result);
 
@@ -121,9 +118,6 @@ namespace UclOpen.Logging.Tests
                 $"Expected one log file per register address.{result.Describe()}");
         }
 
-        // Counts of one to three are currently reliable; from around five the logger starts losing
-        // whole register logs, so the larger rows are expected to fail until that is fixed. The
-        // small rows are kept to guard the cases that do work.
         [DataTestMethod]
         [DataRow("TestData", 1)]
         [DataRow("SimulatedBehavior", 3)]
