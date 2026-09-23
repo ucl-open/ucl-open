@@ -1,12 +1,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32825.248
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12217.157 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Core", "src\UclOpen.Core\UclOpen.Core.csproj", "{8190E825-DE1F-5155-BB6D-601A6BEDD0A7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Devices", "src\UclOpen.Devices\UclOpen.Devices.csproj", "{A7911D56-69A0-4795-BCDA-80D4EEC22C26}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.HarpLogTool", "src\UclOpen.HarpLogTool\UclOpen.HarpLogTool.csproj", "{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging", "src\UclOpen.Logging\UclOpen.Logging.csproj", "{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}"
 EndProject
@@ -42,10 +40,6 @@ Global
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7911D56-69A0-4795-BCDA-80D4EEC22C26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D9E7B15-6C82-4A3F-91D0-8E5B27C6A4F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C144DCB-1F43-4C35-BCEC-FBC7650B1BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
