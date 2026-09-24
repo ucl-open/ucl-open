@@ -1,3 +1,7 @@
+- name: UclOpen.Core
+  items:
+  - name: Rig Configuration
+    href: UclOpen.Core/rig-config.md
 - name: UclOpen.Devices
   items:
   - name: Arduino LED Driver
