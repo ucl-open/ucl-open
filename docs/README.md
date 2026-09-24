@@ -11,6 +11,6 @@ pwsh docs/build.ps1
 dotnet docfx docs/docfx.json --serve
 ```
 
-`build.ps1` builds the NuGet packages, bootstraps the Bonsai render environment, and writes SVGs into `docs/assets/workflows/` and `docs/workflows/` (both gitignored). DocFX then serves the site at `http://localhost:8080`.
+`build.ps1` Writes SVGs into `docs/assets/workflows/` and `docs/workflows/`. DocFX then serves the site at `http://localhost:8080`.
 
 On CI, the `workflow-images` job renders SVGs directly into `artifacts/docs/site/` so they slot into the deployed site without a separate copy step.
