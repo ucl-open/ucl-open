@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UclOpen.HardwareSimulation\UclOpen.HardwareSimulation.csproj" />
     <ProjectReference Include="..\UclOpen.Logging\UclOpen.Logging.csproj" />
     <ProjectReference Include="..\UclOpen.Tests\UclOpen.Tests.csproj" />
   </ItemGroup>

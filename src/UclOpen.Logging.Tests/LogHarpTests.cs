@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UclOpen.HardwareSimulation;
 using UclOpen.Tests;
 
 namespace UclOpen.Logging.Tests
