@@ -184,7 +184,15 @@ jobs:
         run: dotnet pack --no-restore --no-build --configuration ${{matrix.configuration}}
 
       # ----------------------------------------------------------------------- Test
+      # Tests which launch Bonsai workflows headlessly need the repository environment bootstrapped,
+      # so that BonsaiExecutablePath resolves. Only needed where the net472 tests actually run.
+      - name: Set up Bonsai environment
+        if: matrix.platform.rid == 'win-x64'
+        uses: bonsai-rx/setup-bonsai@v1
+
+      # .NET Framework test assemblies can only be executed on Windows
       - name: Test .NET Framework 4.7.2
+        if: matrix.platform.rid == 'win-x64'
         run: dotnet test --no-restore --no-build --configuration ${{matrix.configuration}} --verbosity normal --framework net472
       - name: Test .NET 8
         run: dotnet test --no-restore --no-build --configuration ${{matrix.configuration}} --verbosity normal --framework net8.0
@@ -294,7 +302,7 @@ jobs:
       - name: Set up Bonsai environments
         uses: bonsai-rx/setup-bonsai@v1
         with:
-          environment-paths: 'docs/.bonsai/'
+          environment-paths: './.bonsai/'
           inject-packages: artifacts/packages/*.nupkg
 
       # ----------------------------------------------------------------------- Render
