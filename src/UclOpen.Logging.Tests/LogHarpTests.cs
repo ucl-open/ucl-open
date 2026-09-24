@@ -15,6 +15,12 @@ namespace UclOpen.Logging.Tests
     {
         protected override string WorkflowFileName => "LogHarpTest.bonsai";
 
+        // Bonsai runs with its own install folder as the working directory, so the device file is
+        // passed by absolute path rather than relative to the workflow.
+        static readonly string DeviceFile = Path.Combine(
+            Path.GetDirectoryName(new Uri(typeof(LogHarpTests).Assembly.CodeBase).LocalPath),
+            "Harp.Behavior.device.yml");
+
         [TestMethod]
         public void LogHarpDevice_SimulatedBehavior_WritesExpectedDirectoryStructure()
         {
@@ -46,11 +52,12 @@ namespace UclOpen.Logging.Tests
                 $"Expected the device folder to be named after LogName.{result.Describe()}");
 
             // Each register still gets its own file, distinguished by the register address.
+            var registers = HarpDeviceMetadata.Load(DeviceFile).Registers;
             foreach (var logFile in logFiles)
             {
                 var address = GetRegisterAddress(logFile, LogName, result);
                 Assert.IsTrue(
-                    BehaviorDeviceSimulator.Registers.Any(register => register.Address == address),
+                    registers.Any(register => register.Address == address),
                     $"Address {address} in '{Path.GetFileName(logFile)}' is not a register of the " +
                     $"simulated device.{result.Describe()}");
             }
@@ -109,7 +116,8 @@ namespace UclOpen.Logging.Tests
             {
                 // The workflow externalizes LogHarpDevice's LogName under this display name.
                 { "HarpLogName", logName },
-                { "Count", count.ToString(CultureInfo.InvariantCulture) }
+                { "Count", count.ToString(CultureInfo.InvariantCulture) },
+                { "DeviceFile", DeviceFile }
             });
         }
     }

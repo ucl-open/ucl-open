@@ -67,7 +67,8 @@
         </PropertyMappings>
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:BehaviorDeviceSimulator">
+        <Combinator xsi:type="p1:HarpDeviceSimulator">
+          <p1:FileName>Harp.Behavior.device.yml</p1:FileName>
           <p1:Period />
           <p1:Seed>0</p1:Seed>
           <p1:MessageType>Event</p1:MessageType>
@@ -399,6 +400,9 @@
         </Combinator>
       </Expression>
       <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="FileName" DisplayName="DeviceFile" />
+      </Expression>
     </Nodes>
     <Edges>
       <Edge From="0" To="3" Label="Source1" />
@@ -418,6 +422,7 @@
       <Edge From="17" To="19" Label="Source1" />
       <Edge From="18" To="19" Label="Source2" />
       <Edge From="19" To="20" Label="Source1" />
+      <Edge From="21" To="15" Label="Source2" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
