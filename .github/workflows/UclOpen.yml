@@ -302,7 +302,7 @@ jobs:
       - name: Set up Bonsai environments
         uses: bonsai-rx/setup-bonsai@v1
         with:
-          environment-paths: 'docs/.bonsai/'
+          environment-paths: './.bonsai/'
           inject-packages: artifacts/packages/*.nupkg
 
       # ----------------------------------------------------------------------- Render
