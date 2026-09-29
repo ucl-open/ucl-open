@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DEE5DD87
 		build\Package.props = build\Package.props
 		build\Project.csproj.props = build\Project.csproj.props
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7154D3D2-411E-41E4-A36C-58A4FFCC6A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Streaming", "src\UclOpen.Streaming\UclOpen.Streaming.csproj", "{AEA91477-0205-4F07-92D8-27A628BA63F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,11 +52,18 @@ Global
 		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABC3E39D-3D71-4F2D-BBE9-2C76A93EE487}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEA91477-0205-4F07-92D8-27A628BA63F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA91477-0205-4F07-92D8-27A628BA63F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA91477-0205-4F07-92D8-27A628BA63F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA91477-0205-4F07-92D8-27A628BA63F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BCBC17F-9E00-4ABC-9CEE-ABB0337E929D}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AEA91477-0205-4F07-92D8-27A628BA63F5} = {7154D3D2-411E-41E4-A36C-58A4FFCC6A56}
 	EndGlobalSection
 EndGlobal
