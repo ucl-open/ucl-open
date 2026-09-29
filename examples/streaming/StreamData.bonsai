@@ -119,7 +119,7 @@
         </Workflow>
       </Expression>
       <Expression xsi:type="p1:SelectStreamPayload">
-        <p1:Type xsi:type="TypeMapping" TypeArguments="sys:Int32" />
+        <p1:Type xsi:type="TypeMapping" TypeArguments="sys:Double" />
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Value</Selector>
@@ -133,7 +133,7 @@
         <ConnectionString>&gt;tcp://127.0.0.1:5556</ConnectionString>
       </Expression>
       <Expression xsi:type="p1:SelectStreamPayload">
-        <p1:Type xsi:type="TypeMapping" TypeArguments="sys:Double" />
+        <p1:Type xsi:type="TypeMapping" TypeArguments="sys:Int64" />
       </Expression>
       <Expression xsi:type="MemberSelector">
         <Selector>Value</Selector>
