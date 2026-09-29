@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -26,9 +26,7 @@ namespace UclOpen.Logging.Tests
         // Kept beside the log root rather than in it, so that it is never mistaken for a log.
         string SourceVideo => Path.Combine(TestDirectory, "source.avi");
 
-        // The workflow default LogName is "Video", so at least one row must differ from it to prove
-        // the value is actually being applied rather than coincidentally matching. Frame sizes are
-        // kept at 160x120 or above, since the FMP4 encoder writes unreadable videos at e.g. 64x48.
+        // Frame sizes are kept at 160x120 or above, since the FMP4 encoder writes unreadable videos at e.g. 64x48.
         [DataTestMethod]
         [DataRow("TestVideo", 10, 320, 240)]
         [DataRow("Video", 25, 160, 120)]
@@ -203,8 +201,6 @@ namespace UclOpen.Logging.Tests
             return RunWorkflow(new Dictionary<string, string>
             {
                 { "FileName", SourceVideo },
-                // Played back in real time, since frames read faster than the time base ticks would
-                // have no timestamp to pair with and be dropped before reaching the logger.
                 { "PlaybackRate", SourceFrameRate.ToString(CultureInfo.InvariantCulture) },
                 { "LogName", logName }
             });

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -106,7 +106,7 @@ namespace UclOpen.Logging.Tests
         {
             return RunWorkflow(new Dictionary<string, string>
             {
-                // The workflow externalizes LogHarpDevice's LogName under this display name.
+                // The workflow should externalize LogHarpDevice's LogName under this display name.
                 { "HarpLogName", logName },
                 { "Count", count.ToString(CultureInfo.InvariantCulture) }
             });

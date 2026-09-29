@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -15,8 +15,6 @@ namespace UclOpen.Logging.Tests
 
         protected override string WorkflowFileName => "LogDataTest.bonsai";
 
-        // The workflow defaults are LogName "Data" and Count 5, so at least one row must differ from
-        // both to prove the values are actually being applied rather than coincidentally matching.
         [DataTestMethod]
         [DataRow("Point3Data", 3)]
         [DataRow("TestData", 5)]
