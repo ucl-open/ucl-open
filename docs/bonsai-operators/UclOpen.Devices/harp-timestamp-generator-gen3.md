@@ -51,13 +51,13 @@ The workflow has three logical sections.
 
 ### 1. Initialization sequence
 
-On startup the workflow synchronizes the PC clock to the Harp hardware clock (`SynchronizeTimestamp`), waits for that to complete (`Take(1)`), then sends a write command to configure the timer frequency after a 100 ms delay. `Concat` sequences these two messages so the timer is only configured after synchronization and we do not risk concurrent write messages clashing at the same time. Depending on how hardware is configured, timestamps before 100ms may be incorrect or at an incorrect frequency.
+On startup the workflow synchronizes the PC clock to the Harp hardware clock (`SynchronizeTimestamp`), waits for that to complete (`Take(1)`), then sends a write command to configure the timer frequency after a 100 ms delay. `Concat` sequences these two messages so the timer is only configured after synchronization and we do not risk concurrent write messages clashing at the same time. The sequence ends in a `MulticastSubject` that pushes both messages into the commands subject described below, rather than into the `Device` node directly. Depending on how hardware is configured, timestamps before 100ms may be incorrect or at an incorrect frequency.
 
-### 2. Device and event bus
+### 2. Device, commands and event bus
 
-The `Device` node opens the serial connection to the Timestamp Generator. It receives the initialization messages from the `Concat` sequence and emits all incoming Harp messages as an output stream. These are immediately published to a named `PublishSubject` (`ClockSynchronizerEvents` by default, overridable via `EventsSubjectName`). A subscription to this subject allows access to these events elsewhere in the workflow.
+The `Device` node opens the serial connection to the Timestamp Generator. Its input is a `BehaviorSubject` of `HarpMessage` named `TimestampGeneratorCommands` (overridable via `CommandsSubjectName`), so any part of the workflow can send a command to the device with a `MulticastSubject` of that name. The initialization sequence uses the same route. The device emits all incoming Harp messages as an output stream, published to a named `PublishSubject` (`ClockSynchronizerEvents` by default, overridable via `EventsSubjectName`). A subscription to this subject allows access to these events elsewhere in the workflow.
 
-Three device properties are externalized so they can be set from the rig configuration: `PortName` intended to be set from configuraion yaml, and `DumpRegisters`, and `Heartbeat` set in the workflow.
+Three device properties are externalized so they can be set from the rig configuration: `PortName`, intended to be set from the configuration YAML, and `DumpRegisters` and `Heartbeat`, set in the workflow.
 
 ### 3. Timestamps group
 
