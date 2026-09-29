@@ -36,8 +36,8 @@ namespace UclOpen.Streaming
 
     /// <summary>
     /// Represents an operator that deserializes the payload of each received message into the
-    /// specified type, keeping only the session key and message index. Messages whose header
-    /// could not be parsed are dropped.
+    /// specified type, keeping only the session key and message index. It is the mirror of
+    /// the PackDataMessage workflow. Messages whose header could not be parsed are dropped.
     /// </summary>
     /// <remarks>
     /// The selectable types are the XmlInclude attributes below, and the list is maintained by
@@ -56,12 +56,12 @@ namespace UclOpen.Streaming
     [XmlInclude(typeof(TypeMapping<double>))]
     [XmlInclude(typeof(TypeMapping<Vector2>))]
     [XmlInclude(typeof(TypeMapping<Vector3>))]
-    public class SelectStreamPayload : SingleArgumentExpressionBuilder
+    public class UnpackDataMessage : SingleArgumentExpressionBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectStreamPayload"/> class.
+        /// Initializes a new instance of the <see cref="UnpackDataMessage"/> class.
         /// </summary>
-        public SelectStreamPayload()
+        public UnpackDataMessage()
         {
             Type = new TypeMapping<string>();
         }
@@ -78,7 +78,7 @@ namespace UclOpen.Streaming
             var typeMapping = (TypeMapping)Type;
             var returnType = typeMapping.GetType().GetGenericArguments()[0];
             return Expression.Call(
-                typeof(SelectStreamPayload),
+                typeof(UnpackDataMessage),
                 "Process",
                 new[] { returnType },
                 Enumerable.Single(arguments));
