@@ -38,6 +38,8 @@ namespace UclOpen.Streaming
     /// Represents an operator that deserializes the payload of each received message into the
     /// specified type, keeping only the session key and message index. It is the mirror of
     /// the PackDataMessage workflow. Messages whose header could not be parsed are dropped.
+    /// A message whose header names a different type from the one selected fails with an
+    /// error naming the stream and both types; a header with no type is deserialized as is.
     /// </summary>
     /// <remarks>
     /// The selectable types are the XmlInclude attributes below, and the list is maintained by
@@ -86,11 +88,23 @@ namespace UclOpen.Streaming
 
         private static IObservable<StreamPayload<T>> Process<T>(IObservable<StreamMessage> source)
         {
-            return source.Where(message => message.Valid).Select(message => new StreamPayload<T>
+            var expectedType = typeof(T).Name;
+            return source.Where(message => message.Valid).Select(message =>
             {
-                SessionKey = message.Header.SessionKey,
-                Index = message.Header.Index,
-                Value = JsonConvert.DeserializeObject<T>(message.Text)
+                var header = message.Header;
+                if (!string.IsNullOrEmpty(header.Type) && header.Type != expectedType)
+                {
+                    throw new InvalidOperationException(string.Format(
+                        "Stream {0} carries {1} but the receiver is set to {2}.",
+                        message.Topic, header.Type, expectedType));
+                }
+
+                return new StreamPayload<T>
+                {
+                    SessionKey = header.SessionKey,
+                    Index = header.Index,
+                    Value = JsonConvert.DeserializeObject<T>(message.Text)
+                };
             });
         }
     }
