@@ -5,7 +5,10 @@ from ucl_open.devices.arduino import (
 )
 from ucl_open.devices.behavior_board import (
     CameraTriggerController,
-    PulseWidths,
+    FixedPulse,
+    CalibratedPulse,
+    PulseOutput,
+    PulseOutputs,
     PulseController,
     RunningWheel,
     BehaviorBoard,
@@ -35,7 +38,10 @@ __all__ = [
     "LedController",
     "LedDriver",
     "CameraTriggerController",
-    "PulseWidths",
+    "FixedPulse",
+    "CalibratedPulse",
+    "PulseOutput",
+    "PulseOutputs",
     "PulseController",
     "RunningWheel",
     "BehaviorBoard",

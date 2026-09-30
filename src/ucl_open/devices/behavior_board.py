@@ -1,8 +1,10 @@
+from typing import Annotated, Union
+
 from pydantic import Field, RootModel
 from pydantic.json_schema import JsonSchemaValue
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.harp import HarpBehavior
-from ucl_open.core.base import UShort, bind_typename
+from ucl_open.core.base import DiscriminatorTypeMixin, UShort, bind_typename
 
 
 class DigitalOutputs(RootModel[str]):
@@ -27,17 +29,39 @@ class CameraTriggerController(BaseSchema):
     )
 
 
-class PulseWidths(BaseSchema):
-    """Pulse durations for the behavior board digital outputs, in milliseconds.
+class FixedPulse(DiscriminatorTypeMixin, BaseSchema):
+    """A pulsed output whose width is set in the rig configuration, such as an LED, an air puff or a TTL."""
 
-    A line that is not used on a rig may be omitted.
+    pulse_width_ms: UShort = Field(description="Pulse duration, in milliseconds.")
+
+
+class CalibratedPulse(DiscriminatorTypeMixin, BaseSchema):
+    """A pulsed output whose width comes from a calibration curve at run time, such as a reward valve."""
+
+    artefact: str = Field(
+        examples=["calibration/valve-DO1.json"],
+        description="Relative path of the CalibrationCurve that converts the requested quantity to a pulse width.",
+    )
+
+
+class PulseOutput(
+    RootModel[Annotated[Union[FixedPulse, CalibratedPulse], Field(discriminator="discriminator_type")]]
+):
+    """What drives the pulse width of one digital output line: a fixed width or a calibration curve."""
+
+    pass
+
+
+class PulseOutputs(BaseSchema):
+    """The pulse source of each behavior board digital output line. Each line appears once.
+
+    All three lines are required: a union has no default that survives code generation, so an
+    unused line is written as a FixedPulse with a width of 0.
     """
 
-    pulse_do1: UShort = Field(alias="PulseDO1", description="Pulse duration on DO1, in milliseconds.")
-    pulse_do2: UShort = Field(alias="PulseDO2", description="Pulse duration on DO2, in milliseconds.")
-    pulse_do3: UShort = Field(
-        default=0, alias="PulseDO3", description="Pulse duration on DO3, in milliseconds."
-    )
+    do1: PulseOutput = Field(alias="DO1", description="Pulse source for DO1.")
+    do2: PulseOutput = Field(alias="DO2", description="Pulse source for DO2.")
+    do3: PulseOutput = Field(alias="DO3", description="Pulse source for DO3; a FixedPulse of width 0 if unused.")
 
 
 class PulseController(BaseSchema):
@@ -47,7 +71,7 @@ class PulseController(BaseSchema):
         default=DigitalOutputs("DO1, DO2, DO3"),
         description="Digital output lines enabled for pulse generation, comma separated.",
     )
-    pulse_widths: PulseWidths = Field(description="Pulse width configuration for DO1, DO2, and DO3 lines.")
+    outputs: PulseOutputs = Field(description="Pulse source of each digital output line.")
 
 
 class RunningWheel(BaseSchema):
