@@ -242,7 +242,7 @@
                         </Expression>
                         <Expression xsi:type="Combinator">
                           <Combinator xsi:type="dsp:MatrixWriter">
-                            <dsp:Path>C:\temp_data\sub-Algernon\ses-001_date-2026-09-11T13-31-15\SimulatedBehavior\SimulatedBehavior_68_1904-01-01T00-00-00.csv</dsp:Path>
+                            <dsp:Path />
                             <dsp:Suffix>None</dsp:Suffix>
                             <dsp:Overwrite>false</dsp:Overwrite>
                             <dsp:Layout>ColumnMajor</dsp:Layout>

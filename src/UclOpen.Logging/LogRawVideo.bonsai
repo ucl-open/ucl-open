@@ -55,7 +55,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:\temp_data\sub-Algernon\ses-001_date-2026-09-23T14-20-41\Data\Data_1904-01-01T00-00-00.csv</io:FileName>
+              <io:FileName />
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>
@@ -85,7 +85,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:VideoWriter">
-                <cv:FileName>C:\temp_data\sub-Algernon\ses-001_date-2026-09-23T14-20-41\Data\Data_1904-01-01T00-00-00.avi</cv:FileName>
+                <cv:FileName />
                 <cv:Suffix>None</cv:Suffix>
                 <cv:Buffered>true</cv:Buffered>
                 <cv:Overwrite>false</cv:Overwrite>

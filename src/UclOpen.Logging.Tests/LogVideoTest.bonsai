@@ -19,7 +19,7 @@
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogController.bonsai">
         <SubjectId>Algernon</SubjectId>
         <SessionId>001</SessionId>
-        <Path>C:\temp_data</Path>
+        <Path />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Timer">
@@ -44,7 +44,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:FileCapture">
-          <cv:FileName>C:\temp_data\sub-Algernon\ses-001_date-2026-09-23T14-20-41\Data\Data_1904-01-01T00-00-00.avi</cv:FileName>
+          <cv:FileName />
           <cv:PlaybackRate>0</cv:PlaybackRate>
           <cv:StartPosition>0</cv:StartPosition>
           <cv:PositionUnits>Frames</cv:PositionUnits>

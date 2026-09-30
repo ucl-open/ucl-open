@@ -61,7 +61,7 @@
               <Property Name="Selector" />
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName>C:\temp_data\sub-Algernon\ses-001_date-2026-09-10T13-27-15\Data\1904-01-01T00-00-00.csv</io:FileName>
+              <io:FileName />
               <io:Append>true</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>

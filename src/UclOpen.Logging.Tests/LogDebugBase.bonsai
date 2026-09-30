@@ -17,7 +17,7 @@
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogController.bonsai">
         <SubjectId>Algernon</SubjectId>
         <SessionId>001</SessionId>
-        <Path>C:\temp_data</Path>
+        <Path />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Timer">
