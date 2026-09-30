@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging", "src\UclO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Logging.Tests", "src\UclOpen.Logging.Tests\UclOpen.Logging.Tests.csproj", "{995E0FD9-592B-497D-9BB0-D01357EB72D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Streaming", "src\UclOpen.Streaming\UclOpen.Streaming.csproj", "{AEA91477-0205-4F07-92D8-27A628BA63F5}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Tests", "src\UclOpen.Tests\UclOpen.Tests.csproj", "{7A1F2C64-8D3B-4E59-9A07-2B6C4F81D5E3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Video", "src\UclOpen.Video\UclOpen.Video.csproj", "{622C6B21-3B43-41C2-B44E-389022817334}"
@@ -25,10 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{DEE5DD87
 		build\Package.props = build\Package.props
 		build\Project.csproj.props = build\Project.csproj.props
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7154D3D2-411E-41E4-A36C-58A4FFCC6A56}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UclOpen.Streaming", "src\UclOpen.Streaming\UclOpen.Streaming.csproj", "{AEA91477-0205-4F07-92D8-27A628BA63F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,8 +72,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6BCBC17F-9E00-4ABC-9CEE-ABB0337E929D}
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{AEA91477-0205-4F07-92D8-27A628BA63F5} = {7154D3D2-411E-41E4-A36C-58A4FFCC6A56}
 	EndGlobalSection
 EndGlobal
