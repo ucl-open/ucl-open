@@ -47,8 +47,8 @@
     href: UclOpen.Streaming/pack-video-message.md
   - name: Receive Stream
     href: UclOpen.Streaming/receive-stream.md
-  - name: Receive Video
-    href: UclOpen.Streaming/receive-video.md
+  - name: Unpack Video Message
+    href: UclOpen.Streaming/unpack-video-message.md
 - name: UclOpen.Vision
   items:
   - name: Sync Quad
