@@ -17,7 +17,7 @@ Frames pass through four steps before packing:
 - **EncodeImage** - JPEG encoding.
 - **BuildMessage** - attaches the topic and header, with `Encoding` set to `jpeg` and `PayloadType`
   to `Image`.
-- **MulticastSubject** - publishes on `DataMessage`, the same subject [Pack Data Message](pack-data-message.md) uses.
+- **MulticastSubject** - publishes on `OutgoingMessage`, the same subject [Pack Data Message](pack-data-message.md) uses.
 
 `SampleInterval` samples rather than counting: it emits the *most recent* frame at each tick, so the stream rate is independent of the acquisition rate. 
 

@@ -7,7 +7,7 @@ named stream and returns them in their original types.
 
 | Operator | Role |
 |----------|------|
-| `StreamController` | Opens the publisher socket, declares the `DataMessage` subject and defines and publishes rig/session identity. |
+| `StreamController` | Opens the publisher socket, declares the `OutgoingMessage` subject and defines and publishes rig/session identity. |
 | `PackDataMessage` | Serializes a value and packs it into a message with Topic, JSON header and payload. |
 | `PackVideoMessage` | Decimates, resizes, encodes and packs video frames into ZeroMQ messages. |
 | `ReceiveStream` | Subscribes to a named stream and unpacks to a `StreamMessage`. |

@@ -18,7 +18,7 @@ Each value passes through three steps:
 - **SerializeStream** - serializes the value to JSON and records the name of its runtime type.
 - **BuildMessage** - attaches the topic and header, with `Encoding` fixed to `json` and
   `PayloadType` taken from the serialized type name.
-- **MulticastSubject** - publishes on `DataMessage`, the subject the controller's socket subscribes
+- **MulticastSubject** - publishes on `OutgoingMessage`, the subject the controller's socket subscribes
   to.
 
 ### Externalized properties

@@ -63,7 +63,7 @@
         <Name>StreamIdentity</Name>
       </Expression>
       <Expression xsi:type="rx:PublishSubject" TypeArguments="p2:NetMQMessage">
-        <rx:Name>DataMessage</rx:Name>
+        <rx:Name>OutgoingMessage</rx:Name>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:ObserveOn">
