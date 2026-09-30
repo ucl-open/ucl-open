@@ -1,7 +1,7 @@
 # Pack Data Message
 
 `PackDataMessage` serializes a value to JSON, wraps it in a topic and header, and publishes it on
-the data socket held by [Stream Controller](stream-controller.md). It accepts any type, so a stream
+the socket held by [Stream Controller](stream-controller.md). It accepts any type, so a stream
 can carry a number, a string, a tuple or a schema type without an operator per case. One instance is
 needed per logical stream.
 
