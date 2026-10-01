@@ -3,21 +3,15 @@ from ucl_open.components.audio import (
     Speaker,
     AudioDevice,
     SpeakerArray,
+    SpeakerFilter,
 )
-from ucl_open.components.calibration import (
-    MeshMap,
-    SpeakerFilters,
-    CalibrationFiles,
-    ProjectionCalibration,
-)
+from ucl_open.components.calibration import ProjectionCalibration
 
 __all__ = [
     "SphericalPosition",
     "Speaker",
     "AudioDevice",
     "SpeakerArray",
-    "MeshMap",
-    "SpeakerFilters",
-    "CalibrationFiles",
+    "SpeakerFilter",
     "ProjectionCalibration",
 ]

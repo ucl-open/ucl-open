@@ -4,6 +4,7 @@ from pydantic import Field, RootModel
 from pydantic.json_schema import JsonSchemaValue
 from swc.aeon.schema import BaseSchema
 from ucl_open.devices.harp import HarpBehavior
+from ucl_open.core.artefacts import ArtefactPath
 from ucl_open.core.base import DiscriminatorTypeMixin, UShort, bind_typename
 
 
@@ -38,7 +39,7 @@ class FixedPulse(DiscriminatorTypeMixin, BaseSchema):
 class CalibratedPulse(DiscriminatorTypeMixin, BaseSchema):
     """A pulsed output whose width comes from a calibration curve at run time, such as a reward valve."""
 
-    artefact: str = Field(
+    artefact: ArtefactPath = Field(
         examples=["calibration/valve-DO1.json"],
         description="Relative path of the CalibrationCurve that converts the requested quantity to a pulse width.",
     )

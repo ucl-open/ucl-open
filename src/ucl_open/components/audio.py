@@ -1,9 +1,11 @@
-from typing import Dict
+from typing import Dict, List
 
 from pydantic import Field
 from swc.aeon.schema import BaseSchema
 
 import ucl_open.core.base as data_types
+from ucl_open.core.artefacts import ArtefactPath
+from ucl_open.core.calibration import Calibration
 
 
 class SphericalPosition(BaseSchema):
@@ -25,6 +27,20 @@ class Speaker(BaseSchema):
     channel: data_types.Int = Field(ge=0, description="Mixer output channel driving this speaker.")
     gain: data_types.Double = Field(
         default=1.0, ge=0, description="Gain correction applied to this speaker's channel."
+    )
+    filter: ArtefactPath | None = Field(
+        default=None,
+        examples=["calibration/speaker-left.json"],
+        description="Relative path of this speaker's SpeakerFilter artefact; none means the channel is not equalised.",
+    )
+
+
+class SpeakerFilter(Calibration):
+    """An equalisation filter measured for one speaker, with its FIR taps inline."""
+
+    taps: List[data_types.Double] = Field(min_length=1, description="FIR filter coefficients, in order.")
+    sample_rate: data_types.Double = Field(
+        gt=0, description="Sampling rate the taps were designed for, in Hz; must match the audio device."
     )
 
 

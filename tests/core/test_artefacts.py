@@ -2,8 +2,11 @@ from typing import Dict, List
 
 from pydantic import BaseModel, Field
 
+from ucl_open.components.audio import SpeakerArray, SpeakerFilter
 from ucl_open.core.artefacts import SCHEMA_TAG, ArtefactPath, rig_artefacts
 from ucl_open.core.rig import Rig
+from ucl_open.devices.behavior_board import BehaviorBoard
+from ucl_open.vision.projection import MeshMap, ProjectionCorrection
 
 
 class Sensor(BaseModel):
@@ -50,3 +53,54 @@ def test_schema_tags_references_and_keeps_them_strings():
     assert properties["curve"]["type"] == "string"
     assert properties["curve"][SCHEMA_TAG] is True
     assert "label" in properties and SCHEMA_TAG not in properties["label"]
+
+
+class DomeRig(Rig):
+    """A rig composing several devices, each carrying its own calibration references."""
+
+    behavior_board: BehaviorBoard
+    speaker_array: SpeakerArray
+    projection: ProjectionCorrection
+
+
+def dome_rig() -> DomeRig:
+    # Validated from camelCase dicts, the way rig YAML arrives.
+    return DomeRig.model_validate(
+        {
+            "rootPath": "C:/Data",
+            "behaviorBoard": {
+                "portName": "COM3",
+                "pulseController": {
+                    "outputs": {
+                        "DO1": {"discriminatorType": "CalibratedPulse", "artefact": "calibration/valve-DO1.json"},
+                        "DO2": {"discriminatorType": "FixedPulse", "pulseWidthMs": 0},
+                        "DO3": {"discriminatorType": "FixedPulse", "pulseWidthMs": 20},
+                    }
+                },
+            },
+            "speakerArray": {
+                "device": {"deviceName": "Speakers"},
+                "speakers": {
+                    "left": {"position": {"azimuth": -90, "elevation": 15}, "channel": 0, "filter": "calibration/speaker-left.json"},
+                    "right": {"position": {"azimuth": 90, "elevation": 15}, "channel": 1},
+                },
+            },
+            "projection": {"meshMap": "calibration/mesh.json"},
+        }
+    )
+
+
+def test_composed_rig_lists_each_device_reference():
+    assert rig_artefacts(dome_rig()) == {
+        "behaviorBoard.pulseController.outputs.DO1.artefact": "calibration/valve-DO1.json",
+        "speakerArray.speakers.left.filter": "calibration/speaker-left.json",
+        "projection.meshMap": "calibration/mesh.json",
+    }
+
+
+def test_device_artefacts_round_trip_through_json():
+    provenance = {"calibratedAt": "2026-10-01T10:00:00Z", "calibratedBy": "Experimenter", "machineName": "RIG-NAME"}
+    mesh = MeshMap.model_validate({**provenance, "azimuthResolution": 30, "elevationResolution": 30, "meshPath": "calibration/mesh-map.csv"})
+    speaker = SpeakerFilter.model_validate({**provenance, "taps": [0.5, 0.25], "sampleRate": 48000})
+    assert MeshMap.model_validate_json(mesh.model_dump_json(by_alias=True)).model_dump() == mesh.model_dump()
+    assert SpeakerFilter.model_validate_json(speaker.model_dump_json(by_alias=True)).model_dump() == speaker.model_dump()

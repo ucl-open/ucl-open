@@ -3,9 +3,7 @@ from datetime import datetime, timezone
 import pytest
 from pydantic import ValidationError
 
-from ucl_open.components.calibration import CalibrationFiles, MeshMap, SpeakerFilters
 from ucl_open.core.calibration import CalibrationCurve, CalibrationPoint
-from ucl_open.core import yaml as rig_yaml
 
 PROVENANCE = dict(
     calibrated_at=datetime(2026, 9, 26, 10, 30, tzinfo=timezone.utc),
@@ -43,17 +41,3 @@ def test_curve_needs_at_least_two_points():
 
 def test_curve_has_no_payload_by_default():
     assert valve_curve().payload_path is None
-
-
-def test_mesh_map_and_speaker_filters_validate():
-    mesh = MeshMap(**PROVENANCE, azimuth_resolution=30, elevation_resolution=30, mesh_path="calibration/mesh-map.csv")
-    filters = SpeakerFilters(**PROVENANCE, filters={"front": "calibration/speaker-filters/front.csv"})
-    assert MeshMap.model_validate_json(mesh.model_dump_json(by_alias=True)) == mesh
-    assert SpeakerFilters.model_validate_json(filters.model_dump_json(by_alias=True)) == filters
-
-
-def test_calibration_files_round_trip_through_yaml(tmp_path):
-    files = CalibrationFiles(gamma="calibration/gamma.json", mesh_map="calibration/mesh.json")
-    path = tmp_path / "calibration.yml"
-    rig_yaml.save(files, path)
-    assert rig_yaml.load(CalibrationFiles, path).model_dump() == files.model_dump()
