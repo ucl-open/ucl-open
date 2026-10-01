@@ -74,7 +74,9 @@
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="LogName" DisplayName="HarpLogName" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogHarpDevice.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogHarpDevice.bonsai">
+        <LogName>HarpDevice</LogName>
+      </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="Count" />
       </Expression>
