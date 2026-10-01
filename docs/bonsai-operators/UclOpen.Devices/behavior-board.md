@@ -76,7 +76,14 @@ Sub-operators are nested workflows within the Behavior Board that interface with
 ![PulseController](~/assets/workflows/devices/BehaviorBoard/PulseController.svg){data-bonsai="~/src/UclOpen.Devices/BehaviorBoard/PulseController.bonsai"}
 :::
 
-Generates pulses on the digital output lines listed in `output_pulse_enable`. The operator takes a width per line; a rig maps it from a `FixedPulse` in its configuration, or from the calibration curve lookup for a `CalibratedPulse`. Used to drive valves and other on/off actuators in response to commands on its input subject.
+Generates pulses on the digital output lines listed in `output_pulse_enable`. Used to drive valves and other on/off actuators in response to commands on its input subjects.
+
+Two trigger subjects, one per kind of line:
+
+- `TriggerPulse` (`int`, the DO line) for a `FixedPulse` line. Its width is written once at startup from the `PulseDO1`, `PulseDO2` and `PulseDO3` properties, which the rig maps from its configuration, and each trigger only sets the line.
+- `TriggerCalibratedPulse` (`Tuple<int, int>`, the DO line 1 to 3 and the width in milliseconds) for a `CalibratedPulse` line. Each trigger writes the width to that line's `PulseDO` register and then sets the line, in that order on the same command subject, so the board applies the new width before it fires. The width comes from the calibration curve lookup in `UclOpen.Core` at trial time; nothing about it is stored in the rig configuration or the workflow.
+
+Both subject names are externalized, so a rig can rename them to match its own.
 
 ### CameraTriggerController
 
