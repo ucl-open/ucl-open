@@ -5,6 +5,7 @@ from pydantic import Field
 from swc.aeon.schema import BaseSchema
 
 import ucl_open.core.base as data_types
+from ucl_open.core.artefacts import ArtefactPath
 
 
 class Calibration(BaseSchema):
@@ -33,7 +34,7 @@ class CalibrationCurve(Calibration):
     points: List[CalibrationPoint] = Field(
         min_length=2, description="Measured pairs; the fit is done at load, not stored."
     )
-    payload_path: str | None = Field(
+    payload_path: ArtefactPath | None = Field(
         default=None,
         description="Relative path of a file a consumer still needs alongside the points, such as a gamma LUT bitmap.",
     )

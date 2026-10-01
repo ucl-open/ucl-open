@@ -17,6 +17,7 @@ from ucl_open.core.base import (
     Vector3,
     SoftwareEvent,
 )
+from ucl_open.core.artefacts import ArtefactPath, rig_artefacts
 from ucl_open.core.calibration import Calibration, CalibrationPoint, CalibrationCurve
 from ucl_open.core.experiment import ExperimentSession
 from ucl_open.core.task import Task, TaskParameters
@@ -39,6 +40,8 @@ __all__ = [
     "Vector2",
     "Vector3",
     "SoftwareEvent",
+    "ArtefactPath",
+    "rig_artefacts",
     "Calibration",
     "CalibrationPoint",
     "CalibrationCurve",
