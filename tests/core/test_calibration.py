@@ -3,13 +3,8 @@ from datetime import datetime, timezone
 import pytest
 from pydantic import ValidationError
 
-from ucl_open.components.calibration import (
-    CalibrationCurve,
-    CalibrationFiles,
-    CalibrationPoint,
-    MeshMap,
-    SpeakerFilters,
-)
+from ucl_open.components.calibration import CalibrationFiles, MeshMap, SpeakerFilters
+from ucl_open.core.calibration import CalibrationCurve, CalibrationPoint
 from ucl_open.core import yaml as rig_yaml
 
 PROVENANCE = dict(
