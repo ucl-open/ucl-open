@@ -10,11 +10,11 @@ using Newtonsoft.Json.Linq;
 
 namespace UclOpen.Logging
 {
-    public class JsonWriter : StreamSink<string, StreamWriter>
+    public class JsonWriter : FileSink<string, StreamWriter>
     {
-        protected override StreamWriter CreateWriter(Stream stream)
+        protected override StreamWriter CreateWriter(string fileName, string input)
         {
-            return new StreamWriter(stream);
+            return new StreamWriter(fileName);
         }
 
         protected override void Write(StreamWriter writer, string input)
