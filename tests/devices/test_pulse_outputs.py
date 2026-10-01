@@ -12,11 +12,22 @@ from ucl_open.devices.behavior_board import (
 )
 
 
+# Built from camelCase dicts, the way rig YAML arrives. Keyword construction works at run time,
+# but pyright loses the pydantic constructor when DiscriminatorTypeMixin is the first base, the
+# order aeon_api's own models use.
+def fixed(width_ms: int) -> PulseOutput:
+    return PulseOutput(FixedPulse.model_validate({"pulseWidthMs": width_ms}))
+
+
+def calibrated(artefact: str) -> PulseOutput:
+    return PulseOutput(CalibratedPulse.model_validate({"artefact": artefact}))
+
+
 def outputs() -> PulseOutputs:
     return PulseOutputs(
-        DO1=PulseOutput(CalibratedPulse(artefact="calibration/valve-DO1.json")),
-        DO2=PulseOutput(CalibratedPulse(artefact="calibration/valve-DO2.json")),
-        DO3=PulseOutput(FixedPulse(pulse_width_ms=5)),
+        DO1=calibrated("calibration/valve-DO1.json"),
+        DO2=calibrated("calibration/valve-DO2.json"),
+        DO3=fixed(5),
     )
 
 
@@ -29,10 +40,7 @@ def test_each_line_carries_one_source():
 
 def test_every_line_is_required():
     with pytest.raises(ValidationError):
-        PulseOutputs(
-            DO1=PulseOutput(FixedPulse(pulse_width_ms=40)),
-            DO2=PulseOutput(FixedPulse(pulse_width_ms=40)),
-        )
+        PulseOutputs(DO1=fixed(40), DO2=fixed(40))  # pyright: ignore[reportCallIssue]
 
 
 def test_source_is_chosen_by_discriminator_in_yaml(tmp_path):
@@ -47,8 +55,11 @@ def test_source_is_chosen_by_discriminator_in_yaml(tmp_path):
         encoding="utf-8",
     )
     board = rig_yaml.load(BehaviorBoard, path)
-    assert isinstance(board.pulse_controller.outputs.do1.root, CalibratedPulse)
-    assert board.pulse_controller.outputs.do2.root.pulse_width_ms == 30
+    assert board.pulse_controller is not None
+    do1 = board.pulse_controller.outputs.do1.root
+    do2 = board.pulse_controller.outputs.do2.root
+    assert isinstance(do1, CalibratedPulse)
+    assert isinstance(do2, FixedPulse) and do2.pulse_width_ms == 30
 
 
 def test_a_source_cannot_mix_fields():
