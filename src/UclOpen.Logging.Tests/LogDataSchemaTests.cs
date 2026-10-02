@@ -10,13 +10,13 @@ using UclOpen.Tests;
 namespace UclOpen.Logging.Tests
 {
     [TestClass]
-    public class LogJsonTests : LoggingTestBase
+    public class LogDataSchemaTests : LoggingTestBase
     {
         // Double quotes do not survive being passed to the workflow as a -p argument, so the JSON
         // avoids string literals (and with them object keys) while still covering each value kind.
         const string MinimalJson = "[1,2.5,true,null,[],[0]]";
 
-        protected override string WorkflowFileName => "LogJsonTest.bonsai";
+        protected override string WorkflowFileName => "LogDataSchemaTest.bonsai";
 
         [DataTestMethod]
         [DataRow("Schema")]
