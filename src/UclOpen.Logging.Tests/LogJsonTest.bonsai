@@ -2,7 +2,6 @@
 <WorkflowBuilder Version="2.9.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:p1="clr-namespace:UclOpen.Core.DataTypes;assembly=UclOpen.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -35,17 +34,11 @@
       <Expression xsi:type="rx:BehaviorSubject">
         <Name>TimeBase</Name>
       </Expression>
-      <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:Vector3">
-          <p1:X>0</p1:X>
-          <p1:Y>0</p1:Y>
-          <p1:Z>0</p1:Z>
-        </Combinator>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Value" DisplayName="Json" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="p1:SerializeToJson">
-          <p1:Formatting>None</p1:Formatting>
-        </Combinator>
+        <Combinator xsi:type="StringProperty" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Take">
@@ -58,6 +51,7 @@
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogDataSchema.bonsai">
         <Name>Schema</Name>
       </Expression>
+      <Expression xsi:type="WorkflowOutput" />
     </Nodes>
     <Edges>
       <Edge From="0" To="3" Label="Source1" />
@@ -70,6 +64,7 @@
       <Edge From="9" To="10" Label="Source1" />
       <Edge From="10" To="12" Label="Source1" />
       <Edge From="11" To="12" Label="Source2" />
+      <Edge From="12" To="13" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
