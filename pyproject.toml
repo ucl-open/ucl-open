@@ -9,6 +9,9 @@ description = "Environment to generate and extend shared and reuseable schemas a
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "dotmap>=1.3.30",
+    "harp-python>=0.4.1",
+    "pandas>=2.2",
     "pydantic>=2.12.3",
     "pydantic-yaml>=1.6.0",
     "swc-aeon>=0.2.0",
