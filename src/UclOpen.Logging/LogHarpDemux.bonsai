@@ -16,6 +16,8 @@
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="LogName" />
+        <Property Name="ChunkSize" />
+        <Property Name="ClosingDuration" />
       </Expression>
       <Expression xsi:type="rx:SelectMany">
         <Name>LogRegisters</Name>
@@ -32,7 +34,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="StringProperty">
-                <Value />
+                <Value>HarpDevice</Value>
               </Combinator>
             </Expression>
             <Expression xsi:type="Combinator">
@@ -61,6 +63,10 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="rx:Merge" />
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="ChunkSize" />
+              <Property Name="ClosingDuration" />
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="p1:GroupByTime">
@@ -101,7 +107,7 @@
                     </PropertyMappings>
                   </Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:FormatFileName.bonsai">
-                    <Name>SimulatedBehavior_68</Name>
+                    <Name>HarpDevice_64</Name>
                     <Extension>bin</Extension>
                   </Expression>
                   <Expression xsi:type="PropertyMapping">
@@ -111,7 +117,7 @@
                   </Expression>
                   <Expression xsi:type="Combinator">
                     <Combinator xsi:type="dsp:MatrixWriter">
-                      <dsp:Path />
+                      <dsp:Path>C:\temp_data\sub-DataMouse\ses-001_date-2026-10-03T15-37-01\HarpDevice\HarpDevice_64_1904-01-01T00-01-12.bin</dsp:Path>
                       <dsp:Suffix>None</dsp:Suffix>
                       <dsp:Overwrite>false</dsp:Overwrite>
                       <dsp:Layout>ColumnMajor</dsp:Layout>
@@ -149,10 +155,11 @@
             <Edge From="7" To="8" Label="Source1" />
             <Edge From="8" To="9" Label="Source1" />
             <Edge From="10" To="11" Label="Source1" />
-            <Edge From="11" To="12" Label="Source1" />
-            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="11" To="13" Label="Source1" />
+            <Edge From="12" To="13" Label="Source2" />
             <Edge From="13" To="14" Label="Source1" />
             <Edge From="14" To="15" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
           </Edges>
         </Workflow>
       </Expression>

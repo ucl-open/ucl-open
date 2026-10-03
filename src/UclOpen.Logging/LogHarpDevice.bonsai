@@ -17,8 +17,12 @@
       </Expression>
       <Expression xsi:type="ExternalizedMapping">
         <Property Name="LogName" />
+        <Property Name="ChunkSize" />
+        <Property Name="ClosingDuration" />
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogHarp.bonsai">
+        <ChunkSize>1</ChunkSize>
+        <ClosingDuration xsi:nil="true" />
         <LogName>HarpDevice</LogName>
       </Expression>
       <Expression xsi:type="rx:Condition">
@@ -47,6 +51,8 @@
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogHarpDemux.bonsai">
         <LogName>HarpDevice</LogName>
+        <ChunkSize>1</ChunkSize>
+        <ClosingDuration xsi:nil="true" />
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Merge" />

@@ -10,7 +10,7 @@ using System.Xml;
 namespace UclOpen.Core
 {
     [Combinator]
-    [Description("Groups Harp time-series in whole hour chunks of fixed size.")]
+    [Description("Groups Harp time-series in chunks of fixed size, aligned to the start of each day.")]
     [WorkflowElementCategory(ElementCategory.Combinator)]
     public class GroupByTime
     {
@@ -22,8 +22,8 @@ namespace UclOpen.Core
         // The default real-time reference is unix time in total seconds from 1904
         internal static readonly DateTime ReferenceTime = new(1904, 1, 1);
 
-        [Description("The size of each chunk, in whole hours.")]
-        public int ChunkSize { get; set; }
+        [Description("The size of each chunk, in hours. Fractional values can be used for sub-hour chunks, e.g. 0.25 for 15 minutes.")]
+        public double ChunkSize { get; set; }
 
         [XmlIgnore]
         [Description("The relative time at which each group will close following the end of the chunk.")]
@@ -49,8 +49,14 @@ namespace UclOpen.Core
         DateTime GetChunkIndex(double seconds)
         {
             var currentTime = ReferenceTime.AddSeconds(seconds);
-            var timeBin = currentTime.Hour / ChunkSize;
-            return currentTime.Date.AddHours(timeBin * ChunkSize);
+            var chunkTicks = TimeSpan.FromHours(ChunkSize).Ticks;
+            if (chunkTicks <= 0)
+            {
+                throw new InvalidOperationException("The chunk size must be a positive number of hours.");
+            }
+
+            var timeBin = currentTime.TimeOfDay.Ticks / chunkTicks;
+            return currentTime.Date.AddTicks(timeBin * chunkTicks);
         }
 
         public IObservable<IGroupedObservable<DateTime, Timestamped<TSource>>> Process<TSource>(IObservable<Timestamped<TSource>> source)
@@ -72,7 +78,7 @@ namespace UclOpen.Core
         {
             var beatTimestamp = ReferenceTime.AddSeconds(heartbeat.GetTimestamp());
             var beatDelta = beatTimestamp - chunk.Key;
-            return beatDelta > new TimeSpan(ChunkSize, 0, 0) + ClosingDuration;
+            return beatDelta > TimeSpan.FromHours(ChunkSize) + ClosingDuration;
         }
 
         public IObservable<IGroupedObservable<DateTime, Timestamped<TSource>>> Process<TSource>(
