@@ -53,8 +53,8 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="cv:CreatePoint3d">
-          <cv:X>319</cv:X>
-          <cv:Y>91</cv:Y>
+          <cv:X>325</cv:X>
+          <cv:Y>81</cv:Y>
           <cv:Z>0</cv:Z>
         </Combinator>
       </Expression>
@@ -221,7 +221,7 @@
         <Name>BehaviorEvents</Name>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:LogRawVideo.bonsai">
-        <ChunkSize>1</ChunkSize>
+        <ChunkSize>0.01</ChunkSize>
         <ClosingDuration xsi:nil="true" />
         <LogName>Video</LogName>
         <FrameRate>50</FrameRate>
