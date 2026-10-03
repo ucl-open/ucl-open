@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Common infrastructure shared by the UclOpen test libraries.</Description>
+    <TargetFrameworks>net472</TargetFrameworks>
+  </PropertyGroup>
+
+  <!--
+    Surface the repository Bonsai environment to every test library which references this project.
+    Deliberately no reference to a test framework here, so that the helpers stay assertion agnostic
+    and this project is not itself collected by dotnet test.
+  -->
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>BonsaiExecutablePath</_Parameter1>
+      <_Parameter2>$([System.IO.Path]::GetFullPath('$(BonsaiExecutablePath)'))</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bonsai.Harp" Version="3.6.1" />
+    <PackageReference Include="Harp.Behavior" Version="0.2.0" />
+  </ItemGroup>
+
+</Project>

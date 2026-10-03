@@ -7,7 +7,6 @@ _version.py
 *.egg-info/
 *.egg
 /artifacts/
-/.bonsai/
 **/.bonsai/Packages/
 **/.bonsai/*.exe
 **/.bonsai/*.settings

@@ -30,7 +30,7 @@ function Process-Workflow-Collection([bool]$useGallery, [string]$workflowPath, [
 
 function Render-Referenced-Workflows {
     Import-Module (Join-Path $PSScriptRoot 'uclopen-docfx/modules/Export-Tools.psm1') -Verbose:$false
-    $bootstrapperPath = Join-Path $PSScriptRoot '.bonsai/Bonsai.exe'
+    $bootstrapperPath = Join-Path $PSScriptRoot '../.bonsai/Bonsai.exe'
     $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 
     # Matches image+data-bonsai pairs where the .bonsai source is under src/
@@ -78,7 +78,7 @@ function Render-Referenced-Workflows {
 Push-Location $PSScriptRoot
 try {
     if (Test-Path -Path 'workflows/') {
-        Process-Workflow-Collection $UseGalleryForWorkflowsDirectory './workflows' './.bonsai/'
+        Process-Workflow-Collection $UseGalleryForWorkflowsDirectory './workflows' '../.bonsai/'
     }
 
     if (Test-Path -Path 'examples/') {
