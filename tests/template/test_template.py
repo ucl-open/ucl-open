@@ -1,9 +1,10 @@
 """End-to-end tests for the copier project template.
 
 These tests generate a new project from `template/`, deploy it with the template's
-deploy script, and run the generated scripts, in the same order as a new user would.
-They need network access to resolve the generated project's dependencies, and the
-same tools as the deploy script: Windows PowerShell, git, uv and the .NET SDK.
+deploy script for the current platform, and run the generated scripts, in the same
+order as a new user would. Deploying needs network access to resolve the generated
+project's dependencies, and the same tools as the deploy script: git, uv, the .NET SDK,
+and PowerShell (Windows PowerShell on Windows, or PowerShell 7 and bash elsewhere).
 
 Run only these tests with `pytest -m template`, or skip them with `pytest -m "not template"`.
 """
@@ -18,14 +19,22 @@ from pathlib import Path
 import copier
 import pytest
 
-pytestmark = [
-    pytest.mark.template,
-    pytest.mark.skipif(sys.platform != "win32", reason="the template deploy script requires Windows"),
-    pytest.mark.skipif(
-        any(shutil.which(tool) is None for tool in ("powershell", "git", "uv", "dotnet")),
-        reason="the template deploy script requires powershell, git, uv and dotnet",
-    ),
-]
+pytestmark = pytest.mark.template
+
+WINDOWS = sys.platform == "win32"
+if WINDOWS:
+    DEPLOY_COMMAND = ["cmd", "/c", str(Path("scripts") / "deploy.cmd")]
+    DEPLOY_TOOLS = ("powershell", "git", "uv", "dotnet")
+    VENV_PYTHON = Path(".venv") / "Scripts" / "python.exe"
+else:
+    DEPLOY_COMMAND = ["bash", str(Path("scripts") / "deploy.sh")]
+    DEPLOY_TOOLS = ("bash", "pwsh", "git", "uv", "dotnet")
+    VENV_PYTHON = Path(".venv") / "bin" / "python"
+
+requires_deploy_tools = pytest.mark.skipif(
+    any(shutil.which(tool) is None for tool in DEPLOY_TOOLS),
+    reason=f"the template deploy script requires {', '.join(DEPLOY_TOOLS)}",
+)
 
 TEMPLATE_ROOT = Path(__file__).parents[2] / "template"
 EXAMPLES = sorted(
@@ -87,13 +96,13 @@ def deploy_result(project: Path) -> subprocess.CompletedProcess[str]:
     """Initializes a git repository in the generated project and runs the deploy script."""
     initialized = run(["git", "init", "-b", "main"], project)
     assert_success(initialized)
-    return run(["cmd", "/c", str(Path("scripts") / "deploy.cmd")], project, timeout=DEPLOY_TIMEOUT)
+    return run(DEPLOY_COMMAND, project, timeout=DEPLOY_TIMEOUT)
 
 
 @pytest.fixture(scope="module")
 def deployed_project(project: Path, deploy_result: subprocess.CompletedProcess[str]) -> Path:
     """The generated project, after a successful deployment."""
-    if deploy_result.returncode != 0 or not (project / ".venv" / "Scripts" / "python.exe").exists():
+    if deploy_result.returncode != 0 or not (project / VENV_PYTHON).exists():
         pytest.fail(f"the template was not deployed, see test_deploy\n{describe(deploy_result)}")
     return project
 
@@ -104,6 +113,7 @@ def test_copy(project: Path):
         "pyproject.toml",
         "scripts/deploy.cmd",
         "scripts/deploy.ps1",
+        "scripts/deploy.sh",
         "src/main.bonsai",
         "src/Extensions.csproj",
         f"src/{PYTHON_FOLDER_NAME}/__init__.py",
@@ -131,11 +141,12 @@ def test_copy(project: Path):
         assert f"{key}: {value}" in answers
 
 
+@requires_deploy_tools
 def test_deploy(project: Path, deploy_result: subprocess.CompletedProcess[str]):
     assert_success(deploy_result)
 
     # The deploy script does not stop on failing commands, so check what it produced
-    python = project / ".venv" / "Scripts" / "python.exe"
+    python = project / VENV_PYTHON
     assert python.exists(), f"the Python environment was not created\n{describe(deploy_result)}"
     imports = f"import sys, ucl_open, {PYTHON_FOLDER_NAME}.rig, {PYTHON_FOLDER_NAME}.task"
     check = run([str(python), "-c", f"{imports}; print(sys.version_info[:2])"], project)
@@ -154,6 +165,7 @@ def test_deploy(project: Path, deploy_result: subprocess.CompletedProcess[str]):
     assert generated.is_file(), f"the C# classes were not generated\n{describe(deploy_result)}"
 
 
+@requires_deploy_tools
 def test_regenerate(deployed_project: Path):
     schema_file = deployed_project / "src" / "DataSchemas" / f"{PYTHON_FOLDER_NAME}.json"
     generated = deployed_project / "src" / "Extensions" / f"{CSHARP_NAMESPACE}.Generated.cs"
@@ -167,6 +179,7 @@ def test_regenerate(deployed_project: Path):
     assert generated.is_file(), f"the C# classes were not regenerated\n{describe(result)}"
 
 
+@requires_deploy_tools
 @pytest.mark.parametrize("example", EXAMPLES)
 def test_example(deployed_project: Path, example: str):
     output_dir = deployed_project / "local"

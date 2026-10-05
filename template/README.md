@@ -3,7 +3,7 @@
 This guide explains how to initialize and create a new open-ucl repository from the template
 in `ucl-open/ucl-open` using the **Copier** CLI. This tool allows you to recreate the base components of an open-ucl project, including the base Bonsai and Python environments required to get started.
 
-All powershell commands can be run from the command line or from a terminal in VSCode.
+The template can be deployed on Windows, Linux and macOS. All commands can be run from the command line or from a terminal in VSCode.
 
 Template source:  
 https://github.com/ucl-open/ucl-open (subdirectory: `template/`)
@@ -17,12 +17,18 @@ https://copier.readthedocs.io/en/stable/
 
 Ensure the following are installed:
 
-- **Windows 10 or newer**
+- **Windows 10 or newer, Linux, or macOS**
 - **Python >3.11 + <3.12**
-  - Download from https://www.python.org/downloads/windows/
-  - Make sure **“Add Python to PATH”** is checked during installation
+  - Download from https://www.python.org/downloads/
+  - On Windows, make sure **“Add Python to PATH”** is checked during installation
 - **Git 2.27+**
-  - Download from https://git-scm.com/download/win
+  - Download from https://git-scm.com/downloads
+- **.NET SDK 8.0+**, used to generate C# classes from the data schemas
+  - Download from https://dotnet.microsoft.com/download
+- **PowerShell 7+ (`pwsh`)**, on Linux and macOS only, used by the deploy script
+  - Download from https://learn.microsoft.com/powershell/scripting/install/installing-powershell
+
+Running Bonsai workflows from the generated project still requires Windows.
 
 ---
 
@@ -30,10 +36,16 @@ Ensure the following are installed:
 
 `uv` is a very fast package and tool manager for Python. We recommend this for all your Python needs
 
-Install it using a command line terminal:
+Install it using a command line terminal. On Windows:
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+On Linux and macOS:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 Restart your terminal before continuing, so that we can pick up the new paths
@@ -107,8 +119,16 @@ git push -u origin main
 
 ### 5. Run the `deploy` script
 
-``` 
+On Windows:
+
+```powershell
 ./scripts/deploy.cmd
+```
+
+On Linux and macOS:
+
+```bash
+bash ./scripts/deploy.sh
 ```
 ---
 ### Congrats! 

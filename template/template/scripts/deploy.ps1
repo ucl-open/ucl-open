@@ -14,7 +14,12 @@ if (Test-Path -Path ./.venv) {
     Remove-Item ./.venv -Recurse -Force
 }
 &uv venv
-.\.venv\Scripts\Activate.ps1
+# Windows PowerShell (Desktop edition) only runs on Windows, and does not define $IsWindows
+if ($PSVersionTable.PSEdition -eq "Desktop" -or $IsWindows) {
+    & ./.venv/Scripts/activate.ps1
+} else {
+    & ./.venv/bin/activate.ps1
+}
 Write-Output "Synchronizing environment..."
 &uv sync
 
@@ -28,19 +33,19 @@ if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
 Write-Output "Restoring dotnet tools..."
 &dotnet tool restore
 
+if (-not (Test-Path -Path ./src/DataSchemas)) {
+    New-Item -ItemType Directory -Path ./src/DataSchemas | Out-Null
+}
+if (-not (Test-Path -Path ./src/Extensions)) {
+    New-Item -ItemType Directory -Path ./src/Extensions | Out-Null
+}
+
 # Derive C# namespace from schema filename (snake_case -> PascalCase).
-$schemaFile = Get-ChildItem ".\src\DataSchemas\*.json" | Select-Object -First 1
-if (-not $schemaFile) { throw "No JSON schema found in .\src\DataSchemas\. Run 'uv run regenerate-schemas' first." }
+$schemaFile = Get-ChildItem "./src/DataSchemas/*.json" | Select-Object -First 1
+if (-not $schemaFile) { throw "No JSON schema found in ./src/DataSchemas/. Run 'uv run regenerate-schemas' first." }
 $namespace = ($schemaFile.BaseName -split "_" | ForEach-Object { $_.Substring(0,1).ToUpper() + $_.Substring(1) }) -join ""
 
 Write-Output "Generating C# classes (namespace: $namespace, serializers: json yaml)..."
-Push-Location .\src\Extensions
+Push-Location ./src/Extensions
 &dotnet bonsai.sgen $schemaFile.FullName --namespace $namespace --serializer json --serializer yaml
 Pop-Location
-
-if (-not (Test-Path -Path src\DataSchemas)) {
-    New-Item -ItemType Directory -Path src\DataSchemas | Out-Null
-}
-if (-not (Test-Path -Path src\Extensions)) {
-    New-Item -ItemType Directory -Path src\Extensions | Out-Null
-}
