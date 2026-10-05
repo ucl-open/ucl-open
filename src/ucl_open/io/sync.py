@@ -23,23 +23,36 @@ def _seconds(times: ClockTimes) -> np.ndarray:
 def synchronise_to(data: pd.DataFrame, from_clock: ClockTimes, to_clock: ClockTimes) -> pd.DataFrame:
     """Remaps the time index of data from one clock to another.
 
+    Important:
+        The time index of `data` MUST be on the same clock as `from_clock`. The mapping
+        is applied to the index of `data` as if it were `from_clock` timestamps, so
+        passing data indexed on the `to_clock` clock silently produces wrong timestamps.
+        To map data in the opposite direction, swap `from_clock` and `to_clock`.
+
     A linear mapping from `from_clock` to `to_clock` is fitted by least squares to
     the pairs of corresponding timestamps, and applied to the time index of `data`.
     Timestamps can be given as datetimes or as Harp seconds, in any combination.
 
     Args:
-        data: The data to synchronise, indexed by time on the same clock as `from_clock`.
-        from_clock: Timestamps of synchronisation events on the clock of `data`.
+        data: The data to synchronise. Its time index MUST be on the `from_clock` clock.
+        from_clock: Timestamps of synchronisation events on the clock of the `data` index.
         to_clock: Timestamps of the same synchronisation events on the target clock.
 
     Returns:
-        A copy of `data` with the time index remapped to the target clock. The index
+        A copy of `data` with the time index remapped to the `to_clock` clock. The index
         has the same type as the index of `data`.
 
     Examples:
-        Map video data onto the clock of a device receiving pulses logged from the video clock:
+        `async_pulse` is indexed on the input clock, and its `pulse` column holds the
+        corresponding times on the video clock. `video` is indexed on the video clock,
+        so the video clock is `from_clock` when mapping video onto the input clock:
 
         >>> synchronise_to(video, from_clock=async_pulse.pulse, to_clock=async_pulse.index)
+
+        `key_input` is indexed on the input clock, so mapping it onto the video clock
+        swaps the clocks:
+
+        >>> synchronise_to(key_input, from_clock=async_pulse.index, to_clock=async_pulse.pulse)
     """
     source = _seconds(from_clock)
     target = _seconds(to_clock)
