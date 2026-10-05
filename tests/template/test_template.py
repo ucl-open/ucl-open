@@ -13,10 +13,12 @@ import os
 import shutil
 import subprocess
 import sys
+import tomllib
 from pathlib import Path
 
 import copier
 import pytest
+from packaging.specifiers import SpecifierSet
 
 pytestmark = [
     pytest.mark.template,
@@ -137,11 +139,16 @@ def test_deploy(project: Path, deploy_result: subprocess.CompletedProcess[str]):
     # The deploy script does not stop on failing commands, so check what it produced
     python = project / ".venv" / "Scripts" / "python.exe"
     assert python.exists(), f"the Python environment was not created\n{describe(deploy_result)}"
-    imports = f"import sys, ucl_open, {PYTHON_FOLDER_NAME}.rig, {PYTHON_FOLDER_NAME}.task"
-    check = run([str(python), "-c", f"{imports}; print(sys.version_info[:2])"], project)
+    imports = f"import platform, ucl_open, {PYTHON_FOLDER_NAME}.rig, {PYTHON_FOLDER_NAME}.task"
+    check = run([str(python), "-c", f"{imports}; print(platform.python_version())"], project)
     assert_success(check)
-    assert check.stdout.strip() == "(3, 11)", (
-        "the environment does not use the Python version required by the template"
+
+    pyproject = tomllib.loads((project / "pyproject.toml").read_text(encoding="utf-8"))
+    requires_python = SpecifierSet(pyproject["project"]["requires-python"])
+    python_version = check.stdout.strip()
+    assert python_version in requires_python, (
+        f"the environment uses Python {python_version}, which does not satisfy "
+        f"the generated project's requires-python '{requires_python}'"
     )
 
     schema_file = project / "src" / "DataSchemas" / f"{PYTHON_FOLDER_NAME}.json"
