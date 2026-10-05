@@ -24,3 +24,6 @@ docs/workflows/**/*.svg
 docs/tutorials/reaction-time/project/temp_data/
 
 *.lscache
+
+# Video snippets exported by examples/data_loading/dataset_sync_example.ipynb
+examples/data_loading/trial_snippets/

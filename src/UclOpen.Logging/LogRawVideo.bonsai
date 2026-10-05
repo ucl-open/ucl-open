@@ -11,6 +11,10 @@
       <Expression xsi:type="WorkflowInput">
         <Name>Source1</Name>
       </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="ChunkSize" />
+        <Property Name="ClosingDuration" />
+      </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="p1:GroupByTime">
           <p1:ChunkSize>1</p1:ChunkSize>
@@ -46,7 +50,7 @@
               <Property Name="Name" />
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:FormatFileName.bonsai">
-              <Name>Data</Name>
+              <Name>Video</Name>
               <Extension>csv</Extension>
             </Expression>
             <Expression xsi:type="PropertyMapping">
@@ -55,7 +59,7 @@
               </PropertyMappings>
             </Expression>
             <Expression xsi:type="io:CsvWriter">
-              <io:FileName />
+              <io:FileName>C:\temp_data\sub-DataMouse\ses-001_date-2026-10-03T16-08-13\Video\Video_1904-01-01T00-00-00.csv</io:FileName>
               <io:Append>false</io:Append>
               <io:Overwrite>false</io:Overwrite>
               <io:Suffix>None</io:Suffix>
@@ -72,7 +76,7 @@
               <Selector>Key</Selector>
             </Expression>
             <Expression xsi:type="IncludeWorkflow" Path="UclOpen.Logging:FormatFileName.bonsai">
-              <Name>Data</Name>
+              <Name>Video</Name>
               <Extension>avi</Extension>
             </Expression>
             <Expression xsi:type="PropertyMapping">
@@ -85,7 +89,7 @@
             </Expression>
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="cv:VideoWriter">
-                <cv:FileName />
+                <cv:FileName>C:\temp_data\sub-DataMouse\ses-001_date-2026-10-03T16-08-13\Video\Video_1904-01-01T00-00-00.avi</cv:FileName>
                 <cv:Suffix>None</cv:Suffix>
                 <cv:Buffered>true</cv:Buffered>
                 <cv:Overwrite>false</cv:Overwrite>
@@ -127,11 +131,12 @@
       <Expression xsi:type="WorkflowOutput" />
     </Nodes>
     <Edges>
-      <Edge From="0" To="1" Label="Source1" />
-      <Edge From="1" To="3" Label="Source1" />
-      <Edge From="2" To="3" Label="Source2" />
-      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="0" To="2" Label="Source1" />
+      <Edge From="1" To="2" Label="Source2" />
+      <Edge From="2" To="4" Label="Source1" />
+      <Edge From="3" To="4" Label="Source2" />
       <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
     </Edges>
   </Workflow>
 </WorkflowBuilder>
