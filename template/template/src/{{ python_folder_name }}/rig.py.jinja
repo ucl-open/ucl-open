@@ -3,9 +3,6 @@ from pydantic import Field
 
 from ucl_open.core.rig import Rig
 
-from {{ python_folder_name }} import __semver__
-
 
 class {{ python_class_prefix }}Rig(Rig):
-    version: Literal[__semver__] = __semver__
     ...

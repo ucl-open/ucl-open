@@ -3,9 +3,12 @@ import os
 
 from ucl_open.core.experiment import ExperimentSession
 
-# TODO - autofill experiment fields
-session = Experiment(
-
+session = ExperimentSession(
+    subject_id="Algernon",
+    session_id="001",
+    repository_url="github.com/open-rigs/{{ project_name }}",
+    workflow="main.bonsai",
+    commit=""
 )
 
 def main(path_seed: str = "./local/{schema}.json"):

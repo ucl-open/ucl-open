@@ -4,7 +4,9 @@ from {{ python_folder_name }}.rig import (
     {{ python_class_prefix }}Rig
 )
 
-rig = {{ python_class_prefix }}Rig()
+rig = {{ python_class_prefix }}Rig(
+    root_path="../temp_data"
+)
 
 def main(path_seed: str = "./local/{schema}.json"):
     os.makedirs(os.path.dirname(path_seed), exist_ok=True)
