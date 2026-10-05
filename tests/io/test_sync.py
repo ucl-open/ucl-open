@@ -77,7 +77,7 @@ def test_synchronise_least_squares_fit(data: pd.DataFrame):
 
 
 def test_synchronise_ignores_missing_pairs(data: pd.DataFrame):
-    result = synchronise_to(data, [0.0, np.nan, 50.0], [OFFSET, 1.0, other_clock(50.0)])
+    result = synchronise_to(data, [0.0, np.nan, 50.0], [OFFSET, 1.0, float(other_clock(50.0))])
     np.testing.assert_allclose(
         aeon.to_seconds(result.index), other_clock(aeon.to_seconds(data.index)), atol=1e-6
     )
