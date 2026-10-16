@@ -38,7 +38,7 @@ namespace UclOpen.Video
                 if (!camera.PixelFormat.IsWritable)
                 {
                     throw new InvalidOperationException(string.Format(
-                        "Camera {0} is in pixel format {1} and it cannot be set to Mono8; close any other program using the camera.",
+                        "Camera {0} is in pixel format {1} and the PixelFormat node is not writable, so it cannot be set to Mono8.",
                         camera.DeviceSerialNumber.Value, camera.PixelFormat.Value.String));
                 }
                 camera.PixelFormat.Value = PixelFormatEnums.Mono8.ToString();
