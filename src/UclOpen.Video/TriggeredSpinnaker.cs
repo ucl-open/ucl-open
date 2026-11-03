@@ -30,6 +30,19 @@ namespace UclOpen.Video
         {
             try { camera.AcquisitionStop.Execute(); }
             catch { }
+            // The nodemap keeps whatever format the last program left (SpinView, Zapit) until a
+            // power cycle, and every downstream writer takes 8-bit mono only. Set before binning,
+            // since a format change can reset the size limits.
+            if (camera.PixelFormat.Value.String != PixelFormatEnums.Mono8.ToString())
+            {
+                if (!camera.PixelFormat.IsWritable)
+                {
+                    throw new InvalidOperationException(string.Format(
+                        "Camera {0} is in pixel format {1} and the PixelFormat node is not writable, so it cannot be set to Mono8.",
+                        camera.DeviceSerialNumber.Value, camera.PixelFormat.Value.String));
+                }
+                camera.PixelFormat.Value = PixelFormatEnums.Mono8.ToString();
+            }
             camera.BinningSelector.Value = BinningSelectorEnums.All.ToString();
             camera.BinningHorizontalMode.Value = BinningHorizontalModeEnums.Sum.ToString();
             camera.BinningVerticalMode.Value = BinningVerticalModeEnums.Sum.ToString();
